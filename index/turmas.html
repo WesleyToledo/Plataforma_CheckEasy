@@ -357,6 +357,7 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
+
                         </script>
                         <a href="http://www.creative-tim.com">CheckEasy</a>, a plataforma online dedicada aos professores
                     </p>
@@ -366,7 +367,6 @@
     </div>
 
     <!----- MODAL AREA ----->
-
 
     <!----- CRIA TURMA ----->
 
@@ -379,22 +379,33 @@
                 </div>
                 <div class="modal-body">
                     <!-- content goes here -->
-                    <form action="registrar_lol.php" method="post">
+                    <form action="#" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nome da Turma</label>
                             <input type="text" class="form-control" name="nome_turma" placeholder="">
                         </div>
                         <div class="form-group" style="display: flex;flex-direction: column;">
                             <label for="exampleInputEmail1">Série</label>
-                            <select id="turma"class="custom-select" style="padding: 10px;border: 0.5px #ccc solid; border-radius: 5px;width: 100%;">
-                              <option value="1">Nova Série</option>
-                              <option value="2">Two</option>
-                              <option value="3">Three</option>
-                            </select>
+                            <div style="display: flex; flex-direction: row;justify-content: flex-start">
+                                <select id="turma" class="custom-select" style="margin-top: 13px;margin-bottom: 13px;border: 0.5px #ccc solid; border-radius: 5px;width: 70%;">
+                                  <option value="1">Ensino Fundamental</option>
+                                  <option value="2">Ensino Médio</option>
+                                  <option value="3">Superior</option>
+                                </select>
+                                <div style="display: flex;flex-direction: column; ustify-content: center; align-items: center; width: 30%">
+                                    
+                                <button type="button" class="btn btn-primary" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#criaSerie">
+                                    <i class="material-icons" style="font-size: 20px;">add_circle_outline</i>
+                                   
+                                </button>
+                                </div>
+                            </div>
+
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary">Salvar Informações</button>
+                            <button type="submit" class="btn btn-primary">Cadastrar Turma</button>
                         </div>
                     </form>
                 </div>
@@ -412,19 +423,14 @@
                 </div>
                 <div class="modal-body">
                     <!-- content goes here -->
-                    <form action="registrar_lol.php" method="post">
+                    <form action="#" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nome da Série</label>
                             <input type="text" class="form-control" name="nome_turma" placeholder="">
+                            
                         </div>
                         <div class="form-group" style="display: flex;flex-direction: column;">
-                            <label for="exampleInputEmail1">Série</label>
-                            <select class="custom-select" style="padding: 10px;border: 0.5px #ccc solid; border-radius: 5px;width: 100%;">
-                              <option selected>Open this select menu</option>
-                              <option value="1">Nova Série</option>
-                              <option value="2">Two</option>
-                              <option value="3">Three</option>
-                            </select>
+                           
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -445,6 +451,7 @@
             $('#criaSerie').modal('show');
         }
     });
+
 </script>
 
 <!--   Core JS Files   -->
@@ -472,6 +479,7 @@
         demo.initDashboardPageCharts();
 
     });
+
 </script>
 
 </html>
