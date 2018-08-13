@@ -1291,3 +1291,25 @@ body.mobile-nav-active #mobile-nav-toggle {
 #footer .footer-links a:hover {
     color: #1dc8cd;
 }
+
+/*--------------------------------------------------------------
+# Tables Turma
+--------------------------------------------------------------*/
+
+.table-align
+{
+    width: 100% !important; 
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+
+
