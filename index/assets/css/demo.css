@@ -72,7 +72,7 @@
 .funkyradio div {
     clear: both;
     overflow: hidden;
-    margin: 0
+    margin: 0;
 }
 
 .funkyradio label {
@@ -92,7 +92,7 @@
     position: relative;
     line-height: 2.5em;
     text-indent: 3.25em;
-    margin-top: 2em;
+    margin-top: 1em;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -178,3 +178,27 @@
     color: #fff;
     background-color: #5bc0de;
 }
+
+
+/*--------------------------------------------------------------
+# RADIOS
+--------------------------------------------------------------*/
+
+.radio-gabarito input[type="radio"]{
+    
+}
+
+.body-gabarito > tr td {
+    
+    padding: 0 !important;
+}
+
+.th-gabarito th{
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+
+
+
+

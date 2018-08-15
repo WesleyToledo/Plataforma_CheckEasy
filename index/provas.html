@@ -185,120 +185,176 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100" style="">
-                            <div class="card card-stats ">
-                                <a href="" style="color: inherit;">
-                                    <div class="card-header" data-background-color="blue400">
-                                        <i class="material-icons">assignment</i>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
+                            <div class="card text-center">
+
+                                <div class="card-header" data-background-color="blue400" style="position: absolute; width: 25%;height: 25%; display: flex; justify-content: center;flex-direction: column;align-items: center;">
+                                    <i class="material-icons" style="font-size: 2.8em;">assignment</i>
+                                </div>
+                                <a href="prova-edit.html">
+                                <img class="card-img-top" src="https://picsum.photos/1900/1080?image=327" alt="Card image cap">
+                                <div class="card-body" id="card">
+                                    <h5 class="card-title">Sistemas Lineares</h5>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <div class="row">
+                                        <div style="display: flex;justify-content: space-around; flex-direction: row;">
+
+                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
+                                                <i class="material-icons" style="padding: 5px;">visibility</i>
+                                                <p style="margin: 0;">5 questões</p>
+                                            </div>
+                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
+                                                <i class="material-icons" style="padding: 5px;">edit</i>
+                                                <p style="margin: 0;">5 Alternativas</p>
+                                            </div>
+
+                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
+                                                <i class="material-icons" style="padding: 5px;">local_offer</i>
+                                                <p style="margin: 0;">5 pontos</p>
+                                            </div>
+
+                                        </div>
                                     </div>
-                                    <div class="card-content card-turmas">
-                                        <p class="category">&nbsp;</p>
-                                        <h3 class="title">3ºE1
-                                            <!-- <small>GB</small> -->
-                                        </h3>
-                                    </div>
+                                </div>
                                 </a>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">group</i>
-                                        <a href="#" style="color: inherit;">Ensino Médio</a>
+                                <a href="prova-results.html">
+                                    <button type="button" class="btn btn-info">Correções</button>
+                                </a>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100" style="">
+                                <div class="card card-stats">
+                                    <a href="" style="color: inherit;">
+                                        <div class="card-header" data-background-color="blue400">
+                                            <i class="material-icons">assignment</i>
+                                        </div>
+                                        <div class="card-content card-turmas">
+                                            <p class="category">&nbsp;</p>
+                                            <h3 class="title">3ºE1
+                                                <!-- <small>GB</small> -->
+                                            </h3>
+                                        </div>
+                                    </a>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <i class="material-icons">group</i>
+                                            <a href="#" style="color: inherit;">Ensino Médio</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
+
                     </div>
-                </div>
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <p class="copyright pull-right">
-                            &copy;
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>
-                            <a href="#">CheckEasy</a>, a plataforma online dedicada aos professores
-                        </p>
-                    </div>
-                </footer>
-            </div>
-        </div>
-
-        <!----- MODAL AREA ----->
 
 
-        <!----- CRIA TURMA ----->
-        <div class="modal fade" id="cadastrarTurma" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
-                        <h3 class="modal-title mx-auto" id="lineModalLabel">Criar Prova</h3>
-                    </div>
-                    <div class="modal-body">
-                        <!-- content goes here -->
-                        <form action="#" method="post">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nome/Identificação</label>
-                                <input type="text" class="form-control" name="nome_turma" placeholder="">
-                            </div>
 
-                            <div style="display: flex;flex-direction: row; justify-content: flex-start;">
-                                <div class="form-group" style="width: 30% !important;margin-right: 10px;">
-                                    <label for="exampleInputEmail1">Número de Questões</label>
-                                    <input type="number" class="form-control" name="nome_turma" placeholder="">
-                                </div>
-                                <div class="form-group" style="width: 30% !important;margin-right: 10px; ">
-                                    <label for="exampleInputEmail1">Número de Alternativas</label>
-                                    <input type="number" class="form-control" name="nome_turma" placeholder="">
-                                </div>
-                            </div>
-                            <div style="display: flex;flex-direction: row; justify-content: flex-start;">
-                                <div class="form-group" style="width: 30% !important;margin-right: 10px; ">
-                                    <label for="exampleInputEmail1">Valor Total</label>
-                                    <input type="number" step="0.1" class="form-control" name="nome_turma" placeholder="">
-                                </div>
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-info">Criar</button>
 
-                                <!-- onclick="demo.showNotification('top','right','Turma Cadastrada')" -->
 
-                            </div>
-                        </form>
-                    </div>
+
+
+
+
+                    <footer class="footer">
+                        <div class="container-fluid">
+                            <p class="copyright pull-right">
+                                &copy;
+                                <script>
+                                    document.write(new Date().getFullYear())
+
+                                </script>
+                                <a href="#">CheckEasy</a>, a plataforma online dedicada aos professores
+                            </p>
+                        </div>
+                    </footer>
                 </div>
             </div>
-        </div>
 
-        <!----- CRIA SÉRIE ----->
-        <div class="modal fade" id="criaSerie" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                        <h3 class="modal-title mx-auto" id="lineModalLabel">Criar Série</h3>
-                    </div>
-                    <div class="modal-body">
-                        <!-- content goes here -->
-                        <form action="#" method="post">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nome da Série</label>
-                                <input type="text" class="form-control" name="nome_turma" placeholder="">
+            <!----- MODAL AREA ----->
 
-                            </div>
-                            <div class="form-group" style="display: flex;flex-direction: column;">
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-info">Salvar Informações</button>
-                            </div>
-                        </form>
+            <!----- CRIA TURMA ----->
+            <div class="modal fade" id="cadastrarTurma" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
+                            <h3 class="modal-title mx-auto" id="lineModalLabel">Criar Prova</h3>
+                        </div>
+                        <div class="modal-body">
+                            <!-- content goes here -->
+                            <form action="#" method="post">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Nome/Identificação</label>
+                                    <input type="text" class="form-control" name="nome_turma" placeholder="">
+                                </div>
+
+                                <div style="display: flex;flex-direction: row; justify-content: flex-start;">
+                                    <div class="form-group" style="width: 30% !important;margin-right: 10px;">
+                                        <label for="exampleInputEmail1">Número de Questões</label>
+                                        <input type="number" class="form-control" name="nome_turma" placeholder="">
+                                    </div>
+                                    <div class="form-group" style="width: 30% !important;margin-right: 10px; ">
+                                        <label for="exampleInputEmail1">Número de Alternativas</label>
+                                        <input type="number" class="form-control" name="nome_turma" placeholder="">
+                                    </div>
+                                </div>
+                                <div style="display: flex;flex-direction: row; justify-content: flex-start;">
+                                    <div class="form-group" style="width: 30% !important;margin-right: 10px; ">
+                                        <label for="exampleInputEmail1">Valor Total</label>
+                                        <input type="number" step="0.1" class="form-control" name="nome_turma" placeholder="">
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="submit" class="btn btn-info">Criar</button>
+
+                                    <!-- onclick="demo.showNotification('top','right','Turma Cadastrada')" -->
+
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <!----- CRIA SÉRIE ----->
+            <div class="modal fade" id="criaSerie" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h3 class="modal-title mx-auto" id="lineModalLabel">Criar Série</h3>
+                        </div>
+                        <div class="modal-body">
+                            <!-- content goes here -->
+                            <form action="#" method="post">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Nome da Série</label>
+                                    <input type="text" class="form-control" name="nome_turma" placeholder="">
+
+                                </div>
+                                <div class="form-group" style="display: flex;flex-direction: column;">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="submit" class="btn btn-info">Salvar Informações</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 </body>
@@ -309,6 +365,7 @@
             $('#criaSerie').modal('show');
         }
     });
+
 </script>
 
 <!--   Core JS Files   -->
@@ -337,6 +394,7 @@
         demo.initDashboardPageCharts();
 
     });
+
 </script>
 
 </html>
