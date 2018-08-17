@@ -4357,6 +4357,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 @media (max-width: 767px) {
+  
     .navbar .navbar-nav .navbar-text {
         color: inherit;
         margin-top: 15px;
@@ -6804,10 +6805,9 @@ footer .btn {
 }
 
 .container {
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(45deg, #1de099, #1dc8cd);
-    box-shadow: 0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2);
+    width: 100%;
+    height: 100%;
+    /*box-shadow: 0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2);*/
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -6840,5 +6840,5 @@ footer .btn {
 {
  background-image: url('/assets/img/cover.jpeg');
     background-repeat: no-repeat;
-    background-size: cover;   
+    background-size: cover; 
 }
