@@ -176,7 +176,7 @@
                     <div class="row">
                         <ul class="nav navbar-nav navbar-left">
                             <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
-                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#cadastrarTurma" >
+                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#cadastrarTurma">
                                     <i class="material-icons" style="font-size: 27px;">add_circle_outline</i>
                                     &nbsp;&nbsp;&nbsp;Cadastrar turma
                                 </button>
@@ -303,7 +303,7 @@
                                                         </button>
                                                         </div>
                                                         <div>
-                                                            <button type="button" class="btn" style="margin: 0;background-color: transparent;">
+                                                            <button type="button" class="btn" style="margin: 0;background-color: transparent;" data-toggle="modal" data-target="#excluirAluno">
                                                             <i class="material-icons" style="font-size: 20px;color: #404040">clear</i>
                                                         </button>
                                                         </div>
@@ -384,9 +384,8 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
-
                         </script>
-                        <a href="#">CheckEasy</a>, a plataforma online dedicada aos professores
+                        <a href="#" class="text-info">CheckEasy</a>, a plataforma online dedicada aos professores
                     </p>
                 </div>
             </footer>
@@ -430,10 +429,10 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-info" >Cadastrar Turma</button>
-                            
+                            <button type="submit" class="btn btn-info">Cadastrar Turma</button>
+
                             <!-- onclick="demo.showNotification('top','right','Turma Cadastrada')" -->
-                            
+
                         </div>
                     </form>
                 </div>
@@ -470,6 +469,64 @@
         </div>
     </div>
 
+    <!----- Editar Aluno ----->
+    <div class="modal fade" id="editarAluno" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title mx-auto" id="lineModalLabel">Editar Aluno</h3>
+                </div>
+                <div class="modal-body">
+                    <!-- content goes here -->
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Matrícula</label>
+                            <input type="text" class="form-control" name="nome_turma" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nome</label>
+                            <input type="text" class="form-control" name="nome_turma" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Sobrenome</label>
+                            <input type="text" class="form-control" name="nome_turma" placeholder="">
+                        </div>
+
+                        <div class="form-group" style="display: flex;flex-direction: column;">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-info">Salvar Informações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!----- Excluir Aluno ----->
+    <div class="modal fade" id="excluirAluno" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza que deseja excluir o aluno x ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-info">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 
@@ -479,7 +536,6 @@
             $('#criaSerie').modal('show');
         }
     });
-
 </script>
 
 <!--   Core JS Files   -->
@@ -508,7 +564,6 @@
         demo.initDashboardPageCharts();
 
     });
-
 </script>
 
 </html>
