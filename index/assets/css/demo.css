@@ -184,7 +184,8 @@
 # RADIOS
 --------------------------------------------------------------*/
 
-.radio-gabarito input[type="radio"]{
+.radio-gabarito input[type="number"]{
+    width: 100% !important;
     
 }
 
@@ -197,6 +198,9 @@
     padding-right: 0 !important;
     padding-left: 0 !important;
 }
+
+
+
 
 .container-cadastro {
     background-color:linear-gradient(45deg, #1de099, #1dc8cd) !important;

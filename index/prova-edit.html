@@ -31,11 +31,6 @@
 <body>
     <div class="wrapper">
         <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
-            <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text">
                     CheckEasy
@@ -55,7 +50,7 @@
                             <p>Turmas</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="./provas.html">
                             <i class="material-icons">assignment</i>
                             <p>Provas</p>
@@ -86,7 +81,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Nome Prova</a>
+                        <a class="navbar-brand" href="#">Sistemas Lineares</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -272,11 +267,10 @@
                     </div>
 
 
-
                     <div class="row justify-content-center">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header" data-background-color="green400" style="text-align:justify;">
                                     <h3 class="title" style="font-weight: 600;">Gabarito</h3>
@@ -315,6 +309,16 @@
                                                         <h4>E</h4>
                                                     </center>
                                                 </th>
+                                                <th>
+                                                    <center>
+                                                        <h4>&nbsp;</h4>
+                                                    </center>
+                                                </th>
+                                                <th style="width: 20%">
+                                                    <center>
+                                                        <h4>Pontuação</h4>
+                                                    </center>
+                                                </th>
 
                                             </thead>
                                             <tbody class="body-gabarito">
@@ -349,9 +353,18 @@
                                                             <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
+                                                    <td class="radio-gabarito">
+                                                        <center>
+                                                            &nbsp;
+                                                        </center>
+                                                    </td>
+                                                    <td class="radio-gabarito">
+                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
+                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
+                                                        </div>
+                                                    </td>
                                                 </tr>
-
-                                                <tr>
+<tr>
                                                     <td>
                                                         <center>
                                                             <h4>2</h4>
@@ -359,32 +372,41 @@
                                                     </td>
                                                     <td class="radio-gabarito">
                                                         <center>
-                                                            <input type="radio" name="2" value="male">
+                                                            <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
                                                     <td class="radio-gabarito">
                                                         <center>
-                                                            <input type="radio" name="2" value="male">
+                                                            <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
                                                     <td class="radio-gabarito">
                                                         <center>
-                                                            <input type="radio" name="2" value="male">
+                                                            <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
                                                     <td class="radio-gabarito">
                                                         <center>
-                                                            <input type="radio" name="2" value="male">
+                                                            <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
                                                     <td class="radio-gabarito">
                                                         <center>
-                                                            <input type="radio" name="2" value="male">
+                                                            <input type="radio" name="1" value="male">
                                                         </center>
+                                                    </td>
+                                                    <td class="radio-gabarito">
+                                                        <center>
+                                                            &nbsp;
+                                                        </center>
+                                                    </td>
+                                                    <td class="radio-gabarito">
+                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
+                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
+                                                        </div>
                                                     </td>
                                                 </tr>
-
-                                                <tr>
+<tr>
                                                     <td>
                                                         <center>
                                                             <h4>3</h4>
@@ -415,9 +437,18 @@
                                                             <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
+                                                    <td class="radio-gabarito">
+                                                        <center>
+                                                            &nbsp;
+                                                        </center>
+                                                    </td>
+                                                    <td class="radio-gabarito">
+                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
+                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
+                                                        </div>
+                                                    </td>
                                                 </tr>
-
-                                                <tr>
+<tr>
                                                     <td>
                                                         <center>
                                                             <h4>4</h4>
@@ -448,9 +479,18 @@
                                                             <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
+                                                    <td class="radio-gabarito">
+                                                        <center>
+                                                            &nbsp;
+                                                        </center>
+                                                    </td>
+                                                    <td class="radio-gabarito">
+                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
+                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
+                                                        </div>
+                                                    </td>
                                                 </tr>
-
-                                                <tr>
+<tr>
                                                     <td>
                                                         <center>
                                                             <h4>5</h4>
@@ -481,9 +521,18 @@
                                                             <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
+                                                    <td class="radio-gabarito">
+                                                        <center>
+                                                            &nbsp;
+                                                        </center>
+                                                    </td>
+                                                    <td class="radio-gabarito">
+                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
+                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
+                                                        </div>
+                                                    </td>
                                                 </tr>
-
-                                                <tr>
+<tr>
                                                     <td>
                                                         <center>
                                                             <h4>6</h4>
@@ -514,9 +563,18 @@
                                                             <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
+                                                    <td class="radio-gabarito">
+                                                        <center>
+                                                            &nbsp;
+                                                        </center>
+                                                    </td>
+                                                    <td class="radio-gabarito">
+                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
+                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
+                                                        </div>
+                                                    </td>
                                                 </tr>
-
-                                                <tr>
+<tr>
                                                     <td>
                                                         <center>
                                                             <h4>7</h4>
@@ -547,9 +605,18 @@
                                                             <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
+                                                    <td class="radio-gabarito">
+                                                        <center>
+                                                            &nbsp;
+                                                        </center>
+                                                    </td>
+                                                    <td class="radio-gabarito">
+                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
+                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
+                                                        </div>
+                                                    </td>
                                                 </tr>
-
-                                                <tr>
+<tr>
                                                     <td>
                                                         <center>
                                                             <h4>8</h4>
@@ -580,9 +647,18 @@
                                                             <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
+                                                    <td class="radio-gabarito">
+                                                        <center>
+                                                            &nbsp;
+                                                        </center>
+                                                    </td>
+                                                    <td class="radio-gabarito">
+                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
+                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
+                                                        </div>
+                                                    </td>
                                                 </tr>
-
-                                                <tr>
+<tr>
                                                     <td>
                                                         <center>
                                                             <h4>9</h4>
@@ -613,9 +689,18 @@
                                                             <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
+                                                    <td class="radio-gabarito">
+                                                        <center>
+                                                            &nbsp;
+                                                        </center>
+                                                    </td>
+                                                    <td class="radio-gabarito">
+                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
+                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
+                                                        </div>
+                                                    </td>
                                                 </tr>
-
-                                                <tr>
+<tr>
                                                     <td>
                                                         <center>
                                                             <h4>10</h4>
@@ -646,149 +731,38 @@
                                                             <input type="radio" name="1" value="male">
                                                         </center>
                                                     </td>
+                                                    <td class="radio-gabarito">
+                                                        <center>
+                                                            &nbsp;
+                                                        </center>
+                                                    </td>
+                                                    <td class="radio-gabarito">
+                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
+                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
+                                                        </div>
+                                                    </td>
                                                 </tr>
+
+                                                
                                             </tbody>
                                         </form>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-1">
 
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header" data-background-color="green400" style="text-align:justify;">
-                                    <h4 class="card-title">Simple Table</h4>
-                                    <p class="card-category"> Here is a subtitle for this table</p>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class=" text-primary">
-                                                <th>
-                                                    ID
-                                                </th>
-                                                <th>
-                                                    Name
-                                                </th>
-                                                <th>
-                                                    Country
-                                                </th>
-                                                <th>
-                                                    City
-                                                </th>
-                                                <th>
-                                                    Salary
-                                                </th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        1
-                                                    </td>
-                                                    <td>
-                                                        Dakota Rice
-                                                    </td>
-                                                    <td>
-                                                        Niger
-                                                    </td>
-                                                    <td>
-                                                        Oud-Turnhout
-                                                    </td>
-                                                    <td class="text-primary">
-                                                        $36,738
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        2
-                                                    </td>
-                                                    <td>
-                                                        Minerva Hooper
-                                                    </td>
-                                                    <td>
-                                                        Curaçao
-                                                    </td>
-                                                    <td>
-                                                        Sinaai-Waas
-                                                    </td>
-                                                    <td class="text-primary">
-                                                        $23,789
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        3
-                                                    </td>
-                                                    <td>
-                                                        Sage Rodriguez
-                                                    </td>
-                                                    <td>
-                                                        Netherlands
-                                                    </td>
-                                                    <td>
-                                                        Baileux
-                                                    </td>
-                                                    <td class="text-primary">
-                                                        $56,142
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        4
-                                                    </td>
-                                                    <td>
-                                                        Philip Chaney
-                                                    </td>
-                                                    <td>
-                                                        Korea, South
-                                                    </td>
-                                                    <td>
-                                                        Overland Park
-                                                    </td>
-                                                    <td class="text-primary">
-                                                        $38,735
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        5
-                                                    </td>
-                                                    <td>
-                                                        Doris Greene
-                                                    </td>
-                                                    <td>
-                                                        Malawi
-                                                    </td>
-                                                    <td>
-                                                        Feldkirchen in Kärnten
-                                                    </td>
-                                                    <td class="text-primary">
-                                                        $63,542
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        6
-                                                    </td>
-                                                    <td>
-                                                        Mason Porter
-                                                    </td>
-                                                    <td>
-                                                        Chile
-                                                    </td>
-                                                    <td>
-                                                        Gloucester
-                                                    </td>
-                                                    <td class="text-primary">
-                                                        $78,615
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
+                                <button type="button" class="btn btn-success" style="justify-content: center;align-items: center;display: flex;flex-direction: row;">
+                                    <i class="material-icons" style="font-size: 27px;">check_circle_outline</i>
+                                    &nbsp;&nbsp;&nbsp; Confirmar
+                                </button>
+                            </li>
+                        </ul>
                     </div>
 
 
