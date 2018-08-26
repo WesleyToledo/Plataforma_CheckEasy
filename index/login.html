@@ -47,7 +47,7 @@
                             <div class="card-profile">
                                 <div class="card-avatar">
                                     <a>
-                                <img class="img" src="assets/img/person-white.svg" data-background-color="blue400">
+                                <img class="img" src="assets/img/person-white.svg" data-background-color="blue400" style="padding: 40px">
                                 </a>
                                 </div>
                                 <div class="content">
@@ -56,13 +56,12 @@
                             </div>
                         </div>
                         <div class="card-content">
-                            <form>
+                            <form action="login.php" method="post">
                                 <div class="row">
-
                                     <div class="col-md-12">
                                         <div class="form-group label-floating">
-                                            <label class="control-label"><span><i class="fa fa-envelope"></i></span>     E-mail</label>
-                                            <input type="email" class="form-control">
+                                            <label class="control-label"><span><i class="fa fa-envelope"></i></span>E-mail</label>
+                                            <input type="email" class="form-control" name="login">
                                         </div>
                                     </div>
                                 </div>
@@ -70,12 +69,12 @@
                                     <div class="col-md-12">
                                         <div class="form-group label-floating">
                                             <label class="control-label"><span><i class="fa fa-lock"></i></span>Senha</label>
-                                            <input type="password" class="form-control">
+                                            <input type="password" class="form-control" name="pass">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="rowLogin">
-                                    <button type="submit" class="btn " data-background-color="blue400">Login</button>
+                                    <button type="submit" class="btn" data-background-color="blue400">Login</button>
 
                                     <h6>Não possui uma conta? <a href="#" style="color: #26c6da">Criar</a> </h6>
 
