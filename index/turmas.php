@@ -27,7 +27,191 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel='stylesheet'>
 
 </head>
+<?php session_start();
+    
+    include("general_functions.php");
+    include("conexao.php");
+    
+	if(!isset($_SESSION["login"])){
+		header("Location: login.html");
+	}
+    
+    $id_user = $_SESSION["id_user"];
+    $nome = $_SESSION["nome"];
+    
+    
+    function listTurmas(){
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+    
+        
+        $html = "";
+        
+        include("conexao.php");
+        
+        $sql = "SELECT t.idturma AS 'id_turma', t.nome AS 'nome_turma', s.cor AS 'cor' , s.icone AS 'icone', s.nome AS 'nome_serie' FROM turma AS t INNER JOIN serie AS s WHERE t.id_turma_serie = s.idserie AND t.id_turma_professor = $id_user";
+        
+        
+        $result = $conn->query($sql);
 
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                
+                $turma_nome = $row["nome_turma"];
+                $cor = $row["cor"];
+                $icone = $row["icone"];
+                $serie_nome = $row["nome_serie"];
+                $id_turma = $row["id_turma"];
+                
+                $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
+                            <div class='card card-stats'>
+                                <a href='turmas.php?id=$id_turma' style='color: inherit;'>
+                                    <div class='card-header' data-background-color='$cor'>
+                                        <i class='$icone'></i>
+                                    </div>
+                                    <div class='card-content card-turmas'>
+                                        <p class='category'>&nbsp;</p>
+                                        <h3 class='title'>$turma_nome
+                                        </h3>
+                                    </div>
+                                </a>
+                                <div class='card-footer'>
+                                    <div class='stats'>
+                                        <i class='material-icons'>group</i>
+                                        <a href='#' style='color: inherit'>$serie_nome</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>";
+            }
+        } else {
+            echo "0 results";
+        }
+        
+        return $html;
+        
+    }
+    
+    
+    function setSeriesCadastrarTurma(){
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        
+        $html = "";
+        
+        include("conexao.php");
+        
+        $sql = "SELECT idserie, nome FROM serie WHERE id_serie_professor = $id_user";
+        
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                
+                $id_serie = $row["idserie"];
+                $nome_serie = $row["nome"];
+                
+                $html .= "<option value='$id_serie'>$nome_serie</option>";
+            }
+        } else {
+        }
+        
+        return $html;
+        
+    }
+    
+    
+    function setAlunosTurma(){
+        include("conexao.php");
+        $id_turma = $_GET["id"];
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        
+        $html = '';
+        
+        if($id_turma == "all"){
+            $html = '<tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>';
+        }else{
+            
+            $sql = "";
+            
+            $sql = "SELECT a.idaluno AS 'idaluno', a.nome AS 'nome', a.matricula AS 'matricula',a.sobrenome AS 'sobrenome' FROM aluno AS a INNER JOIN turma as t where a.id_aluno_turma = $id_turma and t.idturma = $id_user and t.id_turma_professor = $id_user";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_serie = $row["idaluno"];
+                    $matricula = $row["matricula"];
+                    $nome = $row["nome"];
+                    $sobrenome = $row["sobrenome"];
+
+                    $html .= "<tr>
+                                <td>$matricula</td>
+                                <td>$nome</td>
+                                <td>$sobrenome</td>
+                                <td>
+                                    <div style='display: flex; flex-direction: row; justify-content: space-around;align-items: center;'>
+                                        <div>
+                                            <button type='button' class='btn' style='margin: 0; background-color: transparent;' data-toggle='modal' data-target='#editarAluno$id_serie'>
+                                            <i class='material-icons' style='font-size: 20px; color: #404040'>create</i>
+                                        </button>
+                                        </div>
+                                        <div>
+                                            <button type='button' class='btn' style='margin: 0;background-color: transparent;' data-toggle='modal' data-target='#excluirAluno'>
+                                            <i class='material-icons' style='font-size: 20px;color: #404040'>clear</i>
+                                        </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>";
+                }
+            } else {
+            }
+        }
+        return $html;
+    }
+    
+    
+    function setTitleAlunosTurma(){
+        
+        include("conexao.php");
+        $id_turma = $_GET["id"];
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        
+        
+        $sql = "SELECT t.nome as 'turma_nome', s.nome as 'nome_serie' FROM turma AS t INNER JOIN serie as s where t.idturma = $id_turma";
+        
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+
+            $html = "<h3 class='title' style='font-weight: 600;'>".$row["turma_nome"]."</h3>
+                 <p class='category' style='font-weight: 500;'>".$row["nome_serie"]."</p>";
+            
+        } else {
+            
+        }
+        
+        return $html;
+        
+    }
+    
+?>
 <body>
     <div class="wrapper">
         <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
@@ -41,40 +225,9 @@
                     CheckEasy
                 </a>
             </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li>
-                        <a href="dashboard.html">
-                            <i class="material-icons">dashboard</i>
-                            <p>Home</p>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="./user.html">
-                            <i class="material-icons">group</i>
-                            <p>Turmas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./provas.html">
-                            <i class="material-icons">assignment</i>
-                            <p>Provas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./estatisticas.html">
-                            <i class="material-icons">pie_chart</i>
-                            <p>Estatísticas</p>
-                        </a>
-                    </li>
-                    <!-- <li class="active-pro">
-                        <a href="upgrade.html">
-                            <i class="material-icons">unarchive</i>
-                            <p>Upgrade to PRO</p>
-                        </a>
-                    </li> -->
-                </ul>
-            </div>
+            
+            <?php echo setSidebar_wrapper('home'); ?>
+
         </div>
         <div class="main-panel">
             <nav class="navbar navbar-transparent navbar-absolute">
@@ -185,6 +338,10 @@
                     </div>
 
                     <div class="row">
+                       
+                       <?php  echo listTurmas(); ?>
+                       
+                       <!-- 
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100" style="">
                             <div class="card card-stats ">
                                 <a href="" style="color: inherit;">
@@ -194,7 +351,7 @@
                                     <div class="card-content card-turmas">
                                         <p class="category">&nbsp;</p>
                                         <h3 class="title">3ºE1
-                                            <!-- <small>GB</small> -->
+                                            <small>GB</small>
                                         </h3>
                                     </div>
                                 </a>
@@ -215,7 +372,7 @@
                                     <div class="card-content card-turmas">
                                         <p class="category">&nbsp;</p>
                                         <h3 class="title">9º A
-                                            <!-- <small>GB</small> -->
+                                            <small>GB</small>
                                         </h3>
                                     </div>
                                 </a>
@@ -236,7 +393,7 @@
                                     <div class="card-content card-turmas">
                                         <p class="category">&nbsp;</p>
                                         <h3 class="title">1ºE1
-                                            <!-- <small>GB</small> -->
+                                            <small>GB</small>
                                         </h3>
                                     </div>
                                 </a>
@@ -257,7 +414,7 @@
                                     <div class="card-content card-turmas">
                                         <p class="category">&nbsp;</p>
                                         <h3 class="title">Proeja
-                                            <!-- <small>GB</small> -->
+                                            <small>GB</small>
                                         </h3>
                                     </div>
                                 </a>
@@ -268,15 +425,14 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="green400" style="text-align:justify;">
-                                    <h3 class="title" style="font-weight: 600;">1º E1</h3>
-                                    <p class="category" style="font-weight: 500;">Ensino Médio</p>
+                                    <?php  echo setTitleAlunosTurma(); ?>
                                 </div>
                                 <div class="card-content table-responsive">
                                     <table class="table">
@@ -291,83 +447,8 @@
                                             </th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>2016000459</td>
-                                                <td>Niger</td>
-                                                <td>Oud-Turnhout</td>
-                                                <td>
-                                                    <div style="display: flex; flex-direction: row; justify-content: space-around;align-items: center;">
-                                                        <div>
-                                                            <button type="button" class="btn" style="margin: 0; background-color: transparent;" data-toggle="modal" data-target="#editarAluno">
-                                                            <i class="material-icons" style="font-size: 20px; color: #404040">create</i>
-                                                        </button>
-                                                        </div>
-                                                        <div>
-                                                            <button type="button" class="btn" style="margin: 0;background-color: transparent;" data-toggle="modal" data-target="#excluirAluno">
-                                                            <i class="material-icons" style="font-size: 20px;color: #404040">clear</i>
-                                                        </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2016000459</td>
-                                                <td>Niger</td>
-                                                <td>Oud-Turnhout</td>
-                                                <td>
-                                                    <div style="display: flex; flex-direction: row; justify-content: space-around;align-items: center;">
-                                                        <div>
-                                                            <button type="button" class="btn" style="margin: 0; background-color: transparent;" data-toggle="modal" data-target="#editarAluno">
-                                                            <i class="material-icons" style="font-size: 20px; color: #404040">create</i>
-                                                        </button>
-                                                        </div>
-                                                        <div>
-                                                            <button type="button" class="btn" style="margin: 0;background-color: transparent;">
-                                                            <i class="material-icons" style="font-size: 20px;color: #404040">clear</i>
-                                                        </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2016000459</td>
-                                                <td>Niger</td>
-                                                <td>Oud-Turnhout</td>
-                                                <td>
-                                                    <div style="display: flex; flex-direction: row; justify-content: space-around;align-items: center;">
-                                                        <div>
-                                                            <button type="button" class="btn" style="margin: 0; background-color: transparent;" data-toggle="modal" data-target="#editarAluno">
-                                                            <i class="material-icons" style="font-size: 20px; color: #404040">create</i>
-                                                        </button>
-                                                        </div>
-                                                        <div>
-                                                            <button type="button" class="btn" style="margin: 0;background-color: transparent;">
-                                                            <i class="material-icons" style="font-size: 20px;color: #404040">clear</i>
-                                                        </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2016000459</td>
-                                                <td>Niger</td>
-                                                <td>Oud-Turnhout</td>
-                                                <td>
-                                                    <div style="display: flex; flex-direction: row; justify-content: space-around;align-items: center;">
-                                                        <div>
-                                                            <button type="button" class="btn" style="margin: 0; background-color: transparent;" data-toggle="modal" data-target="#editarAluno">
-                                                            <i class="material-icons" style="font-size: 20px; color: #404040">create</i>
-                                                        </button>
-                                                        </div>
-                                                        <div>
-                                                            <button type="button" class="btn" style="margin: 0;background-color: transparent;">
-                                                            <i class="material-icons" style="font-size: 20px;color: #404040">clear</i>
-                                                        </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
+                                           <?php  echo setAlunosTurma(); ?>
+                                           
                                         </tbody>
                                     </table>
                                 </div>
@@ -405,18 +486,17 @@
                 </div>
                 <div class="modal-body">
                     <!-- content goes here -->
-                    <form action="#" method="post">
+                    <form action="cadastrarTurma.php" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nome da Turma</label>
-                            <input type="text" class="form-control" name="nome_turma" placeholder="">
+                            <input type="text" name="nomeTurma" class="form-control" name="nome_turma" placeholder="">
                         </div>
                         <div class="form-group" style="display: flex;flex-direction: column;">
                             <label for="exampleInputEmail1">Série</label>
                             <div style="display: flex; flex-direction: row;justify-content: flex-start">
-                                <select id="turma" class="custom-select" style="margin-top: 13px;margin-bottom: 13px;border: 0.5px #ccc solid; border-radius: 5px;width: 70%;">
-                                  <option value="1">Ensino Fundamental</option>
-                                  <option value="2">Ensino Médio</option>
-                                  <option value="3">Superior</option>
+                                <select id="turma" name="serie" class="custom-select" style="margin-top: 13px;margin-bottom: 13px;border: 0.5px #ccc solid; border-radius: 5px;width: 70%;">
+                                 
+                                 <?php  echo setSeriesCadastrarTurma();  ?>
                                 </select>
                                 <div style="display: flex;flex-direction: column; ustify-content: center; align-items: center; width: 30%">
 
@@ -450,7 +530,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- content goes here -->
-                    <form action="#" method="post">
+                    <form action="cadastrarSerie.php" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nome da Série</label>
                             <input type="text" class="form-control" name="nome_turma" placeholder="">

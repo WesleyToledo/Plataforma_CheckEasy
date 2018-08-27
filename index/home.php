@@ -28,6 +28,88 @@
 
 </head>
 
+<?php session_start();
+    
+    include("general_functions.php");
+    include("conexao.php");
+    
+	if(!isset($_SESSION["login"])){
+		header("Location: login.html");
+	}
+    
+    $id_user = $_SESSION["id_user"];
+    $nome = $_SESSION["nome"];
+    
+    function numTurmas(){
+        include("conexao.php");
+        if(!isset($_SESSION["login"])){
+            header("Location: login.html");
+        }
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+    
+        $sql="SELECT COUNT(*) AS 'turmas' FROM turma WHERE id_turma_professor='$id_user'";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            return $row["turmas"];
+	   } 
+    }
+    
+    function numAlunos(){
+        include("conexao.php");
+        if(!isset($_SESSION["login"])){
+            header("Location: login.html");
+        }
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        
+        $sql="SELECT COUNT(*) AS 'aluno' FROM aluno WHERE id_aluno_turma = (SELECT idturma FROM turma WHERE id_turma_professor = '$id_user')";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            return $row["aluno"];
+	   } 
+    }
+    
+    function numProvas(){
+        include("conexao.php");
+        if(!isset($_SESSION["login"])){
+            header("Location: login.html");
+        }
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        
+        $sql="SELECT COUNT(*) AS 'avaliacoes' FROM avaliacao WHERE id_avaliacao_professor = '$id_user'";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            return $row["avaliacoes"];
+	   } 
+    }
+    
+     function numCorrecoes(){
+        include("conexao.php");
+        if(!isset($_SESSION["login"])){
+            header("Location: login.html");
+        }
+         
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+         
+        $sql="SELECT COUNT(*) AS 'correcoes' FROM provas WHERE id_provas_turma = (SELECT idturma FROM turma WHERE id_turma_professor = '$id_user')";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            return $row["correcoes"];
+	   } 
+    }
+?>
+
+
 <body>
     <div class="wrapper">
         <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
@@ -41,34 +123,9 @@
                     CheckEasy
                 </a>
             </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li  class="active">
-                        <a href="dashboard.html">
-                            <i class="material-icons">dashboard</i>
-                            <p>Home</p>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="./user.html">
-                            <i class="material-icons">group</i>
-                            <p>Turmas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./provas.html">
-                            <i class="material-icons">assignment</i>
-                            <p>Provas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./estatisticas.html">
-                            <i class="material-icons">pie_chart</i>
-                            <p>Estatísticas</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+
+            <?php echo setSidebar_wrapper('home'); ?>
+
         </div>
         <div class="main-panel">
             <nav class="navbar navbar-transparent navbar-absolute">
@@ -175,8 +232,8 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Turmas</p>
-                                    <h3 class="title">3
-                                        <!-- <small>GB</small> -->
+                                    <h3 class="title">
+                                        <?php echo numTurmas(); ?>
                                     </h3>
                                 </div>
                                 <div class="card-footer">
@@ -194,7 +251,7 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Alunos</p>
-                                    <h3 class="title">1255</h3>
+                                    <h3 class="title"><?php echo numAlunos(); ?></h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -210,7 +267,7 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Provas</p>
-                                    <h3 class="title">75</h3>
+                                    <h3 class="title"><?php echo numProvas(); ?></h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -227,7 +284,7 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Correções</p>
-                                    <h3 class="title">2</h3>
+                                    <h3 class="title"><?php echo numCorrecoes(); ?></h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -691,36 +748,14 @@
             </div>
             <footer class="footer">
                 <div class="container-fluid">
-                    <nav class="pull-left">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Company
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Portfolio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Blog
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+
                     <p class="copyright pull-right">
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
+
                         </script>
-                        <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                        <a href="#" class="text-info">Creative Tim</a>, made with love for a better web
                     </p>
                 </div>
             </footer>
@@ -752,6 +787,16 @@
         demo.initDashboardPageCharts();
 
     });
+
 </script>
+
+
+
+
+
+
+
+
+
 
 </html>
