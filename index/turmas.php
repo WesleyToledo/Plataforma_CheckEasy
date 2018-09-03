@@ -41,29 +41,19 @@
     
     
     function listTurmas(){
-        
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
-    
-        
         $html = "";
-        
         include("conexao.php");
-        
         $sql = "SELECT t.idturma AS 'id_turma', t.nome AS 'nome_turma', s.cor AS 'cor' , s.icone AS 'icone', s.nome AS 'nome_serie' FROM turma AS t INNER JOIN serie AS s WHERE t.id_turma_serie = s.idserie AND t.id_turma_professor = $id_user";
-        
-        
         $result = $conn->query($sql);
-
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                
                 $turma_nome = $row["nome_turma"];
                 $cor = $row["cor"];
                 $icone = $row["icone"];
                 $serie_nome = $row["nome_serie"];
                 $id_turma = $row["id_turma"];
-                
                 $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                             <div class='card card-stats'>
                                 <a href='turmas.php?id=$id_turma' style='color: inherit;'>
@@ -88,9 +78,7 @@
         } else {
             echo "0 results";
         }
-        
         return $html;
-        
     }
     
     
@@ -192,7 +180,7 @@
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
         
-        
+        if($id_turma != 'all'){
         $sql = "SELECT t.nome as 'turma_nome', s.nome as 'nome_serie' FROM turma AS t INNER JOIN serie as s where t.idturma = $id_turma";
         
         $result = $conn->query($sql);
@@ -206,7 +194,10 @@
         } else {
             
         }
-        
+    }else{
+            $html = $html = "<h3 class='title' style='font-weight: 600;'>Turma</h3>
+                 <p class='category' style='font-weight: 500;'>Série</p>";
+        }
         return $html;
         
     }
@@ -226,7 +217,7 @@
                 </a>
             </div>
             
-            <?php echo setSidebar_wrapper('home'); ?>
+            <?php echo setSidebar_wrapper('turmas'); ?>
 
         </div>
         <div class="main-panel">

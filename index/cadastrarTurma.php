@@ -9,7 +9,7 @@
     $sql = "INSERT INTO turma(id_turma_professor,id_turma_serie,nome) VALUES('$id_user','$id_serie','$nome')";
 
     if ($conn->query($sql) === TRUE) {
-            header("Location: turmas.php");
+            header("Location: turmas.php?id=all");
         }else{
             echo "Erro ao cadastrar turma";
         }

@@ -28,7 +28,8 @@
 
 </head>
 
-<?php session_start();
+<?php 
+    session_start();
     
     include("general_functions.php");
     include("conexao.php");
@@ -59,14 +60,12 @@
     
     function numAlunos(){
         include("conexao.php");
-        if(!isset($_SESSION["login"])){
-            header("Location: login.html");
-        }
         
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
         
-        $sql="SELECT COUNT(*) AS 'aluno' FROM aluno WHERE id_aluno_turma = (SELECT idturma FROM turma WHERE id_turma_professor = '$id_user')";
+        $sql="SELECT COUNT(*) AS 'aluno' FROM aluno WHERE id_aluno_professor ='$id_user'";
+        
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             $row = $result->fetch_assoc();
@@ -76,9 +75,6 @@
     
     function numProvas(){
         include("conexao.php");
-        if(!isset($_SESSION["login"])){
-            header("Location: login.html");
-        }
         
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
@@ -93,14 +89,11 @@
     
      function numCorrecoes(){
         include("conexao.php");
-        if(!isset($_SESSION["login"])){
-            header("Location: login.html");
-        }
          
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
          
-        $sql="SELECT COUNT(*) AS 'correcoes' FROM provas WHERE id_provas_turma = (SELECT idturma FROM turma WHERE id_turma_professor = '$id_user')";
+        $sql="SELECT COUNT(*) AS 'correcoes' FROM provas WHERE id_provas_professor ='$id_user'";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             $row = $result->fetch_assoc();
