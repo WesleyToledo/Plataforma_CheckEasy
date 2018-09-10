@@ -71,12 +71,17 @@
                                         <i class='material-icons'>group</i>
                                         <a href='#' style='color: inherit'>$serie_nome</a>
                                     </div>
+                                    <div class='stats' style='float: right'>
+                                       <a data-toggle='modal' data-target='#excluirTurma'>   
+                                            <i class='material-icons' style='color: #ef5350; font-weight: 800;cursor: pointer;'>clear</i>
+                                       </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>";
             }
         } else {
-            echo "0 results";
+            echo "0 resultados";
         }
         return $html;
     }
@@ -582,13 +587,34 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Excluir Aluno</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     Tem certeza que deseja excluir o aluno x ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-info">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!----- Excluir Turma ----->
+    <div class="modal fade" id="excluirTurma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Excluir Turma</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza que deseja excluir o turma x ?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
