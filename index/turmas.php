@@ -145,7 +145,7 @@
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     
-                    $id_serie = $row["idaluno"];
+                    $id_aluno = $row["idaluno"];
                     $matricula = $row["matricula"];
                     $nome = $row["nome"];
                     $sobrenome = $row["sobrenome"];
@@ -157,7 +157,7 @@
                                 <td>
                                     <div style='display: flex; flex-direction: row; justify-content: space-around;align-items: center;'>
                                         <div>
-                                            <button type='button' class='btn' style='margin: 0; background-color: transparent;' data-toggle='modal' data-target='#editarAluno$id_serie'>
+                                            <button type='button' class='btn' style='margin: 0; background-color: transparent;' data-toggle='modal' data-target='#editarAluno$id_aluno'>
                                             <i class='material-icons' style='font-size: 20px; color: #404040'>create</i>
                                         </button>
                                         </div>
@@ -178,16 +178,13 @@
     
     
     function setTitleAlunosTurma(){
-        
         include("conexao.php");
         $id_turma = $_GET["id"];
-        
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
         
         if($id_turma != 'all'){
         $sql = "SELECT t.nome as 'turma_nome', s.nome as 'nome_serie' FROM turma AS t INNER JOIN serie as s where t.idturma = $id_turma";
-        
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -195,9 +192,6 @@
 
             $html = "<h3 class='title' style='font-weight: 600;'>".$row["turma_nome"]."</h3>
                  <p class='category' style='font-weight: 500;'>".$row["nome_serie"]."</p>";
-            
-        } else {
-            
         }
     }else{
             $html = $html = "<h3 class='title' style='font-weight: 600;'>Turma</h3>
@@ -206,6 +200,68 @@
         return $html;
         
     }
+    
+    function geraEditAluno(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT idaluno,matricula,nome,sobrenome FROM aluno WHERE id_aluno_professor = $id_user";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_aluno = $row["idaluno"];
+                    $matricula = $row["matricula"];
+                    $nome = $row["nome"];
+                    $sobrenome = $row["sobrenome"];
+                    
+                    $html .= "<div class='modal fade' id='editarAluno$id_aluno' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
+                        <div class='modal-dialog'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button>
+                                    <h3 class='modal-title mx-auto' id='lineModalLabel'>Editar Aluno</h3>
+                                </div>
+                                <div class='modal-body'>
+                                    <!-- content goes here -->
+                                    <form action='editarTurma.php?id=$id_aluno' method='post'>
+                                        <div class='form-group'>
+                                            <label>Matrícula</label>
+                                            <input type='text' class='form-control' name='nome_turma' value='$matricula'>
+                                        </div>
+                                        <div class='form-group'>
+                                            <label>Nome</label>
+                                            <input type='text' class='form-control' name='nome_turma' value='$nome'>
+                                        </div>
+                                        <div class='form-group'>
+                                            <label>Sobrenome</label>
+                                            <input type='text' class='form-control' name='nome_turma' value='$sobrenome'>
+                                        </div>
+
+                                        <div class='form-group' style='display: flex;flex-direction: column;'>
+
+                                        </div>
+                                        <div class='modal-footer'>
+                                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                            <button type='submit' class='btn btn-info'>Salvar Informações</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+                }
+            } else {
+            }
+        return $html;
+    }
+    
+    
+    
+    
     
 ?>
 <body>
@@ -546,7 +602,7 @@
     </div>
 
     <!----- Editar Aluno ----->
-    <div class="modal fade" id="editarAluno" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="editarAluno1" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -554,23 +610,23 @@
                     <h3 class="modal-title mx-auto" id="lineModalLabel">Editar Aluno</h3>
                 </div>
                 <div class="modal-body">
-                    <!-- content goes here -->
+                    content goes here
                     <form action="#" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Matrícula</label>
-                            <input type="text" class="form-control" name="nome_turma" placeholder="">
+                            <input type="text" class="form-control" name="nome_turma">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nome</label>
-                            <input type="text" class="form-control" name="nome_turma" placeholder="">
+                            <input type="text" class="form-control" name="nome_turma" >
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Sobrenome</label>
-                            <input type="text" class="form-control" name="nome_turma" placeholder="">
+                            <input type="text" class="form-control" name="nome_turma">
                         </div>
-
+    
                         <div class="form-group" style="display: flex;flex-direction: column;">
-
+    
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -580,7 +636,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+    
+    
+    <?php
+        echo geraEditAluno();
+    ?>
 
     <!----- Excluir Aluno ----->
     <div class="modal fade" id="excluirAluno" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
