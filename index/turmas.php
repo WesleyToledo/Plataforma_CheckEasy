@@ -322,7 +322,7 @@
                             <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
                                 <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#cadastrarTurma">
                                     <i class="material-icons" style="font-size: 27px;">add_circle_outline</i>
-                                    &nbsp;&nbsp;&nbsp;Cadastrar turma
+                                    &nbsp;&nbsp;&nbsp;Cadastrar turma 1
                                 </button>
                             </li>
                         </ul>
