@@ -206,7 +206,7 @@
         $id_user = $_SESSION["id_user"];
         $html = "";
         
-        $sql = "SELECT idaluno,matricula,nome,sobrenome FROM aluno WHERE id_aluno_professor = $id_user";
+        $sql = "SELECT idaluno,id_aluno_turma,matricula,nome,sobrenome FROM aluno WHERE id_aluno_professor = $id_user";
         
             $result = $conn->query($sql);
 
@@ -217,6 +217,7 @@
                     $matricula = $row["matricula"];
                     $nome = $row["nome"];
                     $sobrenome = $row["sobrenome"];
+                    $id_turma = $row["id_aluno_turma"];
                     
                     $html .= "<div class='modal fade' id='editarAluno$id_aluno' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
                         <div class='modal-dialog'>
@@ -227,18 +228,18 @@
                                 </div>
                                 <div class='modal-body'>
                                     <!-- content goes here -->
-                                    <form action='editarTurma.php?id=$id_aluno' method='post'>
+                                    <form action='editarAlunoTurma.php?id=$id_aluno&idT=$id_turma' method='post'>
                                         <div class='form-group'>
                                             <label>Matrícula</label>
-                                            <input type='text' class='form-control' name='nome_turma' value='$matricula'>
+                                            <input type='text' class='form-control' name='matricula' value='$matricula'>
                                         </div>
                                         <div class='form-group'>
                                             <label>Nome</label>
-                                            <input type='text' class='form-control' name='nome_turma' value='$nome'>
+                                            <input type='text' class='form-control' name='nome_aluno' value='$nome'>
                                         </div>
                                         <div class='form-group'>
                                             <label>Sobrenome</label>
-                                            <input type='text' class='form-control' name='nome_turma' value='$sobrenome'>
+                                            <input type='text' class='form-control' name='sobrenome' value='$sobrenome'>
                                         </div>
 
                                         <div class='form-group' style='display: flex;flex-direction: column;'>
