@@ -17,9 +17,6 @@
     $primeiro_nome = substr($nomeCompleto, 0, strpos($nomeCompleto," "));
     $sobrenome = substr($nomeCompleto, strpos($nomeCompleto," "), strlen($nomeCompleto) - strpos($nomeCompleto," "));
 
-    $sql = "INSERT INTO MyGuests (firstname, lastname, email)
-    VALUES ('John', 'Doe', 'john@example.com')";
-
     $sql = "INSERT INTO professor(primeiro_nome,sobrenome,nome_user,email,instituicao,cidade,cep,curriculo,senha) VALUES('$primeiro_nome','$sobrenome','$nomeUser','$email','$instituicao','$cidade','$cep','$curriculo','$senha')";
 
     if ($conn->query($sql) === TRUE) {
