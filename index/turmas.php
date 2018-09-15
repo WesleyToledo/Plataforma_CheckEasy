@@ -162,7 +162,7 @@
                                         </button>
                                         </div>
                                         <div>
-                                            <button type='button' class='btn' style='margin: 0;background-color: transparent;' data-toggle='modal' data-target='#excluirAluno'>
+                                            <button type='button' class='btn' style='margin: 0;background-color: transparent;' data-toggle='modal' data-target='#excluirAluno$id_aluno'>
                                             <i class='material-icons' style='font-size: 20px;color: #404040'>clear</i>
                                         </button>
                                         </div>
@@ -255,6 +255,51 @@
                         </div>
                     </div>";
                 }
+            } else {
+            }
+        return $html;
+    }
+    
+    function geraExcluirAluno(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT idaluno,id_aluno_turma,matricula,nome,sobrenome FROM aluno WHERE id_aluno_professor = $id_user";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_aluno = $row["idaluno"];
+                    $matricula = $row["matricula"];
+                    $nome = $row["nome"];
+                    $sobrenome = $row["sobrenome"];
+                    $id_turma = $row["id_aluno_turma"];
+                    
+                    $html .= "<div class='modal fade' id='excluirAluno$id_aluno' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title' id='exampleModalLabel'>Excluir Aluno</h5>
+                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                            </div>
+                            <div class='modal-body'>
+                                Tem certeza que deseja excluir o aluno $nome $sobrenome ?
+                            </div>
+                            <div class='modal-footer'>
+                            <form action='excluirAlunoTurma.php?id=$id_aluno&idT=$id_turma' method='post'>
+                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                <button type='submit' class='btn btn-info' >Excluir</button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+                            }
             } else {
             }
         return $html;
@@ -602,69 +647,12 @@
         </div>
     </div>
 
-    <!----- Editar Aluno ----->
-    <!-- <div class="modal fade" id="editarAluno1" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title mx-auto" id="lineModalLabel">Editar Aluno</h3>
-                </div>
-                <div class="modal-body">
-                    content goes here
-                    <form action="#" method="post">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Matrícula</label>
-                            <input type="text" class="form-control" name="nome_turma">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Nome</label>
-                            <input type="text" class="form-control" name="nome_turma" >
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Sobrenome</label>
-                            <input type="text" class="form-control" name="nome_turma">
-                        </div>
-    
-                        <div class="form-group" style="display: flex;flex-direction: column;">
-    
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-info">Salvar Informações</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    
-    
     <?php
         echo geraEditAluno();
+        echo geraExcluirAluno();
     ?>
 
-    <!----- Excluir Aluno ----->
-    <div class="modal fade" id="excluirAluno" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Excluir Aluno</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Tem certeza que deseja excluir o aluno x ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-info">Excluir</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
 <!----- Excluir Turma ----->
     <div class="modal fade" id="excluirTurma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
