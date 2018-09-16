@@ -71,12 +71,17 @@
                                         <i class='material-icons'>group</i>
                                         <a href='#' style='color: inherit'>$serie_nome</a>
                                     </div>
+                                    <div class='stats' style='float: right'>
+                                       <a data-toggle='modal' data-target='#excluirTurma$id_turma'>   
+                                            <i class='material-icons' style='color: #ef5350; font-weight: 800;cursor: pointer;'>clear</i>
+                                       </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>";
             }
         } else {
-            echo "0 results";
+            echo "0 resultados";
         }
         return $html;
     }
@@ -140,7 +145,7 @@
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     
-                    $id_serie = $row["idaluno"];
+                    $id_aluno = $row["idaluno"];
                     $matricula = $row["matricula"];
                     $nome = $row["nome"];
                     $sobrenome = $row["sobrenome"];
@@ -152,12 +157,12 @@
                                 <td>
                                     <div style='display: flex; flex-direction: row; justify-content: space-around;align-items: center;'>
                                         <div>
-                                            <button type='button' class='btn' style='margin: 0; background-color: transparent;' data-toggle='modal' data-target='#editarAluno$id_serie'>
+                                            <button type='button' class='btn' style='margin: 0; background-color: transparent;' data-toggle='modal' data-target='#editarAluno$id_aluno'>
                                             <i class='material-icons' style='font-size: 20px; color: #404040'>create</i>
                                         </button>
                                         </div>
                                         <div>
-                                            <button type='button' class='btn' style='margin: 0;background-color: transparent;' data-toggle='modal' data-target='#excluirAluno'>
+                                            <button type='button' class='btn' style='margin: 0;background-color: transparent;' data-toggle='modal' data-target='#excluirAluno$id_aluno'>
                                             <i class='material-icons' style='font-size: 20px;color: #404040'>clear</i>
                                         </button>
                                         </div>
@@ -173,16 +178,13 @@
     
     
     function setTitleAlunosTurma(){
-        
         include("conexao.php");
         $id_turma = $_GET["id"];
-        
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
         
         if($id_turma != 'all'){
         $sql = "SELECT t.nome as 'turma_nome', s.nome as 'nome_serie' FROM turma AS t INNER JOIN serie as s where t.idturma = $id_turma";
-        
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -190,9 +192,6 @@
 
             $html = "<h3 class='title' style='font-weight: 600;'>".$row["turma_nome"]."</h3>
                  <p class='category' style='font-weight: 500;'>".$row["nome_serie"]."</p>";
-            
-        } else {
-            
         }
     }else{
             $html = $html = "<h3 class='title' style='font-weight: 600;'>Turma</h3>
@@ -201,6 +200,156 @@
         return $html;
         
     }
+    
+    function geraEditAluno(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT idaluno,id_aluno_turma,matricula,nome,sobrenome FROM aluno WHERE id_aluno_professor = $id_user";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_aluno = $row["idaluno"];
+                    $matricula = $row["matricula"];
+                    $nome = $row["nome"];
+                    $sobrenome = $row["sobrenome"];
+                    $id_turma = $row["id_aluno_turma"];
+                    
+                    $html .= "<div class='modal fade' id='editarAluno$id_aluno' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
+                        <div class='modal-dialog'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button>
+                                    <h3 class='modal-title mx-auto' id='lineModalLabel'>Editar Aluno</h3>
+                                </div>
+                                <div class='modal-body'>
+                                    <!-- content goes here -->
+                                    <form action='editarAlunoTurma.php?id=$id_aluno&idT=$id_turma' method='post'>
+                                        <div class='form-group'>
+                                            <label>Matrícula</label>
+                                            <input type='text' class='form-control' name='matricula' value='$matricula'>
+                                        </div>
+                                        <div class='form-group'>
+                                            <label>Nome</label>
+                                            <input type='text' class='form-control' name='nome_aluno' value='$nome'>
+                                        </div>
+                                        <div class='form-group'>
+                                            <label>Sobrenome</label>
+                                            <input type='text' class='form-control' name='sobrenome' value='$sobrenome'>
+                                        </div>
+
+                                        <div class='form-group' style='display: flex;flex-direction: column;'>
+
+                                        </div>
+                                        <div class='modal-footer'>
+                                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                            <button type='submit' class='btn btn-info'>Salvar Informações</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+                }
+            } else {
+            }
+        return $html;
+    }
+    
+    function geraExcluirAluno(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT idaluno,id_aluno_turma,matricula,nome,sobrenome FROM aluno WHERE id_aluno_professor = $id_user";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_aluno = $row["idaluno"];
+                    $matricula = $row["matricula"];
+                    $nome = $row["nome"];
+                    $sobrenome = $row["sobrenome"];
+                    $id_turma = $row["id_aluno_turma"];
+                    
+                    $html .= "<div class='modal fade' id='excluirAluno$id_aluno' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title' id='exampleModalLabel'>Excluir Aluno</h5>
+                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                            </div>
+                            <div class='modal-body'>
+                                Tem certeza que deseja excluir o aluno $nome $sobrenome ?
+                            </div>
+                            <div class='modal-footer'>
+                            <form action='excluirAlunoTurma.php?id=$id_aluno&idT=$id_turma' method='post'>
+                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                <button type='submit' class='btn btn-info' >Excluir</button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+                            }
+            } else {
+            }
+        return $html;
+    }
+    
+    function geraExcluirTurma(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT idturma,nome FROM turma WHERE id_turma_professor = $id_user";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_turma = $row["idturma"];
+                    $nome = $row["nome"];
+                    
+                    $html .= "<div class='modal fade' id='excluirTurma$id_turma' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title' id='exampleModalLabel'>Excluir Turma</h5>
+                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                            </div>
+                            <div class='modal-body'>
+                                Tem certeza que deseja excluir a turma $nome ?
+                            </div>
+                            <div class='modal-footer'>
+                            <form action='excluirTurma.php?idT=$id_turma' method='post'>
+                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                <button type='submit' class='btn btn-info' >Excluir</button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+                            }
+            } else {
+            }
+        return $html;
+    }
+    
+    
+    
+    
     
 ?>
 <body>
@@ -296,7 +445,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="user.html" class="dropdown-toggle">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
@@ -322,7 +471,7 @@
                             <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
                                 <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#cadastrarTurma">
                                     <i class="material-icons" style="font-size: 27px;">add_circle_outline</i>
-                                    &nbsp;&nbsp;&nbsp;Cadastrar turma 1
+                                    &nbsp;&nbsp;&nbsp;Cadastrar turma
                                 </button>
                             </li>
                         </ul>
@@ -540,55 +689,25 @@
         </div>
     </div>
 
-    <!----- Editar Aluno ----->
-    <div class="modal fade" id="editarAluno" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title mx-auto" id="lineModalLabel">Editar Aluno</h3>
-                </div>
-                <div class="modal-body">
-                    <!-- content goes here -->
-                    <form action="#" method="post">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Matrícula</label>
-                            <input type="text" class="form-control" name="nome_turma" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Nome</label>
-                            <input type="text" class="form-control" name="nome_turma" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Sobrenome</label>
-                            <input type="text" class="form-control" name="nome_turma" placeholder="">
-                        </div>
+    <?php
+        echo geraEditAluno();
+        echo geraExcluirAluno();
+        echo geraExcluirTurma();
+    ?>
 
-                        <div class="form-group" style="display: flex;flex-direction: column;">
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-info">Salvar Informações</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!----- Excluir Aluno ----->
-    <div class="modal fade" id="excluirAluno" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+<!----- Excluir Turma ----->
+    <!-- <div class="modal fade" id="excluirTurma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Excluir Turma</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Tem certeza que deseja excluir o aluno x ?
+                    Tem certeza que deseja excluir o turma x ?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -596,7 +715,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 </body>

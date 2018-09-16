@@ -196,7 +196,7 @@
                                 </ul> -->
                             </li>
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="user.html" class="dropdown-toggle">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
@@ -295,7 +295,7 @@
                                     <div class="ct-chart" id="dailySalesChart"></div>
                                 </div>
                                 <div class="card-content">
-                                    <h4 class="title">Daily Sales</h4>
+                                    <h4 class="title">Correções nos últimos dias</h4>
                                     <p class="category">
                                         <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
                                 </div>
@@ -312,7 +312,7 @@
                                     <div class="ct-chart" id="emailsSubscriptionChart"></div>
                                 </div>
                                 <div class="card-content">
-                                    <h4 class="title">Email Subscriptions</h4>
+                                    <h4 class="title">Correções por Mês</h4>
                                     <p class="category">Last Campaign Performance</p>
                                 </div>
                                 <div class="card-footer">
