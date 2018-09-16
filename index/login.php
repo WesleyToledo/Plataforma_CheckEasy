@@ -21,7 +21,10 @@
 		$row = $result->fetch_assoc();
 		$_SESSION["id_user"] = $row["idprofessor"];
 		$_SESSION["login"] = $login;
+        $_SESSION["inst"] = $row["instituicao"];
+        $_SESSION["cur"] = $row["curriculo"];
         $_SESSION["nome"] = $row["primeiro_nome"];
+        
 		header('Location: home.php');
 	}else{
 		header('Location: login.html');

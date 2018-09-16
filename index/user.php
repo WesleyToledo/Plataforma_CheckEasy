@@ -4,10 +4,7 @@
     include("general_functions.php");
     include("conexao.php");
 
-	  if(!isset($_SESSION["nome"]) AND ($_SESSION["id_user"])){
-	  	header("Location:index.php");
-        
-	  }
+
 ?>
 
  <script>
@@ -158,10 +155,10 @@
                                     </a>
                                 </div>
                                 <div class="content">
-                                    <h6 class="category text-gray">Professor no IFSULDEMINAS - Campus Inconfidentes</h6>
+                                    <h6 class="category text-gray"><?php echo $instituicao;?></h6>
                                     <h4 class="card-title"><?php echo $nome;?></h4>
                                     <p class="card-content">
-                                        Possui graduação em Licenciatura Plena em Física pela UFAM (2004), mestrado em Física da Matéria Condensada pela UFAM (2008) e Doutorado em Materiais para a Engenharia pela UNIFEI (2016).
+                                        <?php echo $curriculo;?>
                                     </p>
 
                                     <!-- <a href="#pablo" class="btn btn-primary btn-round">Follow</a> -->

@@ -445,10 +445,21 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="user.html" class="dropdown-toggle">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
+                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <a onclick="exitSession()" class="dropdown-toggle">Logout    
+                                    <i class="material-icons">clear</i>
+                                </a>
+                                    </li>
+                                     <li><a href="user.php" class="dropdown-toggle">Perfil
+                                    <i class="material-icons">person</i>
+                                    <p class="hidden-lg hidden-md">Profile</p>
+                                </a></li>
+                                </ul>
                             </li>
                         </ul>
                         <!-- <form class="navbar-form navbar-right" role="search">

@@ -309,7 +309,7 @@
                                 <div class="card-content">
                                     <h4 class="title">Correções nos últimos dias</h4>
                                     <p class="category">
-                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i>  </span> increase in today sales.</p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">

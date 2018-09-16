@@ -5,8 +5,11 @@
 		header("Location: login.html");
 	}
     
+    $curriculo = $_SESSION["cur"];
+    $instituicao = $_SESSION["inst"];
     $id_user = $_SESSION["id_user"];
     $nome = $_SESSION["nome"];
+    
 
 
     function setSidebar_wrapper($active){
