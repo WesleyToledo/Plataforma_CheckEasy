@@ -1,10 +1,21 @@
 
 <?php session_start();
 
+    include("general_functions.php");
+    include("conexao.php");
+
 	  if(!isset($_SESSION["nome"]) AND ($_SESSION["id_user"])){
-	  	header("Location:index.php");   
+	  	header("Location:index.php");
+        
 	  }
 ?>
+
+ <script>
+	function exitSession(){
+		location.href = "exitSession.php";
+	}
+    
+</script>
 
 
 <!doctype html>
@@ -39,6 +50,8 @@
 
 </head>
 
+
+
 <body>
     <div class="wrapper">
         <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
@@ -52,34 +65,9 @@
                     CheckEasy
                 </a>
             </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li  class="">
-                        <a href="home.php">
-                            <i class="material-icons">dashboard</i>
-                            <p>Home</p>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="turmas.php">
-                            <i class="material-icons">group</i>
-                            <p>Turmas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./provas.html">
-                            <i class="material-icons">assignment</i>
-                            <p>Provas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./estatisticas.html">
-                            <i class="material-icons">pie_chart</i>
-                            <p>Estatísticas</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            
+            <?php echo setSidebar_wrapper(''); ?>
+           
         </div>
         <div class="main-panel">
             <nav class="navbar navbar-transparent navbar-absolute">
@@ -107,7 +95,7 @@
                                     <span class="notification">5</span>
                                     <p class="hidden-lg hidden-md">Notifications</p>
                                 </a>
-                                <!-- <ul class="dropdown-menu">
+                             <!-- <ul class="dropdown-menu">
                                     <li>
                                         <a href="#">Mike John responded to your email</a>
                                     </li>
@@ -123,13 +111,27 @@
                                     <li>
                                         <a href="#">Another One</a>
                                     </li>
-                                </ul> -->
+                                </ul>
                             </li>
-                            <li>
+                            <li class="dropdown">
+                            
+                            </li>-->
+                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
+                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <a onclick="exitSession()" class="dropdown-toggle">Logout    
+                                    <i class="material-icons">clear</i>
+                                </a>
+                                    </li>
+                                     <li><a href="user.php" class="dropdown-toggle">Perfil
+                                    <i class="material-icons">person</i>
+                                    <p class="hidden-lg hidden-md">Profile</p>
+                                </a></li>
+                                </ul>
                             </li>
                         </ul>
                         <!-- <form class="navbar-form navbar-right" role="search">
