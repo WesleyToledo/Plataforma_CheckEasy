@@ -196,7 +196,7 @@
                                 </ul> -->
                             </li>
                             <li>
-                                <a href="user.html" class="dropdown-toggle">
+                                <a href="user.php" class="dropdown-toggle">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
@@ -277,7 +277,7 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Correções</p>
-                                    <h3 class="title"><?php echo numCorrecoes(); ?></h3>
+                                    <h3 class="title"><?//php echo numCorrecoes(); ?></h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
