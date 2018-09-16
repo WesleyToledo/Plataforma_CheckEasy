@@ -172,20 +172,20 @@
                                     <!-- <p class="category">&nbsp;</p> -->
                                 </div>
                                 <div class="card-content">
-                                    <form>
+                                    <form action="editPerfil.php" method="post">
 
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><span><i class="fa fa-user"></i></span>Primeiro Nome</label>
-                                                    <input type="email" class="form-control" style="width: 100%;">
+                                                    <input type="text" name="primeiroNome" class="form-control" style="width: 100%;">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><span><i class="fa fa-user"></i></span>Sobrenome</label>
-                                                    <input type="email" class="form-control" style="width: 100%;">
+                                                    <input type="text" name="sobrenome"class="form-control" style="width: 100%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -194,14 +194,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><span><i class="fa fa-address-card"></i></span>Nome de Usuário</label>
-                                                    <input type="email" class="form-control" style="width: 100%;">
+                                                    <input type="text" name="nome_user" class="form-control" style="width: 100%;">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><span><i class="fa fa-envelope"></i></span>E-mail</label>
-                                                    <input type="email" class="form-control" style="width: 100%;">
+                                                    <input type="email" name="email" class="form-control" style="width: 100%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -210,7 +210,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><span><i class="fas fa-university"></i></span>Instituição</label>
-                                                    <input type="email" class="form-control" style="width: 100%;">
+                                                    <input type="text" name="instituicao" class="form-control" style="width: 100%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -219,13 +219,13 @@
                                             <div class="col-md-8">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><span><i class="fas fa-building"></i></span>Cidade</label>
-                                                    <input type="email" class="form-control" style="width: 100%;">
+                                                    <input type="text" name="cidade" class="form-control" style="width: 100%;">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">CEP</label>
-                                                    <input type="text" class="form-control" style="width: 100%;">
+                                                    <input type="text" name="cep" class="form-control" style="width: 100%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -235,7 +235,7 @@
                                                     <label style="color: #999 !important;">Sobre</label>
                                                     <div class="form-group label-floating" >
                                                         <label class="control-label"><span><i class="fa fa-book-open"></i></span>Breve Currículo</label>
-                                                        <textarea name="" id="" cols="20" rows="5" class="form-control is-focused" style="border: 1px #ccc solid" style="width: 100%;"></textarea>
+                                                        <textarea name="curriculo" id="" cols="20" rows="5" class="form-control is-focused" style="border: 1px #ccc solid" style="width: 100%;"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -244,7 +244,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><span><i class="fa fa-lock"></i></span>Senha</label>
-                                                    <input type="password" class="form-control" style="width: 100%;">
+                                                    <input type="password" name="senha" class="form-control" style="width: 100%;">
                                                 </div>
                                             </div>
                                         </div>

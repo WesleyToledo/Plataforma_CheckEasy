@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   CONSTRAINT `id_aluno_turma` FOREIGN KEY (`id_aluno_turma`) REFERENCES `turma` (`idturma`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela db_checkeasy.aluno: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela db_checkeasy.aluno: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `aluno` DISABLE KEYS */;
 INSERT INTO `aluno` (`idaluno`, `id_aluno_professor`, `id_aluno_turma`, `matricula`, `nome`, `sobrenome`) VALUES
 	(4, 8, 8, '37564000', 'Gian', 'Ferreira');
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `professor` (
   UNIQUE KEY `idprofessor` (`idprofessor`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela db_checkeasy.professor: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela db_checkeasy.professor: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `professor` DISABLE KEYS */;
 INSERT INTO `professor` (`idprofessor`, `primeiro_nome`, `sobrenome`, `nome_user`, `email`, `instituicao`, `cidade`, `cep`, `curriculo`, `senha`) VALUES
 	(8, 'Guilherme', 'Fabrício', 'gui', 'guifabricio1900@hotmail.com', 'IF', 'Borda da Mata', '37564-000', 'Minha vida é uma merda ', 'admin');
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `provas` (
   CONSTRAINT `id_provas_turma` FOREIGN KEY (`id_provas_turma`) REFERENCES `turma` (`idturma`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela db_checkeasy.provas: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela db_checkeasy.provas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `provas` DISABLE KEYS */;
 INSERT INTO `provas` (`idprovas`, `id_provas_avaliacao`, `id_provas_turma`, `id_provas_aluno`, `nota`, `acertos`, `erros`) VALUES
 	(3, 2, 8, 4, 5, '5', '0');
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `serie` (
   CONSTRAINT `id_serie_professor` FOREIGN KEY (`id_serie_professor`) REFERENCES `professor` (`idprofessor`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela db_checkeasy.serie: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela db_checkeasy.serie: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `serie` DISABLE KEYS */;
 INSERT INTO `serie` (`idserie`, `cor`, `icone`, `nome`, `id_serie_professor`) VALUES
 	(8, 'red', 'E1', 'E1', 8);
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `idusers` (`idusers`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela db_checkeasy.users: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela db_checkeasy.users: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`idusers`, `login`, `senha`, `nome_user`) VALUES
 	(2, 'gui', 'admin', 'Guilherme');
