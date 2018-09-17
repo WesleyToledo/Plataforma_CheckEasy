@@ -27,6 +27,17 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel='stylesheet'>
 
 </head>
+<?php
+    session_start();
+    
+    include("general_functions.php");
+    include("conexao.php");
+    
+    $id_user = $_SESSION["id_user"];
+    $nome = $_SESSION["nome"];
+    
+    
+    ?>
 
 <body>
     <div class="wrapper">
@@ -41,40 +52,9 @@
                     CheckEasy
                 </a>
             </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li>
-                        <a href="dashboard.html">
-                            <i class="material-icons">dashboard</i>
-                            <p>Home</p>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="./user.html">
-                            <i class="material-icons">group</i>
-                            <p>Turmas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./provas.html">
-                            <i class="material-icons">assignment</i>
-                            <p>Provas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./estatisticas.html">
-                            <i class="material-icons">pie_chart</i>
-                            <p>Estatísticas</p>
-                        </a>
-                    </li>
-                    <!-- <li class="active-pro">
-                        <a href="upgrade.html">
-                            <i class="material-icons">unarchive</i>
-                            <p>Upgrade to PRO</p>
-                        </a>
-                    </li> -->
-                </ul>
-            </div>
+            
+            <?php echo setSidebar_wrapper('provas'); ?>
+            
         </div>
         <div class="main-panel">
             <nav class="navbar navbar-transparent navbar-absolute">

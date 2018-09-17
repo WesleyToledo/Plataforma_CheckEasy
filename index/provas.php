@@ -119,7 +119,7 @@
                 </a>
             </div>
             
-            <?php echo setSidebar_wrapper('turmas'); ?>
+            <?php echo setSidebar_wrapper('provas'); ?>
             
         </div>
         <div class="main-panel">

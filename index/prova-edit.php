@@ -520,7 +520,7 @@
                 <div class="modal-body">
                     <!-- content goes here -->
 
-                    <form action="adicionarTurmaProva.php?idA=<?php echo $_GET[" idA "]; ?>" method="post">
+                    <form action="adicionarTurmaProva.php?idA=<?php echo $_GET["idA"]; ?>" method="post">
                         <div class="form-group" style="display: flex;flex-direction: column;">
                             <label for="exampleInputEmail1">Turmas</label>
 

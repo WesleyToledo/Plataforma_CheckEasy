@@ -130,7 +130,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"> Material Dashboard </a>
+                        <a class="navbar-brand" href="#">Home</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -328,7 +328,7 @@
                                     <div class="ct-chart" id="completedTasksChart"></div>
                                 </div>
                                 <div class="card-content">
-                                    <h4 class="title">Completed Tasks</h4>
+                                    <h4 class="title">Notas no sistema</h4>
                                     <p class="category">Last Campaign Performance</p>
                                 </div>
                                 <div class="card-footer">
@@ -339,7 +339,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-lg-6 col-md-6 <col-xs-12></col-xs-12> col-ws-100">
                             <div class="card card-nav-tabs">
                                 <div class="card-header" data-background-color="purple400">
@@ -610,7 +610,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="row">
 
@@ -748,7 +748,7 @@
                             document.write(new Date().getFullYear())
 
                         </script>
-                        <a href="#" class="text-info">Creative Tim</a>, made with love for a better web
+                        <a href="#" class="text-info">CheckEasy</a>, a plataforma do professor online
                     </p>
                 </div>
             </footer>

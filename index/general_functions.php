@@ -52,7 +52,7 @@
                         </a>
                     </li>
                     <li class='$active4'>
-                        <a href='./estatisticas.html'>
+                        <a href='./estatisticas.php?idT=all'>
                             <i class='material-icons'>pie_chart</i>
                             <p>Estatísticas</p>
                         </a>
