@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li class='$active3'>
-                        <a href='./provas.html'>
+                        <a href='./provas.php'>
                             <i class='material-icons'>assignment</i>
                             <p>Provas</p>
                         </a>

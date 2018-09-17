@@ -62,7 +62,7 @@
                                     </div>
                                     <div class='card-content card-turmas'>
                                         <p class='category'>&nbsp;</p>
-                                        <h3 class='title'>$turma_nome
+                                        <h3 class='title' style='overflow:hidden; width:130px;text-align:center;' title='$turma_nome'>$turma_nome
                                         </h3>
                                     </div>
                                 </a>
@@ -71,9 +71,14 @@
                                         <i class='material-icons'>group</i>
                                         <a href='#' style='color: inherit'>$serie_nome</a>
                                     </div>
-                                    <div class='stats' style='float: right'>
+                                    <div class='stats' style='float: right;'>
                                        <a data-toggle='modal' data-target='#excluirTurma$id_turma'>   
                                             <i class='material-icons' style='color: #ef5350; font-weight: 800;cursor: pointer;'>clear</i>
+                                       </a>
+                                    </div>
+                                    <div class='stats' style='float: right'>
+                                       <a data-toggle='modal' data-target='#editarTurma$id_turma'>   
+                                            <i class='material-icons' style='color: #404040; font-weight: 800;cursor: pointer;padding-right:5px;'>create</i>
                                        </a>
                                     </div>
                                 </div>
@@ -87,7 +92,7 @@
     }
     
     
-    function setSeriesCadastrarTurma(){
+    function setSeries(){
         
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
@@ -106,7 +111,7 @@
                 $id_serie = $row["idserie"];
                 $nome_serie = $row["nome"];
                 
-                $html .= "<option value='$id_serie'>$nome_serie</option>";
+                $html .= " <option value='$id_serie'>$nome_serie</option>";
             }
         } else {
         }
@@ -259,6 +264,64 @@
             }
         return $html;
     }
+    function geraEditTurma(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT idturma,nome,id_turma_serie FROM turma WHERE id_turma_professor = $id_user";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_turma = $row["idturma"];
+                    $nome = $row["nome"];
+                    $id_serie = $row["id_turma_serie"];
+                    
+                    $html .= "
+                            <div class='modal fade' id='editarTurma$id_turma' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                            <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button>
+                                            <h3 class='modal-title mx-auto' id='lineModalLabel'>Editar Turma</h3>
+                                        </div>
+                                        <div class='modal-body'>
+                                        <!-- content goes here -->
+                                        <form action='editarTurma.php?idT=$id_turma' method='post'>
+                                            <div class='form-group'>
+                                                <label >Nome da Turma</label>
+                                                <input type='text' name='nomeTurma' class='form-control' name='nome_turma' value='$nome' >
+                                            </div>
+                                            <div class='form-group' style='display: flex;flex-direction: column;'>
+                                                <label>Série</label>
+                                                <div style='display: flex; flex-direction: row;justify-content: flex-start'>
+                                                    <select id='turma' name='serie' class='custom-select' style='margin-top: 13px;margin-bottom: 13px;border: 0.5px #ccc solid; border-radius: 5px;width: 100%;'>    ".setSeries()."     
+                                                    
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class='modal-footer'>
+                                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                                <button type='submit' class='btn btn-info'>Editar Turma</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                    ";
+                }
+            } else {
+            }
+        return $html;
+    }
+    
+    
+                                               /* onclick="demo.showNotification('top','right','Turma Cadastrada')" */
+
     
     function geraExcluirAluno(){
         include("conexao.php");
@@ -352,6 +415,7 @@
     
     
 ?>
+
 <body>
     <div class="wrapper">
         <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
@@ -365,7 +429,7 @@
                     CheckEasy
                 </a>
             </div>
-            
+
             <?php echo setSidebar_wrapper('turmas'); ?>
 
         </div>
@@ -478,10 +542,10 @@
                     </div>
 
                     <div class="row">
-                       
-                       <?php  echo listTurmas(); ?>
-                       
-                       <!-- 
+
+                        <?php  echo listTurmas(); ?>
+
+                        <!-- 
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100" style="">
                             <div class="card card-stats ">
                                 <a href="" style="color: inherit;">
@@ -587,8 +651,8 @@
                                             </th>
                                         </thead>
                                         <tbody>
-                                           <?php  echo setAlunosTurma(); ?>
-                                           
+                                            <?php  echo setAlunosTurma(); ?>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -605,6 +669,7 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
+
                         </script>
                         <a href="#" class="text-info">CheckEasy</a>, a plataforma online dedicada aos professores
                     </p>
@@ -636,7 +701,7 @@
                             <div style="display: flex; flex-direction: row;justify-content: flex-start">
                                 <select id="turma" name="serie" class="custom-select" style="margin-top: 13px;margin-bottom: 13px;border: 0.5px #ccc solid; border-radius: 5px;width: 70%;">
                                  
-                                 <?php  echo setSeriesCadastrarTurma();  ?>
+                                 <?php  echo setSeries();  ?>
                                 </select>
                                 <div style="display: flex;flex-direction: column; ustify-content: center; align-items: center; width: 30%">
 
@@ -661,7 +726,7 @@
     </div>
 
     <!----- CRIA SÉRIE ----->
-    <div class="modal fade" id="criaSerie" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal fade" id="criaSerie" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -691,31 +756,10 @@
 
     <?php
         echo geraEditAluno();
+        echo geraEditTurma();
         echo geraExcluirAluno();
         echo geraExcluirTurma();
     ?>
-
-    
-<!----- Excluir Turma ----->
-    <!-- <div class="modal fade" id="excluirTurma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Excluir Turma</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Tem certeza que deseja excluir o turma x ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-info">Excluir</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
 
 </body>
@@ -726,6 +770,7 @@
             $('#criaSerie').modal('show');
         }
     });
+
 </script>
 
 <!--   Core JS Files   -->
@@ -754,6 +799,7 @@
         demo.initDashboardPageCharts();
 
     });
+
 </script>
 
 </html>

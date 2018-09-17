@@ -28,6 +28,82 @@
 
 </head>
 
+<?php session_start();
+    
+    include("general_functions.php");
+    include("conexao.php");
+    
+    if(!isset($_SESSION["login"])){
+		header("Location: login.html");
+	}
+    
+    $id_user = $_SESSION["id_user"];
+    $nome = $_SESSION["nome"];
+    
+    
+    function listProvas(){
+        include("conexao.php");
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        $html = "";
+        
+        $sql= "SELECT * FROM avaliacao WHERE id_avaliacao_professor = $id_user";
+        
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                
+                $nome = $row["nome"];
+                $quant_questoes = $row["quant_questoes"];
+                $quant_alternativas = $row["quant_alternativas"];
+                $valor = $row["valor"];
+                
+                $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
+                            <div class='card text-center'>
+                                <div class='card-header' data-background-color='blue400' style='position: absolute; width: 6em;height: 6em; display: flex; justify-content: center;flex-direction: column;align-items: center;'>
+                                    <i class='material-icons' style='font-size: 2.8em;'>assignment</i>
+                                </div>
+                                <a href='prova-edit.html'>
+                                <img class='card-img-top' src='https://picsum.photos/1900/1080?image=320' >
+                                <div class='card-body' id='card'>
+                                    <h5 class='card-title text-info' style='font-weight: 500'>$nome</h5>
+                                </div>
+                                <div class='card-footer text-muted'>
+                                    <div class='row'>
+                                        <div style='display: flex;justify-content: space-around; flex-direction: row;'>
+                                            <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.2em'>visibility</i>
+                                                <p style='margin: 0; font-size: 0.8em'>$quant_questoes questões</p>
+                                            </div>
+                                            <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.2em'>edit</i>
+                                                <p style='margin: 0; font-size: 0.8em'>$quant_alternativas Alternativas</p>
+                                            </div>
+                                            <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.2em'>local_offer</i>
+                                                <p style='margin: 0; font-size: 0.8em'>$valor pontos</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                                <a href='prova-results.html'>
+                                    <button type='button' class='btn btn-info'>Correções</button>
+                                </a>
+                            </div>
+                        </div>";
+            }
+        } else {
+            echo "0 resultados";
+        }
+        
+        return $html;
+        
+    }
+    
+?>
+
 <body>
     <div class="wrapper">
         <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
@@ -41,40 +117,9 @@
                     CheckEasy
                 </a>
             </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li>
-                        <a href="home.php">
-                            <i class="material-icons">dashboard</i>
-                            <p>Home</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./turmas.html">
-                            <i class="material-icons">group</i>
-                            <p>Turmas</p>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="./provas.html">
-                            <i class="material-icons">assignment</i>
-                            <p>Provas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./estatisticas.html">
-                            <i class="material-icons">pie_chart</i>
-                            <p>Estatísticas</p>
-                        </a>
-                    </li>
-                    <!-- <li class="active-pro">
-                        <a href="upgrade.html">
-                            <i class="material-icons">unarchive</i>
-                            <p>Upgrade to PRO</p>
-                        </a>
-                    </li> -->
-                </ul>
-            </div>
+            
+            <?php echo setSidebar_wrapper('turmas'); ?>
+            
         </div>
         <div class="main-panel">
             <nav class="navbar navbar-transparent navbar-absolute">
@@ -185,121 +230,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
-                            <div class="card text-center">
-                                <div class="card-header" data-background-color="blue400" style="position: absolute; width: 6em;height: 6em; display: flex; justify-content: center;flex-direction: column;align-items: center;">
-                                    <i class="material-icons" style="font-size: 2.8em;">assignment</i>
-                                </div>
-                                <a href="prova-edit.html">
-                                <img class="card-img-top" src="https://picsum.photos/1900/1080?image=320" alt="Card image cap">
-                                <div class="card-body" id="card">
-                                    <h5 class="card-title text-info" style="font-weight: 500">Sistemas Lineares</h5>
-                                </div>
-                                <div class="card-footer text-muted">
-                                    <div class="row">
-                                        <div style="display: flex;justify-content: space-around; flex-direction: row;">
-                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
-                                                <i class="material-icons" style="padding: 5px; font-size: 1.2em">visibility</i>
-                                                <p style="margin: 0; font-size: 0.8em">5 questões</p>
-                                            </div>
-                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
-                                                <i class="material-icons" style="padding: 5px; font-size: 1.2em">edit</i>
-                                                <p style="margin: 0; font-size: 0.8em">5 Alternativas</p>
-                                            </div>
-                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
-                                                <i class="material-icons" style="padding: 5px; font-size: 1.2em">local_offer</i>
-                                                <p style="margin: 0; font-size: 0.8em">5 pontos</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                </a>
-                                <a href="prova-results.html">
-                                    <button type="button" class="btn btn-info">Correções</button>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
-                            <div class="card text-center">
-                                <div class="card-header" data-background-color="blue400" style="position: absolute; width: 6em;height: 6em; display: flex; justify-content: center;flex-direction: column;align-items: center;">
-                                    <i class="material-icons" style="font-size: 2.8em;">assignment</i>
-                                </div>
-                                <a href="prova-edit.html">
-                                <img class="card-img-top" src="https://picsum.photos/1900/1080?image=327" alt="Card image cap">
-                                <div class="card-body" id="card">
-                                    <h5 class="card-title text-info" style="font-weight: 500">Sistemas Lineares</h5>
-                                </div>
-                                <div class="card-footer text-muted">
-                                    <div class="row">
-                                        <div style="display: flex;justify-content: space-around; flex-direction: row;">
-                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
-                                                <i class="material-icons" style="padding: 5px; font-size: 1.2em">visibility</i>
-                                                <p style="margin: 0; font-size: 0.8em">5 questões</p>
-                                            </div>
-                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
-                                                <i class="material-icons" style="padding: 5px; font-size: 1.2em">edit</i>
-                                                <p style="margin: 0; font-size: 0.8em">5 Alternativas</p>
-                                            </div>
-                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
-                                                <i class="material-icons" style="padding: 5px; font-size: 1.2em">local_offer</i>
-                                                <p style="margin: 0; font-size: 0.8em">5 pontos</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                </a>
-                                <a href="prova-results.html">
-                                    <button type="button" class="btn btn-info">Correções</button>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
-                            <div class="card text-center">
-                                <div class="card-header" data-background-color="blue400" style="position: absolute; width: 6em;height: 6em; display: flex; justify-content: center;flex-direction: column;align-items: center;">
-                                    <i class="material-icons" style="font-size: 2.8em;">assignment</i>
-                                </div>
-                                <a href="prova-edit.html">
-                                <img class="card-img-top" src="https://picsum.photos/1900/1080?image=328" alt="Card image cap">
-                                <div class="card-body" id="card">
-                                    <h5 class="card-title text-info" style="font-weight: 500">Sistemas Lineares</h5>
-                                </div>
-                                <div class="card-footer text-muted">
-                                    <div class="row">
-                                        <div style="display: flex;justify-content: space-around; flex-direction: row;">
-                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
-                                                <i class="material-icons" style="padding: 5px; font-size: 1.2em">visibility</i>
-                                                <p style="margin: 0; font-size: 0.8em">5 questões</p>
-                                            </div>
-                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
-                                                <i class="material-icons" style="padding: 5px; font-size: 1.2em">edit</i>
-                                                <p style="margin: 0; font-size: 0.8em">5 Alternativas</p>
-                                            </div>
-                                            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center;">
-                                                <i class="material-icons" style="padding: 5px; font-size: 1.2em">local_offer</i>
-                                                <p style="margin: 0; font-size: 0.8em">5 pontos</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                </a>
-                                <a href="prova-results.html">
-                                    <button type="button" class="btn btn-info">Correções</button>
-                                </a>
-                            </div>
-                        </div>
-
-
-
-
+                        
+                        <?php echo listProvas(); ?>  
+                        
                     </div>
-
-
-
-
-
-
-
-
 
 
                     <footer class="footer">
