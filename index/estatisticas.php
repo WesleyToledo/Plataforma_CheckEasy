@@ -1,3 +1,13 @@
+
+
+<?php session_start();
+
+    include("general_functions.php");
+    include("conexao.php");
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -41,40 +51,12 @@
                     CheckEasy
                 </a>
             </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li>
-                        <a href="home.php">
-                            <i class="material-icons">dashboard</i>
-                            <p>Home</p>
-                        </a>
-                    </li>
-                    <li >
-                        <a href="./user.html">
-                            <i class="material-icons">group</i>
-                            <p>Turmas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./provas.html">
-                            <i class="material-icons">assignment</i>
-                            <p>Provas</p>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="./estatisticas.html">
-                            <i class="material-icons">pie_chart</i>
-                            <p>Estatísticas</p>
-                        </a>
-                    </li>
-                    <!-- <li class="active-pro">
-                        <a href="upgrade.html">
-                            <i class="material-icons">unarchive</i>
-                            <p>Upgrade to PRO</p>
-                        </a>
-                    </li> -->
-                </ul>
-            </div>
+            
+                        
+   <?php echo setSidebar_wrapper('estatisticas'); ?>
+           
+           
+            
         </div>
         <div class="main-panel">
             <nav class="navbar navbar-transparent navbar-absolute">
@@ -133,23 +115,7 @@
                                     <span class="notification">5</span>
                                     <p class="hidden-lg hidden-md">Notifications</p>
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">Mike John responded to your email</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You have 5 new tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Andrew</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another Notification</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another One</a>
-                                    </li>
-                                </ul>
+                                
                             </li>
                             <li>
                                 <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
@@ -177,124 +143,24 @@
                     <h4>Turmas</h4>
 
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100" style="">
-                            <div class="card card-stats ">
-                                <a href="" style="color: inherit;">
-                                    <div class="card-header" data-background-color="blue400">
-                                        <i class="fa fa-graduation-cap"></i>
-                                    </div>
-                                    <div class="card-content card-turmas">
-                                        <p class="category">&nbsp;</p>
-                                        <h3 class="title">3ºE1
-                                            <!-- <small>GB</small> -->
-                                        </h3>
-                                    </div>
-                                </a>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">group</i>
-                                        <a href="#" style="color: inherit;">Ensino Médio</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
-                            <div class="card card-stats ">
-                                <a href="" style="color: inherit;">
-                                    <div class="card-header" data-background-color="red400">
-                                        <i class="fa fa-pencil"></i>
-                                    </div>
-                                    <div class="card-content card-turmas">
-                                        <p class="category">&nbsp;</p>
-                                        <h3 class="title">9º A
-                                            <!-- <small>GB</small> -->
-                                        </h3>
-                                    </div>
-                                </a>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">group</i>
-                                        <a href="#" style="color: inherit;">Ensino Fundamental</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
-                            <div class="card card-stats ">
-                                <a href="" style="color: inherit;">
-                                    <div class="card-header" data-background-color="green400">
-                                        <i class="fa fa-graduation-cap"></i>
-                                    </div>
-                                    <div class="card-content card-turmas">
-                                        <p class="category">&nbsp;</p>
-                                        <h3 class="title">1ºE1
-                                            <!-- <small>GB</small> -->
-                                        </h3>
-                                    </div>
-                                </a>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">group</i>
-                                        <a href="#" style="color: inherit;">Ensino Médio</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
-                            <div class="card card-stats ">
-                                <a href="" style="color: inherit;">
-                                    <div class="card-header" data-background-color="orange400">
-                                        <i class="fa fa-graduation-cap"></i>
-                                    </div>
-                                    <div class="card-content card-turmas">
-                                        <p class="category">&nbsp;</p>
-                                        <h3 class="title">Proeja
-                                            <!-- <small>GB</small> -->
-                                        </h3>
-                                    </div>
-                                </a>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">group</i>
-                                        <a href="#" style="color: inherit;">Ensino Médio</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                        
+                        echo exibeTurma();
+                        
+                        ?>
+                        
                     </div>
 
                     <h4>Provas</h4>
 
                     <div class="row">
-                        <div class="col-lg col-md-6 col-sm-6 col-xs-6 col-ws-100" style="">
-                            <div class="card card-stats ">
-                                <a href="" style="color: inherit;">
-                                    <div class="card-header" data-background-color="blue400">
-                                        <i class="material-icons">assignment</i>
-                                    </div>
-                                    <div class="card-content card-turmas">
-                                        <p class="category">&nbsp;</p>
-                                        <h3 class="title">Sistemas Lineares
-                                            <!-- <small>GB</small> -->
-                                        </h3>
-                                    </div>
-                                </a>
-                                <div class="card-footer" style="display: flex;flex-direction: row;justify-content: space-around;">
-                                    <div class="stats">
-                                        <i class="material-icons">visibility</i>
-                                        <a href="#" style="color: inherit;">10 Questões</a>
-                                    </div> 
-                                    <div class="stats">
-                                        <i class="material-icons">edit</i>
-                                        <a href="#" style="color: inherit;">5 Alternativas</a>
-                                    </div> 
-                                    <div class="stats">
-                                        <i class="material-icons">local_offer</i>
-                                        <a href="#" style="color: inherit;">5 Pontos</a>
-                                    </div>          
-                                </div>
-                            </div>
-                        </div>
+                        
+                        <?php
+                        
+                        echo exibeProva();
+                        
+                        ?>
+                        
                     </div>
                     
                     <div class="row">
@@ -485,3 +351,113 @@
 </script>
 
 </html>
+
+<?php
+
+function exibeTurma(){
+
+    include ("conexao.php");
+    
+    $id_user = $_SESSION["id_user"];
+        
+         $sql = "SELECT * FROM serie, turma WHERE id_serie_professor='$id_user'";   
+    
+     $result = $conn->query($sql);
+    
+    while($row = $result->fetch_assoc()){
+            
+
+            $nome_turma = $row["nome"];
+            $ensino = $row["ensino"];
+            
+
+            
+            echo " <div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100' style=''>
+                            <div class='card card-stats '>
+                                <a href='' style='color: inherit;'>
+                                    <div class='card-header' data-background-color='blue400'>
+                                        <i class='fa fa-graduation-cap'></i>
+                                    </div>
+                                    <div class='card-content card-turmas'>
+                                        <p class='category'>&nbsp;</p>
+                                        <h3 class='title'>  $nome_turma
+                                            <!-- <small>GB</small> -->
+                                        </h3>
+                                    </div>
+                                </a>
+                                <div class='card-footer'>
+                                    <div class='stats'>
+                                        <i class='material-icons'>group</i>
+                                        <a href='#' style='color: inherit;'>$ensino</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> ";
+                
+                echo "</form>";
+    
+    }
+}
+
+
+
+?>
+
+<?php
+
+
+function exibeProva(){
+    
+    include ("conexao.php");
+    
+     $id_user = $_SESSION["id_user"];
+        
+         $sql = "SELECT * FROM avaliacao WHERE id_avaliacao_professor='$id_user'";   
+    
+     $result = $conn->query($sql);
+    
+    while($row = $result->fetch_assoc()){
+        
+        $quant = $row["quant_alternativas"];
+        $valor = $row["valor"];
+        $quant_questoes = $row["quant_questoes"];
+        $gabarito = $row["gabarito"];
+        
+    
+    
+echo "<div class='col-lg col-md-6 col-sm-6 col-xs-6 col-ws-100' style=''>
+                            <div class='card card-stats '>
+                                <a href='' style='color: inherit;'>
+                                    <div class='card-header' data-background-color='blue400'>
+                                        <i class='material-icons'>assignment</i>
+                                    </div>
+                                    <div class='card-content card-turmas'>
+                                        <p class='category'>&nbsp;</p>
+                                        <h3 class='title'>$gabarito
+                                            <!-- <small>GB</small> -->
+                                        </h3>
+                                    </div>
+                                </a>
+                                <div class='card-footer' style='display: flex;flex-direction: row;justify-content: space-around;'>
+                                    <div class='stats'>
+                                        <i class='material-icons'>visibility</i>
+                                        <a href='#' style='color: inherit;'>$quant_questoes Questões</a>
+                                    </div> 
+                                    <div class='stats'>
+                                        <i class='material-icons'>edit</i>
+                                        <a href='#' style='color: inherit;'>$quant Alternativas</a>
+                                    </div> 
+                                    <div class='stats'>
+                                        <i class='material-icons'>local_offer</i>
+                                        <a href='#' style='color: inherit;'>$valor Pontos</a>
+                                    </div>          
+                                </div>
+                            </div>
+                        </div>" ;
+        
+
+    
+}
+}
+
+?>
