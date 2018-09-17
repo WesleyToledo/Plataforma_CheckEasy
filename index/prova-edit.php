@@ -28,6 +28,70 @@
 
 </head>
 
+<?php session_start();
+    
+    include("general_functions.php");
+    include("conexao.php");
+    
+	if(!isset($_SESSION["login"])){
+		header("Location: login.html");
+	}
+    
+    $id_user = $_SESSION["id_user"];
+    $nome = $_SESSION["nome"];
+    
+    function setNomeProva(){
+        include("conexao.php");
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        
+        $id_avaliacao = $_GET["idA"];
+        
+        $sql = "SELECT nome FROM avaliacao WHERE idavaliacao = $id_avaliacao";
+        
+        $nomeAvaliacao = "";
+        
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $nomeAvaliacao = $row["nome"];
+            }
+        return $nomeAvaliacao;
+    }
+    }
+    
+    function setSeriesCheck(){
+        include("conexao.php");
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        $html = "";
+        $count = 1;
+        
+        $sql = "SELECT idturma, nome FROM turma WHERE id_turma_professor = $id_user";
+        
+         $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $nomeTurma = $row["nome"];
+                $id_turma = $row["idturma"];
+                
+                $html .= "<div class='funkyradio-info'>
+                            <input type='checkbox' name='checkbox$nomeTurma' id='checkbox$count' value='$id_turma'/>
+                            <label for='checkbox$count'>$nomeTurma</label>
+                        </div>";
+                $count++;
+            }
+        return $html;
+    }}
+    
+    
+    
+    
+    
+?>
+
 <body>
     <div class="wrapper">
         <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
@@ -36,40 +100,9 @@
                     CheckEasy
                 </a>
             </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li>
-                        <a href="dashboard.html">
-                            <i class="material-icons">dashboard</i>
-                            <p>Home</p>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="./user.html">
-                            <i class="material-icons">group</i>
-                            <p>Turmas</p>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="./provas.html">
-                            <i class="material-icons">assignment</i>
-                            <p>Provas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./estatisticas.html">
-                            <i class="material-icons">pie_chart</i>
-                            <p>Estatísticas</p>
-                        </a>
-                    </li>
-                    <!-- <li class="active-pro">
-                        <a href="upgrade.html">
-                            <i class="material-icons">unarchive</i>
-                            <p>Upgrade to PRO</p>
-                        </a>
-                    </li> -->
-                </ul>
-            </div>
+            
+            <?php echo setSidebar_wrapper('provas'); ?>
+            
         </div>
         <div class="main-panel">
             <nav class="navbar navbar-transparent navbar-absolute">
@@ -81,7 +114,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Sistemas Lineares</a>
+                        <a class="navbar-brand" href="#"><?php echo setNomeProva(); ?></a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -795,25 +828,14 @@
                 </div>
                 <div class="modal-body">
                     <!-- content goes here -->
-                    <form action="#" method="">
+                    
+                    <form action="adicionarTurmaProva.php?idA=<?php echo $_GET["idA"]; ?>" method="post">
                         <div class="form-group" style="display: flex;flex-direction: column;">
                             <label for="exampleInputEmail1">Turmas</label>
 
                             <div class="funkyradio">
-                                <div class="funkyradio-info">
-                                    <input type="checkbox" name="checkbox" id="checkbox1" />
-                                    <label for="checkbox1">3ºE1</label>
-                                </div>
-                                <div class="funkyradio-info">
-                                    <input type="checkbox" name="checkbox" id="checkbox2" />
-                                    <label for="checkbox2">3ºE2</label>
-                                </div>
-                                <div class="funkyradio-info">
-                                    <input type="checkbox" name="checkbox" id="checkbox3" />
-                                    <label for="checkbox3">1ºE1</label>
-                                </div>
+                                <?php echo setSeriesCheck(); ?>
                             </div>
-
 
                         </div>
                         <div class="modal-footer">
@@ -822,35 +844,6 @@
 
                             <!-- onclick="demo.showNotification('top','right','Turma Cadastrada')" -->
 
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!----- CRIA SÉRIE ----->
-    <div class="modal fade" id="criaSerie" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title mx-auto" id="lineModalLabel">Criar Série</h3>
-                </div>
-                <div class="modal-body">
-                    <!-- content goes here -->
-                    <form action="#" method="post">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Nome da Série</label>
-                            <input type="text" class="form-control" name="nome_turma" placeholder="">
-
-                        </div>
-                        <div class="form-group" style="display: flex;flex-direction: column;">
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-info">Salvar Informações</button>
                         </div>
                     </form>
                 </div>
