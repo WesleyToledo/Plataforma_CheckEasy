@@ -122,18 +122,57 @@
                                             <i class='material-icons' style='color: #ef5350; font-weight: 800;cursor: pointer;'>clear</i>
                                        </a>
                                     </div>
-                                    <div class='stats' style='float: right'>
-                                       <a data-toggle='modal' data-target='#editarTurma$id_turma'>   
-                                            <i class='material-icons' style='color: #404040; font-weight: 800;cursor: pointer;padding-right:5px;'>create</i>
-                                       </a>
-                                    </div>
                                 </div>
                             </div>
                         </div>";
             }
         } else {
-            echo "0 resultados";
+            echo "Nenhuma turma encontrada";
         }
+        return $html;
+    }
+    
+    
+    function geraExcluirTurma(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT idturma,nome FROM turma WHERE id_turma_professor = $id_user";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_turma = $row["idturma"];
+                    $nome = $row["nome"];
+                    $id_avaliacao = $_GET["idA"];
+                    
+                    $html .= "<div class='modal fade' id='excluirTurma$id_turma' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title' id='exampleModalLabel'>Excluir Turma</h5>
+                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                            </div>
+                            <div class='modal-body'>
+                                Tem certeza que deseja excluir a turma $nome ?
+                            </div>
+                            <div class='modal-footer'>
+                            <form action='excluirTurmaProva.php?idT=$id_turma&idA=$id_avaliacao' method='post'>
+                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                <button type='submit' class='btn btn-info' >Excluir</button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+                            }
+            } else {
+            }
         return $html;
     }
     
@@ -819,6 +858,10 @@
             </div>
         </div>
     </div>
+    
+    
+    <?php echo geraExcluirTurma(); ?>
+    
 
 
 </body>
