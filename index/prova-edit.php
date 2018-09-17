@@ -248,27 +248,27 @@
         $html .= "<tbody class='body-gabarito'>";
         
         $count = 0;
-        while($gabarito != ""){           
-            if(strpos($gabarito,"/") != -1){
-                $barra = strpos($gabarito,"/");
-                $tamanho = strlen($gabarito);
+        while($gabarito != ""){      
+            $barra = strpos($gabarito,"/");
+            $tamanho = strlen($gabarito);
+            if(strpos($gabarito,"/")){
                 $gabarito_array[$count] = substr($gabarito,0,$barra);
                 $gabarito = substr($gabarito, $barra + 1, $tamanho);
                 $count++;
             }else{
-                $count++;
-                $gabarito_array[$count] = substr($gabarito, 0, strlen($gabarito));
+                $gabarito_array[$count] = substr($gabarito, 0, $tamanho);
                 $gabarito = "";
             }
         }
         
         $count = 0;
         for($x=0;$x<sizeof($gabarito_array);$x++){
+            
             if($x%2 == 0){
-            $certas[$count] = $gabarito_array[$x + 1];
+                $certas[$count] = $gabarito_array[$x + 1];
+                //echo $certas[$count];
                 $count++;
             }
-            
         }
         
         for($x=1;$x<=$num_questoes;$x++)
@@ -308,7 +308,7 @@
                     </td>";
         }
      
-        $html .= "</tbody>";
+        $html .= "<input type='radio' name='idA' value='$id_avaliacao' checked style='visibility:hidden;'></tbody>";
         
     return $html;
     }
@@ -337,9 +337,9 @@
                     CheckEasy
                 </a>
             </div>
-            
+
             <?php echo setSidebar_wrapper('provas'); ?>
-            
+
         </div>
         <div class="main-panel">
             <nav class="navbar navbar-transparent navbar-absolute">
@@ -351,7 +351,9 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"><?php echo setNomeProva(); ?></a>
+                        <a class="navbar-brand" href="#">
+                            <?php echo setNomeProva(); ?>
+                        </a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -454,508 +456,39 @@
                     </div>
 
 
-                    <div class="row justify-content-center">
-                        <div class="col-md-2">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header" data-background-color="green400" style="text-align:justify;">
-                                    <h3 class="title" style="font-weight: 600;">Gabarito</h3>
-                                </div>
-                                <div class="card-content table-responsive">
-                                    <table class="table">
-                                        <form action="">
-                                           
-                                           <?php echo geraGabarito(); ?>
-                                           
-                                           
-                                            <!-- <thead class="text-success th-gabarito">
-                                                <th>
-                                                    <center>
-                                                        &nbsp;
-                                                    </center>
-                                                </th>
-                                                <th>
-                                                    <center>
-                                                        <h4>A</h4>
-                                                    </center>
-                                                </th>
-                                                <th>
-                                                    <center>
-                                                        <h4>B</h4>
-                                                    </center>
-                                                </th>
-                                                <th>
-                                                    <center>
-                                                        <h4>C</h4>
-                                                    </center>
-                                                </th>
-                                                <th>
-                                                    <center>
-                                                        <h4>D</h4>
-                                                    </center>
-                                                </th>
-                                                <th>
-                                                    <center>
-                                                        <h4>E</h4>
-                                                    </center>
-                                                </th>
-                                                <th>
-                                                    <center>
-                                                        <h4>&nbsp;</h4>
-                                                    </center>
-                                                </th>
-                                                <th style="width: 20%">
-                                                    <center>
-                                                        <h4>Pontuação</h4>
-                                                    </center>
-                                                </th>
-                                            </thead> -->
-                                            <!-- <tbody class="body-gabarito">
-                                                <tr>
-                                                    <td>
-                                                        <center>
-                                                            <h4>1</h4>
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            &nbsp;
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
-                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <tr>
-                                                    <td>
-                                                        <center>
-                                                            <h4>2</h4>
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="2" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="2" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="2" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="2" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="2" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            &nbsp;
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
-                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <tr>
-                                                    <td>
-                                                        <center>
-                                                            <h4>3</h4>
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            &nbsp;
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
-                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <tr>
-                                                    <td>
-                                                        <center>
-                                                            <h4>4</h4>
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            &nbsp;
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
-                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <tr>
-                                                    <td>
-                                                        <center>
-                                                            <h4>5</h4>
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            &nbsp;
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
-                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <tr>
-                                                    <td>
-                                                        <center>
-                                                            <h4>6</h4>
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            &nbsp;
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
-                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <tr>
-                                                    <td>
-                                                        <center>
-                                                            <h4>7</h4>
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            &nbsp;
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
-                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <tr>
-                                                    <td>
-                                                        <center>
-                                                            <h4>8</h4>
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            &nbsp;
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
-                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <tr>
-                                                    <td>
-                                                        <center>
-                                                            <h4>9</h4>
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            &nbsp;
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
-                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <tr>
-                                                    <td>
-                                                        <center>
-                                                            <h4>10</h4>
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            <input type="radio" name="1" value="male">
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <center>
-                                                            &nbsp;
-                                                        </center>
-                                                    </td>
-                                                    <td class="radio-gabarito">
-                                                        <div style="padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start">
-                                                            <input type="number" min="0" max="10" step="0.1" style="border: none; border-bottom: 1px solid #ccc">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            
-                                                
-                                            </tbody> -->
-                                        </form>
-                                    </table>
+                    <form action="cadastrarGabarito.php">
+                        <div class="row justify-content-center">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header" data-background-color="green400" style="text-align:justify;">
+                                        <h3 class="title" style="font-weight: 600;">Gabarito</h3>
+                                    </div>
+                                    <div class="card-content table-responsive">
+                                        <table class="table">
+
+                                            <?php echo geraGabarito(); ?>
+
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-1">
+                            <div class="col-md-1">
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
-                                <button type="button" class="btn btn-success" style="justify-content: center;align-items: center;display: flex;flex-direction: row;">
+                        <div class="row">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
+                                    <button type="submit" class="btn btn-success" style="justify-content: center;align-items: center;display: flex;flex-direction: row;">
                                     <i class="material-icons" style="font-size: 27px;">check_circle_outline</i>
                                     &nbsp;&nbsp;&nbsp; Confirmar
                                 </button>
-                            </li>
-                        </ul>
-                    </div>
-
-
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
                 </div>
             </div>
             <footer class="footer">
@@ -964,8 +497,9 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
+
                         </script>
-                        <a href="#">CheckEasy</a>, a plataforma online dedicada aos professores
+                        <a href="#">CheckEasy</a>, a plataforma online dedicada a professores
                     </p>
                 </div>
             </footer>
@@ -985,8 +519,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- content goes here -->
-                    
-                    <form action="adicionarTurmaProva.php?idA=<?php echo $_GET["idA"]; ?>" method="post">
+
+                    <form action="adicionarTurmaProva.php?idA=<?php echo $_GET[" idA "]; ?>" method="post">
                         <div class="form-group" style="display: flex;flex-direction: column;">
                             <label for="exampleInputEmail1">Turmas</label>
 
@@ -1007,10 +541,10 @@
             </div>
         </div>
     </div>
-    
-    
+
+
     <?php echo geraExcluirTurma(); ?>
-    
+
 
 
 </body>
@@ -1021,6 +555,7 @@
             $('#criaSerie').modal('show');
         }
     });
+
 </script>
 
 <!--   Core JS Files   -->
@@ -1049,6 +584,7 @@
         demo.initDashboardPageCharts();
 
     });
+
 </script>
 
 </html>
