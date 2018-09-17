@@ -58,6 +58,7 @@
                 $quant_questoes = $row["quant_questoes"];
                 $quant_alternativas = $row["quant_alternativas"];
                 $valor = $row["valor"];
+                $id_avaliacao = $row["idavaliacao"];
                 
                 $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                             <div class='card text-center'>
@@ -88,14 +89,14 @@
                                     </div>
                                 </div>
                                 </a>
-                                <a href='prova-results.html'>
+                                <a href='prova-results.php?idA=$id_avaliacao'>
                                     <button type='button' class='btn btn-info'>Correções</button>
                                 </a>
                             </div>
                         </div>";
             }
         } else {
-            echo "0 resultados";
+            echo "Nenhuma Prova Cadastrada";
         }
         
         return $html;
@@ -263,26 +264,26 @@
                         </div>
                         <div class="modal-body">
                             <!-- content goes here -->
-                            <form action="#" method="post">
+                            <form action="cadastrarProva.php" method="post">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nome/Identificação</label>
-                                    <input type="text" class="form-control" name="nome_turma" placeholder="">
+                                    <input type="text" class="form-control" name="nome_prova" placeholder="">
                                 </div>
 
                                 <div style="display: flex;flex-direction: row; justify-content: flex-start;">
                                     <div class="form-group" style="width: 30% !important;margin-right: 10px;">
                                         <label for="exampleInputEmail1">Número de Questões</label>
-                                        <input type="number" class="form-control" name="nome_turma" placeholder="">
+                                        <input type="number" class="form-control" name="num_questoes" placeholder="">
                                     </div>
                                     <div class="form-group" style="width: 30% !important;margin-right: 10px; ">
                                         <label for="exampleInputEmail1">Número de Alternativas</label>
-                                        <input type="number" class="form-control" name="nome_turma" placeholder="">
+                                        <input type="number" class="form-control" name="num_alternativas" placeholder="">
                                     </div>
                                 </div>
                                 <div style="display: flex;flex-direction: row; justify-content: flex-start;">
                                     <div class="form-group" style="width: 30% !important;margin-right: 10px; ">
                                         <label for="exampleInputEmail1">Valor Total</label>
-                                        <input type="number" step="0.1" class="form-control" name="nome_turma" placeholder="">
+                                        <input type="number" step="0.1" class="form-control" name="valor_total" placeholder="">
                                     </div>
 
                                 </div>
@@ -299,45 +300,11 @@
                 </div>
             </div>
 
-            <!----- CRIA SÉRIE ----->
-            <div class="modal fade" id="criaSerie" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                            <h3 class="modal-title mx-auto" id="lineModalLabel">Criar Série</h3>
-                        </div>
-                        <div class="modal-body">
-                            <!-- content goes here -->
-                            <form action="#" method="post">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Nome da Série</label>
-                                    <input type="text" class="form-control" name="nome_turma" placeholder="">
-
-                                </div>
-                                <div class="form-group" style="display: flex;flex-direction: column;">
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                    <button type="submit" class="btn btn-info">Salvar Informações</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </body>
 
-<script>
-    $('#turma').on('change', function() {
-        if ($(this).val() == "1") {
-            $('#criaSerie').modal('show');
-        }
-    });
-</script>
+
 
 <!--   Core JS Files   -->
 <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
