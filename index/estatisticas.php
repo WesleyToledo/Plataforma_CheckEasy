@@ -117,11 +117,22 @@
                                 </a>
                                 
                             </li>
-                            <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                             <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
+                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <a onclick="exitSession()" class="dropdown-toggle">Logout    
+                                    <i class="material-icons">clear</i>
+                                </a>
+                                    </li>
+                                     <li><a href="user.php" class="dropdown-toggle">Perfil
+                                    <i class="material-icons">person</i>
+                                    <p class="hidden-lg hidden-md">Profile</p>
+                                </a></li>
+                                </ul>
                             </li>
                         </ul>
                         <!-- <form class="navbar-form navbar-right" role="search">
@@ -181,22 +192,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header card-header-warning">
-                                    <div class="ct-chart" id="websiteViewsChart"></div>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">Email Subscriptions</h4>
-                                    <p class="card-category">Last Campaign Performance</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="col-md-4">
                             <div class="card card-chart">
                                 <div class="card-header card-header-danger">
