@@ -69,7 +69,7 @@
         $html = "";
         $count = 1;
         
-        $sql = "SELECT idturma, nome FROM turma WHERE id_turma_professor = $id_user";
+        $sql = "SELECT idturma, nome FROM turma where idturma not in (select id_turma_prova_turma from turma_prova where id_turma_prova_professor = $id_user) and id_turma_professor = $id_user";
         
          $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -85,6 +85,58 @@
             }
         return $html;
     }}
+    
+    function listTurmas(){
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        $html = "";
+        include("conexao.php");
+        $sql = "SELECT t.idturma AS 'id_turma',t.nome AS 'nome_turma',s.cor AS 'cor',s.icone AS 'icone' ,s.nome AS 'nome_serie' FROM turma AS t INNER JOIN turma_prova AS tp JOIN serie as s WHERE tp.id_turma_prova_turma = t.idturma AND t.id_turma_serie = s.idserie AND t.id_turma_professor = $id_user AND tp.id_turma_prova_professor = $id_user";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $turma_nome = $row["nome_turma"];
+                $cor = $row["cor"];
+                $icone = $row["icone"];
+                $serie_nome = $row["nome_serie"];
+                $id_turma = $row["id_turma"];
+                $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
+                            <div class='card card-stats'>
+                                <a href='turmas.php?id=$id_turma' style='color: inherit;'>
+                                    <div class='card-header' data-background-color='$cor'>
+                                        <i class='$icone'></i>
+                                    </div>
+                                    <div class='card-content card-turmas'>
+                                        <p class='category'>&nbsp;</p>
+                                        <h3 class='title' style='overflow:hidden; width:130px;text-align:center;' title='$turma_nome'>$turma_nome
+                                        </h3>
+                                    </div>
+                                </a>
+                                <div class='card-footer'>
+                                    <div class='stats'>
+                                        <i class='material-icons'>group</i>
+                                        <a href='#' style='color: inherit'>$serie_nome</a>
+                                    </div>
+                                    <div class='stats' style='float: right;'>
+                                       <a data-toggle='modal' data-target='#excluirTurma$id_turma'>   
+                                            <i class='material-icons' style='color: #ef5350; font-weight: 800;cursor: pointer;'>clear</i>
+                                       </a>
+                                    </div>
+                                    <div class='stats' style='float: right'>
+                                       <a data-toggle='modal' data-target='#editarTurma$id_turma'>   
+                                            <i class='material-icons' style='color: #404040; font-weight: 800;cursor: pointer;padding-right:5px;'>create</i>
+                                       </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>";
+            }
+        } else {
+            echo "0 resultados";
+        }
+        return $html;
+    }
+    
     
     
     
@@ -213,90 +265,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100" style="">
-                            <div class="card card-stats ">
-                                <a href="" style="color: inherit;">
-                                    <div class="card-header" data-background-color="blue400">
-                                        <i class="fa fa-graduation-cap"></i>
-                                    </div>
-                                    <div class="card-content card-turmas">
-                                        <p class="category">&nbsp;</p>
-                                        <h3 class="title">3ºE1
-                                            <!-- <small>GB</small> -->
-                                        </h3>
-                                    </div>
-                                </a>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">group</i>
-                                        <a href="#" style="color: inherit;">Ensino Médio</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
-                            <div class="card card-stats ">
-                                <a href="" style="color: inherit;">
-                                    <div class="card-header" data-background-color="red400">
-                                        <i class="fa fa-pencil"></i>
-                                    </div>
-                                    <div class="card-content card-turmas">
-                                        <p class="category">&nbsp;</p>
-                                        <h3 class="title">9º A
-                                            <!-- <small>GB</small> -->
-                                        </h3>
-                                    </div>
-                                </a>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">group</i>
-                                        <a href="#" style="color: inherit;">Ensino Fundamental</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
-                            <div class="card card-stats ">
-                                <a href="" style="color: inherit;">
-                                    <div class="card-header" data-background-color="green400">
-                                        <i class="fa fa-graduation-cap"></i>
-                                    </div>
-                                    <div class="card-content card-turmas">
-                                        <p class="category">&nbsp;</p>
-                                        <h3 class="title">1ºE1
-                                            <!-- <small>GB</small> -->
-                                        </h3>
-                                    </div>
-                                </a>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">group</i>
-                                        <a href="#" style="color: inherit;">Ensino Médio</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
-                            <div class="card card-stats ">
-                                <a href="" style="color: inherit;">
-                                    <div class="card-header" data-background-color="orange400">
-                                        <i class="fa fa-graduation-cap"></i>
-                                    </div>
-                                    <div class="card-content card-turmas">
-                                        <p class="category">&nbsp;</p>
-                                        <h3 class="title">Proeja
-                                            <!-- <small>GB</small> -->
-                                        </h3>
-                                    </div>
-                                </a>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">group</i>
-                                        <a href="#" style="color: inherit;">Ensino Médio</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php echo listTurmas(); ?>
                     </div>
 
 
