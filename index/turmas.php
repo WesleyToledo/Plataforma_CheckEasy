@@ -189,20 +189,28 @@
         $nome = $_SESSION["nome"];
         
         if($id_turma != 'all'){
-        $sql = "SELECT t.nome as 'turma_nome', s.nome as 'nome_serie' FROM turma AS t INNER JOIN serie as s where t.idturma = $id_turma";
+        $sql = "SELECT t.nome as 'turma_nome', s.nome as 'nome_serie', idturma FROM turma AS t INNER JOIN serie as s where t.idturma = $id_turma";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
 
-            $html = "<h3 class='title' style='font-weight: 600;'>".$row["turma_nome"]."</h3>
-                 <p class='category' style='font-weight: 500;'>".$row["nome_serie"]."</p>";
+            $html = "<div style='width: 95%;'>
+                        <h3 class='title' style='font-weight: 600;'>".$row["turma_nome"]."</h3>
+                        <p class='category' style='font-weight: 500;'>".$row["nome_serie"]."</p>
+                    </div>
+                    <div style='float: right;'>
+                        <button type='button' class='btn' style='margin: 0; background-color: transparent;' data-toggle='modal' data-target='#cadastrarAluno'>
+                        <i class='material-icons' style='font-size: 20px; color: #fff'>add_circle_outline</i>
+                        </button>
+                    </div>";
         }
     }else{
             $html = $html = "<h3 class='title' style='font-weight: 600;'>Turma</h3>
                  <p class='category' style='font-weight: 500;'>Série</p>";
         }
         return $html;
+        
         
     }
     
@@ -545,13 +553,13 @@
 
                         <?php  echo listTurmas(); ?>
 
-                        
+
                     </div>
 
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header" data-background-color="green400" style="text-align:justify;">
+                                <div class="card-header" data-background-color="green400" style="text-align:justify;display:flex; align-items: center;">
                                     <?php  echo setTitleAlunosTurma(); ?>
                                 </div>
                                 <div class="card-content table-responsive">
@@ -676,6 +684,44 @@
         echo geraExcluirAluno();
         echo geraExcluirTurma();
     ?>
+
+        <div class='modal fade' id='cadastrarAluno' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button>
+                        <h3 class='modal-title mx-auto' id='lineModalLabel'>Cadastrar Aluno</h3>
+                    </div>
+                    <div class='modal-body'>
+                        <!-- content goes here -->
+                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET['id']; ?>' method='post'>
+                            <div class='form-group'>
+                                <label>Matrícula</label>
+                                <input type='text' class='form-control' name='matricula' value=''>
+                            </div>
+                            <div class='form-group'>
+                                <label>Nome</label>
+                                <input type='text' class='form-control' name='nome_aluno' value=''>
+                            </div>
+                            <div class='form-group'>
+                                <label>Sobrenome</label>
+                                <input type='text' class='form-control' name='sobrenome' value=''>
+                            </div>
+
+                            <div class='form-group' style='display: flex;flex-direction: column;'>
+
+                            </div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                <button type='submit' class='btn btn-info'>Salvar Informações</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
 
 </body>
