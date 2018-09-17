@@ -177,7 +177,153 @@
     }
     
     
+    function geraCabecalhoGabarito(){
+        
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $id_avaliacao = $_GET["idA"];
+        $html = "";
+        
+         $sql = "SELECT quant_alternativas FROM avaliacao WHERE idavaliacao = $id_avaliacao AND id_avaliacao_professor = $id_user";
+        
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $num_alternativas = $row["quant_alternativas"];
+        }
+        
+        $alternativas = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+
+        $html = "<th>
+                    <center>
+                        &nbsp;
+                    </center>
+                </th>";
+        
+        for($x=1;$x<=$num_alternativas;$x++)
+        {
+            $html .= "<th>
+                        <center>
+                            <h4>".strtoupper($alternativas[$x-1])."</h4>
+                        </center>
+                    </th>";
+        }
+     
+        $html .= "<th>
+                    <center>
+                        &nbsp;
+                    </center>
+                </th>
+                <th style='width: 20%'>
+                    <center>
+                        <h4>Pontuação</h4>
+                    </center>
+                  </th>";
+        
+    return $html;
+    }
     
+    function geraCorpoGabarito(){
+        
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $id_avaliacao = $_GET["idA"];
+        $html = "";
+        
+         $sql = "SELECT quant_questoes,gabarito,quant_alternativas,valor FROM avaliacao WHERE idavaliacao = $id_avaliacao AND id_avaliacao_professor = $id_user";
+        
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $num_questoes = $row["quant_questoes"];
+            $num_alternativas = $row["quant_alternativas"];
+            $gabarito = $row["gabarito"];
+            $valor = $row["valor"];
+        }
+        
+        $alternativas = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+
+        $html .= "<tbody class='body-gabarito'>";
+        
+        $count = 0;
+        while($gabarito != ""){           
+            if(strpos($gabarito,"/") != -1){
+                $barra = strpos($gabarito,"/");
+                $tamanho = strlen($gabarito);
+                $gabarito_array[$count] = substr($gabarito,0,$barra);
+                $gabarito = substr($gabarito, $barra + 1, $tamanho);
+                $count++;
+            }else{
+                $count++;
+                $gabarito_array[$count] = substr($gabarito, 0, strlen($gabarito));
+                $gabarito = "";
+            }
+        }
+        
+        $count = 0;
+        for($x=0;$x<sizeof($gabarito_array);$x++){
+            if($x%2 == 0){
+            $certas[$count] = $gabarito_array[$x + 1];
+                $count++;
+            }
+            
+        }
+        
+        for($x=1;$x<=$num_questoes;$x++)
+        {
+            $html .= "<tr>
+                        <td>
+                            <center>
+                                <h4>$x</h4>
+                            </center>
+                        </td>";
+            
+            for($y=1;$y<=$num_alternativas;$y++){
+                
+                if($certas[$x-1] == $alternativas[$y-1]){
+                    $check = "checked";
+                }else{
+                    $check = "";
+                }
+                
+                $html .= "<td class='radio-gabarito'>
+                            <center>
+                                <input type='radio' name='$x' value='$y' $check>
+                            </center>
+                          </td>";
+                
+            }
+            
+            $html .= "<td class='radio-gabarito'>
+                        <center>
+                            &nbsp;
+                        </center>
+                    </td>
+                    <td class='radio-gabarito'>
+                        <div style='padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start'>
+                            <input type='number' min='0' max='$valor' step='0.1' style='border: none; border-bottom: 1px solid #ccc;text-align:center;' value='".($valor/$num_questoes)."'>
+                        </div>
+                    </td>";
+        }
+     
+        $html .= "</tbody>";
+        
+    return $html;
+    }
+    
+    
+    function geraGabarito(){
+        $id_avaliacao = $_GET["idA"];
+        $html = "";
+        
+        
+        $html = "<thead class='text-success th-gabarito'>
+                    ".geraCabecalhoGabarito()."</thead>".geraCorpoGabarito();
+        
+        return $html;    
+    }
     
     
     
@@ -319,7 +465,11 @@
                                 <div class="card-content table-responsive">
                                     <table class="table">
                                         <form action="">
-                                            <thead class="text-success th-gabarito">
+                                           
+                                           <?php echo geraGabarito(); ?>
+                                           
+                                           
+                                            <!-- <thead class="text-success th-gabarito">
                                                 <th>
                                                     <center>
                                                         &nbsp;
@@ -360,9 +510,8 @@
                                                         <h4>Pontuação</h4>
                                                     </center>
                                                 </th>
-
-                                            </thead>
-                                            <tbody class="body-gabarito">
+                                            </thead> -->
+                                            <!-- <tbody class="body-gabarito">
                                                 <tr>
                                                     <td>
                                                         <center>
@@ -405,7 +554,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-<tr>
+                                            <tr>
                                                     <td>
                                                         <center>
                                                             <h4>2</h4>
@@ -413,27 +562,27 @@
                                                     </td>
                                                     <td class="radio-gabarito">
                                                         <center>
-                                                            <input type="radio" name="1" value="male">
+                                                            <input type="radio" name="2" value="male">
                                                         </center>
                                                     </td>
                                                     <td class="radio-gabarito">
                                                         <center>
-                                                            <input type="radio" name="1" value="male">
+                                                            <input type="radio" name="2" value="male">
                                                         </center>
                                                     </td>
                                                     <td class="radio-gabarito">
                                                         <center>
-                                                            <input type="radio" name="1" value="male">
+                                                            <input type="radio" name="2" value="male">
                                                         </center>
                                                     </td>
                                                     <td class="radio-gabarito">
                                                         <center>
-                                                            <input type="radio" name="1" value="male">
+                                                            <input type="radio" name="2" value="male">
                                                         </center>
                                                     </td>
                                                     <td class="radio-gabarito">
                                                         <center>
-                                                            <input type="radio" name="1" value="male">
+                                                            <input type="radio" name="2" value="male">
                                                         </center>
                                                     </td>
                                                     <td class="radio-gabarito">
@@ -447,7 +596,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-<tr>
+                                            <tr>
                                                     <td>
                                                         <center>
                                                             <h4>3</h4>
@@ -489,7 +638,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-<tr>
+                                            <tr>
                                                     <td>
                                                         <center>
                                                             <h4>4</h4>
@@ -531,7 +680,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-<tr>
+                                            <tr>
                                                     <td>
                                                         <center>
                                                             <h4>5</h4>
@@ -573,7 +722,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-<tr>
+                                            <tr>
                                                     <td>
                                                         <center>
                                                             <h4>6</h4>
@@ -615,7 +764,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-<tr>
+                                            <tr>
                                                     <td>
                                                         <center>
                                                             <h4>7</h4>
@@ -657,7 +806,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-<tr>
+                                            <tr>
                                                     <td>
                                                         <center>
                                                             <h4>8</h4>
@@ -699,7 +848,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-<tr>
+                                            <tr>
                                                     <td>
                                                         <center>
                                                             <h4>9</h4>
@@ -741,7 +890,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-<tr>
+                                            <tr>
                                                     <td>
                                                         <center>
                                                             <h4>10</h4>
@@ -783,9 +932,9 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-
+                                            
                                                 
-                                            </tbody>
+                                            </tbody> -->
                                         </form>
                                     </table>
                                 </div>
