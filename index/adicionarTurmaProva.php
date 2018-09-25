@@ -15,13 +15,11 @@
                  if ($conn->query($sql) === TRUE) {
                     header("Location: prova-edit.php?idA=".$_GET["idA"]);
                 }else{
-                    echo "Erro ao cadastrar prova";
+                    echo "Erro ao cadastrar turma";
                 }
             }
         }
     }else{
         
     }
-
-    //header("Location: prova-edit.php?idA=".$_GET['idA']);
 ?>

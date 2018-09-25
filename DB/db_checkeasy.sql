@@ -29,15 +29,10 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   KEY `id_aluno_professor` (`id_aluno_professor`),
   CONSTRAINT `id_aluno_professor` FOREIGN KEY (`id_aluno_professor`) REFERENCES `professor` (`idprofessor`),
   CONSTRAINT `id_aluno_turma` FOREIGN KEY (`id_aluno_turma`) REFERENCES `turma` (`idturma`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela db_checkeasy.aluno: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela db_checkeasy.aluno: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `aluno` DISABLE KEYS */;
-INSERT INTO `aluno` (`idaluno`, `id_aluno_turma`, `id_aluno_professor`, `matricula`, `nome`, `sobrenome`) VALUES
-	(7, 8, 8, '123', 'Guilherme', 'Fabrício Rosa'),
-	(8, 8, 8, '321', 'Nivaldo ', 'Machado Foice Filho'),
-	(10, 9, 8, '321', 'Weslley', 'Oliveira'),
-	(13, 15, 8, '123', 'Guilherme', 'Rosa');
 /*!40000 ALTER TABLE `aluno` ENABLE KEYS */;
 
 
@@ -54,15 +49,10 @@ CREATE TABLE IF NOT EXISTS `avaliacao` (
   UNIQUE KEY `idavaliacao` (`idavaliacao`),
   KEY `id_avaliacao_professor` (`id_avaliacao_professor`),
   CONSTRAINT `id_avaliacao_professor` FOREIGN KEY (`id_avaliacao_professor`) REFERENCES `professor` (`idprofessor`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela db_checkeasy.avaliacao: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela db_checkeasy.avaliacao: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `avaliacao` DISABLE KEYS */;
-INSERT INTO `avaliacao` (`idavaliacao`, `gabarito`, `quant_questoes`, `id_avaliacao_professor`, `quant_alternativas`, `valor`, `nome`) VALUES
-	(7, '1/a/2/d/3/c/4/d/5/b/6/e/7/b/8/a/9/b/10/d', 10, 8, 5, 10, 'Sistemas Lineares'),
-	(8, '1/a/2/b/3/a/4/c/5/b/6/a/7/d/8/a/9/c/10/e', 10, 8, 5, 10, 'Matemática Aplicada'),
-	(9, '1/a/2/a/3/a/4/a/5/a/6/a/7/a/8/a/9/a/10/a/', 10, 8, 5, 10, 'Matemática Aplicada'),
-	(10, '1/a/2/b/3/d/4/c/5/a/6/b/7/c/8/b/9/c/10/e', 10, 8, 5, 10, 'Matemática Aplicada II');
 /*!40000 ALTER TABLE `avaliacao` ENABLE KEYS */;
 
 
@@ -80,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `professor` (
   `senha` varchar(100) NOT NULL,
   PRIMARY KEY (`idprofessor`),
   UNIQUE KEY `idprofessor` (`idprofessor`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela db_checkeasy.professor: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `professor` DISABLE KEYS */;
@@ -152,15 +142,10 @@ CREATE TABLE IF NOT EXISTS `turma` (
   KEY `id_turma_serie` (`id_turma_serie`),
   CONSTRAINT `id_turma_professor` FOREIGN KEY (`id_turma_professor`) REFERENCES `professor` (`idprofessor`),
   CONSTRAINT `id_turma_serie` FOREIGN KEY (`id_turma_serie`) REFERENCES `serie` (`idserie`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela db_checkeasy.turma: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela db_checkeasy.turma: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `turma` DISABLE KEYS */;
-INSERT INTO `turma` (`idturma`, `id_turma_professor`, `id_turma_serie`, `nome`) VALUES
-	(8, 8, 8, '3º E1'),
-	(9, 8, 10, '3º E3'),
-	(15, 8, 12, '3ºE4'),
-	(16, 8, 8, '3º E3');
 /*!40000 ALTER TABLE `turma` ENABLE KEYS */;
 
 
@@ -178,12 +163,10 @@ CREATE TABLE IF NOT EXISTS `turma_prova` (
   CONSTRAINT `id_turma_prova_avaliacao` FOREIGN KEY (`id_turma_prova_avaliacao`) REFERENCES `avaliacao` (`idavaliacao`),
   CONSTRAINT `id_turma_prova_professor` FOREIGN KEY (`id_turma_prova_professor`) REFERENCES `professor` (`idprofessor`),
   CONSTRAINT `id_turma_prova_turma` FOREIGN KEY (`id_turma_prova_turma`) REFERENCES `turma` (`idturma`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela db_checkeasy.turma_prova: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `turma_prova` DISABLE KEYS */;
-INSERT INTO `turma_prova` (`idturma_prova`, `id_turma_prova_professor`, `id_turma_prova_turma`, `id_turma_prova_avaliacao`) VALUES
-	(14, 8, 15, 7);
 /*!40000 ALTER TABLE `turma_prova` ENABLE KEYS */;
 
 
