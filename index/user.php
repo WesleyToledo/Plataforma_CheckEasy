@@ -248,7 +248,12 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        
+                                     
+                                                    <p>Foto</p><input type="file" name="foto"/>
+                                                
+                                        
+                                        
 
                                         <button type="submit" class="btn btn-info pull-right">Salvar alterações</button>
                                         <div class="clearfix"></div>
