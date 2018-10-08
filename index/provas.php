@@ -40,7 +40,6 @@
     $id_user = $_SESSION["id_user"];
     $nome = $_SESSION["nome"];
     
-    
     function listProvas(){
         include("conexao.php");
         
@@ -67,6 +66,10 @@
                                 </div>
                                     <button class='card-header' style='position: absolute; width: 4em;height: 1em; display: flex; justify-content: center;flex-direction: column;align-items: center; background-color: transparent;box-shadow: none;margin-left: 80%;margin-top: 0.1em;color: white;border:none;' data-toggle='modal' data-target='#excluirProva$id_avaliacao'>
                                         <i class='material-icons' style='color: #ef5350; font-weight: 800;cursor: pointer;font-size: 1.3em;'>clear</i>
+                                    </button>
+                                    
+                                    <button class='card-header' style='position: absolute; width: 4em;height: 1em; display: flex; justify-content: center;flex-direction: column;align-items: center; background-color: transparent;box-shadow: none;margin-left: 67%;margin-top: 0.1em;color: white;border:none;' data-toggle='modal' data-target='#editarProva$id_avaliacao'>
+                                        <i class='material-icons' style='color: #fff; font-weight: 800;cursor: pointer;font-size: 1.3em;'>create</i>
                                     </button>
  
                                 <a href='prova-edit.php?idA=$id_avaliacao'>
@@ -147,6 +150,75 @@
         return $html;
     }
     
+     function geraEditProva(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT idavaliacao,quant_questoes,quant_alternativas,nome,valor FROM avaliacao WHERE id_avaliacao_professor = $id_user";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_avaliacao = $row["idavaliacao"];
+                    $quant_questoes = $row["quant_questoes"];
+                    $quant_alternativas = $row["quant_alternativas"];
+                    $nome = $row["nome"];
+                    $valor = $row["valor"];
+                    
+                    $html .= "<div class='modal fade' id='editarProva$id_avaliacao' tabindex='-1' role=''dialog' aria-labelledby='modalLabel' aria-hidden='true'>
+                <div class='modal-dialog'>
+                    <div class='modal-content'>
+                        <div class='modal-header'>
+                            <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'></span><span class='sr-only'>Close</span></button>
+                            <h3 class='modal-title mx-auto' id='lineModalLabel'>Editar Prova</h3>
+                        </div>
+                        <div class='modal-body'>
+                            <form action='editarProva.php?idA=$id_avaliacao' method='post'>
+                                <div class='form-group'>
+                                    <label >Nome/Identificação</label>
+                                    <input type='text' class='form-control' name='nome_prova' value='$nome' >
+                                </div>
+
+                                <div style='display: flex;flex-direction: row; justify-content: flex-start;'>
+                                    <div class='form-group' style='width: 30% !important;margin-right: 10px;'>
+                                        <label>Número de Questões</label>
+                                        <input type='number' class='form-control' name='num_questoes' value='$quant_questoes' >
+                                    </div>
+                                    <div class='form-group' style='width: 30% !important;margin-right: 10px; '>
+                                        <label >Número de Alternativas</label>
+                                        <input type='number' class='form-control' name='num_alternativas' value='$quant_alternativas'>
+                                    </div>
+                                    <div class='form-group' style='width: 30% !important;margin-right: 10px;'>
+                                        <label>Valor Total</label>
+                                        <input type='number' step='0.1' class='form-control' name='valor_total' value='$valor'>
+                                    </div>
+
+                                </div>
+                                <div class='modal-footer'>
+                                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                    <button type='submit' class='btn btn-info'>Editar Turma</button>
+
+                                    <!-- onclick='demo.showNotification('top','right','Turma Cadastrada')' -->
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>";
+                }
+            } else {
+                echo "";
+            }
+        return $html;
+    }
+        
+    
+    
+
     
 ?>
 
@@ -325,8 +397,6 @@
                                         <label for="exampleInputEmail1">Número de Alternativas</label>
                                         <input type="number" class="form-control" name="num_alternativas" placeholder="">
                                     </div>
-                                </div>
-                                <div style="display: flex;flex-direction: row; justify-content: flex-start;">
                                     <div class="form-group" style="width: 30% !important;margin-right: 10px; ">
                                         <label for="exampleInputEmail1">Valor Total</label>
                                         <input type="number" step="0.1" class="form-control" name="valor_total" placeholder="">
@@ -345,8 +415,11 @@
                     </div>
                 </div>
             </div>
-            
-            <?php  echo geraExcluirProva();  ?>
+
+            <?php  
+                echo geraExcluirProva();  
+                echo geraEditProva();
+            ?>
 
         </div>
     </div>
