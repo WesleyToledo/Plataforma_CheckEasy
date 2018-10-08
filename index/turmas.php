@@ -6,6 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="assets/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>CheckEasy</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0' name='viewport' />
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0' name='viewport' />
@@ -39,7 +40,7 @@
     $id_user = $_SESSION["id_user"];
     $nome = $_SESSION["nome"];
     
-    
+
     function listTurmas(){
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
@@ -56,7 +57,7 @@
                 $id_turma = $row["id_turma"];
                 $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                             <div class='card card-stats'>
-                                <a href='turmas.php?id=$id_turma' style='color: inherit;'>
+                                <a href='turmas.php?id=$id_turma&c=$cor' style='color: inherit;'>
                                     <div class='card-header' data-background-color='$cor'>
                                         <i class='$icone'></i>
                                     </div>
@@ -86,11 +87,10 @@
                         </div>";
             }
         } else {
-            echo "0 resultados";
+            echo "<p style='margin: 15px'>Nenhuma Turma Cadastrada</p>";
         }
         return $html;
     }
-    
     
     function setSeries(){
         
@@ -120,7 +120,6 @@
         
     }
     
-    
     function setAlunosTurma(){
         include("conexao.php");
         $id_turma = $_GET["id"];
@@ -132,7 +131,7 @@
         
         if($id_turma == "all"){
             $html = '<tr>
-                        <td>&nbsp;</td>
+                        <td>Nenhuma Turma Selecionada</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>
@@ -140,10 +139,7 @@
                         </td>
                     </tr>';
         }else{
-            
-            $sql = "";
-            
-            $sql = "SELECT a.idaluno AS 'idaluno', a.nome AS 'nome', a.matricula AS 'matricula',a.sobrenome AS 'sobrenome' FROM aluno AS a INNER JOIN turma as t where a.id_aluno_turma = $id_turma and t.idturma = $id_user and t.id_turma_professor = $id_user";
+            $sql = "SELECT a.idaluno AS 'idaluno', a.nome AS 'nome', a.matricula AS 'matricula',a.sobrenome AS 'sobrenome' FROM aluno AS a INNER JOIN turma as t where a.id_aluno_turma = $id_turma and t.idturma = $id_turma and t.id_turma_professor = $id_user";
         
             $result = $conn->query($sql);
 
@@ -176,11 +172,18 @@
                             </tr>";
                 }
             } else {
+                echo "<tr>
+                        <td>Nenhum Aluno Cadastrado</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>";
             }
         }
         return $html;
     }
-    
     
     function setTitleAlunosTurma(){
         include("conexao.php");
@@ -206,8 +209,10 @@
                     </div>";
         }
     }else{
-            $html = $html = "<h3 class='title' style='font-weight: 600;'>Turma</h3>
-                 <p class='category' style='font-weight: 500;'>Série</p>";
+            $html = $html = "<div style='width: 95%;'>
+                        <h3 class='title' style='font-weight: 600;'>Turma</h3>
+                        <p class='category' style='font-weight: 500;'>Série</p>
+                    </div>";
         }
         return $html;
         
@@ -248,13 +253,8 @@
                                         </div>
                                         <div class='form-group'>
                                             <label>Nome</label>
-                                            <input type='text' class='form-control' name='nome_aluno' value='$nome'>
+                                            <input type='text' class='form-control' name='nome_aluno' value='$nome $sobrenome'>
                                         </div>
-                                        <div class='form-group'>
-                                            <label>Sobrenome</label>
-                                            <input type='text' class='form-control' name='sobrenome' value='$sobrenome'>
-                                        </div>
-
                                         <div class='form-group' style='display: flex;flex-direction: column;'>
 
                                         </div>
@@ -269,6 +269,7 @@
                     </div>";
                 }
             } else {
+                echo "";
             }
         return $html;
     }
@@ -550,21 +551,18 @@
                     </div>
 
                     <div class="row">
-
                         <?php  echo listTurmas(); ?>
-
-
                     </div>
 
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header" data-background-color="green400" style="text-align:justify;display:flex; align-items: center;">
+                                <div class="card-header" style="text-align:justify;display:flex; align-items: center; background-color:#1dc8cd">
                                     <?php  echo setTitleAlunosTurma(); ?>
                                 </div>
                                 <div class="card-content table-responsive">
                                     <table class="table">
-                                        <thead class="text-success">
+                                        <thead class="text-success" style="color:#1dc8cd;">
                                             <th>Matrícula</th>
                                             <th>Nome</th>
                                             <th>Sobrenome</th>
@@ -576,7 +574,6 @@
                                         </thead>
                                         <tbody>
                                             <?php  echo setAlunosTurma(); ?>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -694,7 +691,7 @@
                     </div>
                     <div class='modal-body'>
                         <!-- content goes here -->
-                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET['id']; ?>' method='post'>
+                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET[' id ']; ?>' method='post'>
                             <div class='form-group'>
                                 <label>Matrícula</label>
                                 <input type='text' class='form-control' name='matricula' value=''>
@@ -702,10 +699,6 @@
                             <div class='form-group'>
                                 <label>Nome</label>
                                 <input type='text' class='form-control' name='nome_aluno' value=''>
-                            </div>
-                            <div class='form-group'>
-                                <label>Sobrenome</label>
-                                <input type='text' class='form-control' name='sobrenome' value=''>
                             </div>
 
                             <div class='form-group' style='display: flex;flex-direction: column;'>
@@ -720,10 +713,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
 </body>
 
 <script>

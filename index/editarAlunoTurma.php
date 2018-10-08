@@ -8,7 +8,9 @@
 
     $matricula = $_POST["matricula"];
     $nome= $_POST["nome_aluno"];
-    $sobrenome= $_POST["sobrenome"];
+
+    $sobrenome = substr($nome,strpos($nome," "),strlen($nome));
+    $nome = substr($nome,0,strpos($nome," "));
 
     $sql = "UPDATE aluno SET matricula='$matricula', nome = '$nome', sobrenome = '$sobrenome' WHERE idaluno = $id_aluno AND id_aluno_professor=$id_user AND id_aluno_turma = $id_turma";
 

@@ -66,7 +66,7 @@
                                     <i class='material-icons' style='font-size: 2.8em;'>assignment</i>
                                 </div>
                                 <a href='prova-edit.php?idA=$id_avaliacao'>
-                                <img class='card-img-top' src='https://picsum.photos/1900/1080?image=320' >
+                                <img class='card-img-top' src='https://picsum.photos/1900/1080?image=315' >
                                 <div class='card-body' id='card'>
                                     <h5 class='card-title text-info' style='font-weight: 500'>$nome</h5>
                                 </div>
@@ -96,11 +96,9 @@
                         </div>";
             }
         } else {
-            echo "Nenhuma Prova Cadastrada";
+            echo "<p style='margin: 15px'>Nenhuma Prova Cadastrada</p>";
         }
-        
         return $html;
-        
     }
     
 ?>
