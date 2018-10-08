@@ -11,11 +11,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Copiando estrutura do banco de dados para db_checkeasy
+DROP DATABASE IF EXISTS `db_checkeasy`;
 CREATE DATABASE IF NOT EXISTS `db_checkeasy` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `db_checkeasy`;
 
 
 -- Copiando estrutura para tabela db_checkeasy.aluno
+DROP TABLE IF EXISTS `aluno`;
 CREATE TABLE IF NOT EXISTS `aluno` (
   `idaluno` int(11) NOT NULL AUTO_INCREMENT,
   `id_aluno_turma` int(11) DEFAULT NULL,
@@ -37,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `aluno` (
 
 
 -- Copiando estrutura para tabela db_checkeasy.avaliacao
+DROP TABLE IF EXISTS `avaliacao`;
 CREATE TABLE IF NOT EXISTS `avaliacao` (
   `idavaliacao` int(11) NOT NULL AUTO_INCREMENT,
   `gabarito` varchar(45) NOT NULL,
@@ -57,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `avaliacao` (
 
 
 -- Copiando estrutura para tabela db_checkeasy.professor
+DROP TABLE IF EXISTS `professor`;
 CREATE TABLE IF NOT EXISTS `professor` (
   `idprofessor` int(11) NOT NULL AUTO_INCREMENT,
   `primeiro_nome` varchar(20) NOT NULL,
@@ -80,6 +84,7 @@ INSERT INTO `professor` (`idprofessor`, `primeiro_nome`, `sobrenome`, `nome_user
 
 
 -- Copiando estrutura para tabela db_checkeasy.provas
+DROP TABLE IF EXISTS `provas`;
 CREATE TABLE IF NOT EXISTS `provas` (
   `idprovas` int(11) NOT NULL AUTO_INCREMENT,
   `id_provas_avaliacao` int(11) NOT NULL,
@@ -107,6 +112,7 @@ CREATE TABLE IF NOT EXISTS `provas` (
 
 
 -- Copiando estrutura para tabela db_checkeasy.serie
+DROP TABLE IF EXISTS `serie`;
 CREATE TABLE IF NOT EXISTS `serie` (
   `idserie` int(11) NOT NULL AUTO_INCREMENT,
   `cor` varchar(10) DEFAULT NULL,
@@ -131,6 +137,7 @@ INSERT INTO `serie` (`idserie`, `cor`, `icone`, `nome`, `id_serie_professor`) VA
 
 
 -- Copiando estrutura para tabela db_checkeasy.turma
+DROP TABLE IF EXISTS `turma`;
 CREATE TABLE IF NOT EXISTS `turma` (
   `idturma` int(11) NOT NULL AUTO_INCREMENT,
   `id_turma_professor` int(11) NOT NULL DEFAULT '0',
@@ -150,6 +157,7 @@ CREATE TABLE IF NOT EXISTS `turma` (
 
 
 -- Copiando estrutura para tabela db_checkeasy.turma_prova
+DROP TABLE IF EXISTS `turma_prova`;
 CREATE TABLE IF NOT EXISTS `turma_prova` (
   `idturma_prova` int(11) NOT NULL AUTO_INCREMENT,
   `id_turma_prova_professor` int(11) NOT NULL,
@@ -171,6 +179,7 @@ CREATE TABLE IF NOT EXISTS `turma_prova` (
 
 
 -- Copiando estrutura para tabela db_checkeasy.users
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `idusers` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(20) NOT NULL,
