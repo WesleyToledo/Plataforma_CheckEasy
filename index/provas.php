@@ -65,6 +65,10 @@
                                 <div class='card-header' data-background-color='blue400' style='position: absolute; width: 6em;height: 6em; display: flex; justify-content: center;flex-direction: column;align-items: center;'>
                                     <i class='material-icons' style='font-size: 2.8em;'>assignment</i>
                                 </div>
+                                    <button class='card-header' style='position: absolute; width: 4em;height: 1em; display: flex; justify-content: center;flex-direction: column;align-items: center; background-color: transparent;box-shadow: none;margin-left: 80%;margin-top: 0.1em;color: white;border:none;' data-toggle='modal' data-target='#excluirProva$id_avaliacao'>
+                                        <i class='material-icons' style='color: #ef5350; font-weight: 800;cursor: pointer;font-size: 1.3em;'>clear</i>
+                                    </button>
+ 
                                 <a href='prova-edit.php?idA=$id_avaliacao'>
                                 <img class='card-img-top' src='https://picsum.photos/1900/1080?image=315' >
                                 <div class='card-body' id='card'>
@@ -101,6 +105,49 @@
         return $html;
     }
     
+    function geraExcluirProva(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT idavaliacao,nome FROM avaliacao WHERE id_avaliacao_professor = $id_user";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_avaliacao = $row["idavaliacao"];
+                    $nome = $row["nome"];
+                    
+                    $html .= "<div class='modal fade' id='excluirProva$id_avaliacao' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title' id='exampleModalLabel'>Excluir Aluno</h5>
+                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                            </div>
+                            <div class='modal-body'>
+                                Tem certeza que deseja excluir a prova \" $nome \" ?
+                            </div>
+                            <div class='modal-footer'>
+                            <form action='excluirProva.php?idA=$id_avaliacao' method='post'>
+                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                <button type='submit' class='btn btn-info' >Excluir</button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+                            }
+            } else {
+            }
+        return $html;
+    }
+    
+    
 ?>
 
 <body>
@@ -116,9 +163,9 @@
                     CheckEasy
                 </a>
             </div>
-            
+
             <?php echo setSidebar_wrapper('provas'); ?>
-            
+
         </div>
         <div class="main-panel">
             <nav class="navbar navbar-transparent navbar-absolute">
@@ -229,9 +276,9 @@
                     </div>
 
                     <div class="row">
-                        
-                        <?php echo listProvas(); ?>  
-                        
+
+                        <?php echo listProvas(); ?>
+
                     </div>
 
 
@@ -241,6 +288,7 @@
                                 &copy;
                                 <script>
                                     document.write(new Date().getFullYear())
+
                                 </script>
                                 <a href="#" class="text-info">CheckEasy</a>, a plataforma online dedicada aos professores
                             </p>
@@ -297,6 +345,8 @@
                     </div>
                 </div>
             </div>
+            
+            <?php  echo geraExcluirProva();  ?>
 
         </div>
     </div>
@@ -330,6 +380,7 @@
         demo.initDashboardPageCharts();
 
     });
+
 </script>
 
 </html>
