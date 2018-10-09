@@ -225,13 +225,9 @@
 <body>
     <div class="wrapper">
         <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
-            <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
+            
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
+                <a href="index.html" class="simple-text">
                     CheckEasy
                 </a>
             </div>

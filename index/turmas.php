@@ -139,7 +139,7 @@
                         </td>
                     </tr>';
         }else{
-            $sql = "SELECT a.idaluno AS 'idaluno', a.nome AS 'nome', a.matricula AS 'matricula',a.sobrenome AS 'sobrenome' FROM aluno AS a INNER JOIN turma as t where a.id_aluno_turma = $id_turma and t.idturma = $id_turma and t.id_turma_professor = $id_user";
+            $sql = "SELECT a.idaluno AS 'idaluno', a.nome AS 'nome', a.matricula AS 'matricula',a.sobrenome AS 'sobrenome' FROM aluno AS a INNER JOIN turma as t where a.id_aluno_turma = $id_turma and t.idturma = $id_turma and t.id_turma_professor = $id_user ORDER BY nome ASC";
         
             $result = $conn->query($sql);
 
@@ -691,7 +691,7 @@
                     </div>
                     <div class='modal-body'>
                         <!-- content goes here -->
-                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET[' id ']; ?>' method='post'>
+                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET['id']; ?>' method='post'>
                             <div class='form-group'>
                                 <label>Matrícula</label>
                                 <input type='text' class='form-control' name='matricula' value=''>
