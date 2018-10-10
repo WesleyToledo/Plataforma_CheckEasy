@@ -13,11 +13,12 @@
     $estado = $_POST["estado"];
     $curriculo = $_POST["curriculo"];
     $confirSenha = $_POST["confirm_senha"];
+    $estado = $_POST["estado"];
 
     $primeiro_nome = substr($nomeCompleto, 0, strpos($nomeCompleto," "));
     $sobrenome = substr($nomeCompleto, strpos($nomeCompleto," "), strlen($nomeCompleto) - strpos($nomeCompleto," "));
 
-    $sql = "INSERT INTO professor(primeiro_nome,sobrenome,nome_user,email,instituicao,cidade,cep,curriculo,senha) VALUES('$primeiro_nome','$sobrenome','$nomeUser','$email','$instituicao','$cidade','$cep','$curriculo','$senha')";
+    $sql = "INSERT INTO professor(primeiro_nome,sobrenome,nome_user,email,instituicao,cidade,cep,curriculo,senha,estado) VALUES('$primeiro_nome','$sobrenome','$nomeUser','$email','$instituicao','$cidade','$cep','$curriculo','$senha','$estado')";
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";

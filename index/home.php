@@ -195,20 +195,7 @@
                                     </li>
                                 </ul> -->
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">person</i>
-                                    <p class="hidden-lg hidden-md">Notifications</p>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#"><i class="material-icons" style="font-size: 1.6em;margin:0px 10px 0px 10px">person</i>Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="material-icons" style="font-size: 1.6em;margin:0px 10px 0px 10px">keyboard_tab</i>Profile</a>
-                                    </li>
-                                </ul>
-                            </li>
+                            <?php echo userDropDown(); ?>
                         </ul>
                         <!-- <form class="navbar-form navbar-right" role="search">
                             <div class="form-group  is-empty">

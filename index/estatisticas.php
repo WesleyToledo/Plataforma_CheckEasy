@@ -168,12 +168,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">person</i>
-                                    <p class="hidden-lg hidden-md">Profile</p>
-                                </a>
-                                </li>
+                                <?php echo userDropDown(); ?>
                             </ul>
                             <!-- <form class="navbar-form navbar-right" role="search">
                             <div class="form-group  is-empty">
