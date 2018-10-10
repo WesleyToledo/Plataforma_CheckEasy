@@ -151,8 +151,8 @@
                                     
                                     -->
                                     <span class="notification" style="right: 0">150</span>
-                                    <p class="hidden-lg hidden-md">Notifications</p>
                                 </a>
+                                <p class="hidden-lg hidden-md">Notifications</p>
                                 <!-- <ul class="dropdown-menu">
                                     <li>
                                         <a href="#">Mike John responded to your email</a>
@@ -195,11 +195,19 @@
                                     </li>
                                 </ul> -->
                             </li>
-                            <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="material-icons">person</i>
-                                    <p class="hidden-lg hidden-md">Profile</p>
+                                    <p class="hidden-lg hidden-md">Notifications</p>
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#"><i class="material-icons" style="font-size: 1.6em;margin:0px 10px 0px 10px">person</i>Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="material-icons" style="font-size: 1.6em;margin:0px 10px 0px 10px">keyboard_tab</i>Profile</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                         <!-- <form class="navbar-form navbar-right" role="search">
@@ -244,7 +252,9 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Alunos</p>
-                                    <h3 class="title"><?php echo numAlunos(); ?></h3>
+                                    <h3 class="title">
+                                        <?php echo numAlunos(); ?>
+                                    </h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -260,7 +270,9 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Provas</p>
-                                    <h3 class="title"><?php echo numProvas(); ?></h3>
+                                    <h3 class="title">
+                                        <?php echo numProvas(); ?>
+                                    </h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -277,7 +289,9 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Correções</p>
-                                    <h3 class="title"><?php echo numCorrecoes(); ?></h3>
+                                    <h3 class="title">
+                                        <?php echo numCorrecoes(); ?>
+                                    </h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
