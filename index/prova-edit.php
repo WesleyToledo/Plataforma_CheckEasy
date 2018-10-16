@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <!--<link rel="stylesheet" href="assets/css/radio.css">-->
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="assets/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -25,6 +26,7 @@
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel='stylesheet'>
+
 
 </head>
 
@@ -290,7 +292,9 @@
                 
                 $html .= "<td class='radio-gabarito'>
                             <center>
-                                <input type='radio' name='$x' value='$y' $check>
+                                <label class='btn-default'>
+                                    <input type='radio' name='$x' value='$y' $check >
+                                <label>
                             </center>
                           </td>";
                 
@@ -303,12 +307,12 @@
                     </td>
                     <td class='radio-gabarito'>
                         <div style='padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start'>
-                            <input type='number' min='0' max='$valor' step='0.1' style='border: none; border-bottom: 1px solid #ccc;text-align:center;' value='".($valor/$num_questoes)."'>
+                            <input type='number' min='0' max='$valor' step='0.1' style='border: none; border-bottom: 1px solid #ccc;text-align:center;' value='".($valor/$num_questoes)."' name='v$x'>
                         </div>
                     </td>";
         }
      
-        $html .= "<input type='radio' name='idA' value='$id_avaliacao' checked style='visibility:hidden;'></tbody>";
+        $html .= "<input type='radio' name='idA' value='$id_avaliacao' checked style='visibility:hidden;'><input type='radio' name='value' value='$valor' checked style='visibility:hidden;'></tbody>";
         
     return $html;
     }
@@ -317,17 +321,32 @@
     function geraGabarito(){
         $id_avaliacao = $_GET["idA"];
         $html = "";
-        
-        
         $html = "<thead class='text-success th-gabarito'>
                     ".geraCabecalhoGabarito()."</thead>".geraCorpoGabarito();
         
         return $html;    
     }
-    
-    
-    
 ?>
+
+<style>
+    input[type="radio"] {
+        height: 18px !important;
+        width: 18px !important;
+    }
+
+    input[type="radio"]:checked+label:before,
+    input[type="radio"]:not(:checked)+label:before {
+        left: 0;
+        top: 0;
+        width: 25px;
+        height: 25px;
+        border: 1px solid #ddd;
+        border-radius: 100%;
+        background: #fff !important;
+    }
+
+</style>
+
 
 <body>
     <div class="wrapper">
@@ -445,7 +464,7 @@
                             <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
                                 <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#cadastrarTurma">
                                     <i class="material-icons" style="font-size: 27px;">add_circle_outline</i>
-                                    &nbsp;&nbsp;&nbsp; Adicionar Turma
+                                    &nbsp;&nbsp;&nbsp;Adicionar Turma
                                 </button>
                             </li>
                         </ul>
@@ -456,7 +475,7 @@
                     </div>
 
 
-                    <form action="cadastrarGabarito.php">
+                    <form action="cadastrarGabarito.php" >
                         <div class="row justify-content-center">
                             <div class="col-md-2">
                             </div>
@@ -475,13 +494,12 @@
                                 </div>
                             </div>
                             <div class="col-md-1">
-
                             </div>
                         </div>
                         <div class="row">
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
-                                    <button type="submit" class="btn btn-success" style="justify-content: center;align-items: center;display: flex;flex-direction: row;">
+                                    <button type="submit" class="btn btn-success" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" onclick="return verificaSoma()">
                                     <i class="material-icons" style="font-size: 27px;">check_circle_outline</i>
                                     &nbsp;&nbsp;&nbsp; Confirmar
                                 </button>
@@ -584,6 +602,32 @@
         demo.initDashboardPageCharts();
 
     });
+
+    function verificaSoma() {
+        var somaValores = 0;
+        var valor = parseInt("<?php echo $_GET["value"]; ?>");
+
+        $('form input[type=number]').each(function() {
+            somaValores += parseInt($(this).val());
+        });
+        
+        if (somaValores !== valor) {
+            if(somaValores > valor){
+                demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MAIOR</strong> que o limite', 'danger', 'info','10')
+                return false
+            }
+            else{
+                demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MENOR</strong> que o limite', 'danger', 'info','10')
+                return false
+            }
+            
+            return false
+            
+        }else{
+            return true
+        }
+
+    }
 
 </script>
 

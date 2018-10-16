@@ -248,7 +248,7 @@ demo = {
         marker.setMap(map);
     },
 
-    showNotification: function(from, align,messenger,tipo,icon) {
+    showNotification: function(from, align,messenger,tipo,icon,tempo) {
 
         $.notify({
             icon: icon,
@@ -256,7 +256,7 @@ demo = {
 
         }, {
             type: tipo,
-            timer: 1000,
+            timer: tempo,
             placement: {
                 from: from,
                 align: align

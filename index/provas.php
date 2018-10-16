@@ -1,4 +1,5 @@
 <!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -72,7 +73,7 @@
                                         <i class='material-icons' style='color: #fff; font-weight: 800;cursor: pointer;font-size: 1.3em;'>create</i>
                                     </button>
  
-                                <a href='prova-edit.php?idA=$id_avaliacao'>
+                                <a href='prova-edit.php?idA=$id_avaliacao&value=$valor'>
                                 <img class='card-img-top' src='https://picsum.photos/1900/1080?image=315' >
                                 <div class='card-body' id='card'>
                                     <h5 class='card-title text-info' style='font-weight: 500'>$nome</h5>
