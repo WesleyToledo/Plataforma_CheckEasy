@@ -331,7 +331,7 @@
                     <div class="row">
                         <ul class="nav navbar-nav navbar-left">
                             <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
-                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#cadastrarTurma">
+                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#criarProva">
                                     <i class="material-icons" style="font-size: 27px;">add_circle_outline</i>
                                     &nbsp;&nbsp;&nbsp;Criar Prova
                                 </button>
@@ -365,7 +365,7 @@
 
 
             <!----- CRIA TURMA ----->
-            <div class="modal fade" id="cadastrarTurma" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal fade" id="criarProva" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

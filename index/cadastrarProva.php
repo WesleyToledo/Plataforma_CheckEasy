@@ -10,8 +10,9 @@
     $valor = $_POST["valor_total"];
     
     $gabarito = "";
+    $valor_alternativa = $valor / $num_questoes;
     for($x=1;$x<=$num_questoes;$x++){
-        $gabarito .= $x."/a/";
+        $gabarito .= $x."/a/".$valor_alternativa."/";
     }
 
     $sql = "INSERT INTO avaliacao(gabarito,quant_questoes, id_avaliacao_professor, quant_alternativas, valor,nome) VALUES('$gabarito',$num_questoes,$id_user,$num_alternativas,$valor,'$nome');";

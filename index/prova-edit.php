@@ -255,6 +255,7 @@
             $tamanho = strlen($gabarito);
             if(strpos($gabarito,"/")){
                 $gabarito_array[$count] = substr($gabarito,0,$barra);
+                //echo $gabarito_array[$count]."<br>";
                 $gabarito = substr($gabarito, $barra + 1, $tamanho);
                 $count++;
             }else{
@@ -265,10 +266,11 @@
         
         $count = 0;
         for($x=0;$x<sizeof($gabarito_array);$x++){
-            
-            if($x%2 == 0){
+            if($x%3 == 0){
                 $certas[$count] = $gabarito_array[$x + 1];
-                //echo $certas[$count];
+                $valores[$count] = floatval($gabarito_array[$x + 2]);
+                //echo "-".$certas[$count];
+                //echo "-".$valores[$count];
                 $count++;
             }
         }
@@ -307,12 +309,12 @@
                     </td>
                     <td class='radio-gabarito'>
                         <div style='padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start'>
-                            <input type='number' min='0' max='$valor' step='0.1' style='border: none; border-bottom: 1px solid #ccc;text-align:center;' value='".($valor/$num_questoes)."' name='v$x'>
+                            <input type='number' min='0' max='$valor' step='0.1' style='border: none; border-bottom: 1px solid #ccc;text-align:center;' value='".floatval($valores[$x-1])."' name='v$x'>
                         </div>
                     </td>";
         }
      
-        $html .= "<input type='radio' name='idA' value='$id_avaliacao' checked style='visibility:hidden;'><input type='radio' name='value' value='$valor' checked style='visibility:hidden;'></tbody>";
+        $html .= "<input type='radio' name='idA' value='$id_avaliacao' checked style='visibility:hidden;'><input type='radio' name='value' value='$valor' checked style='visibility:hidden;'><input type='radio' name='nQ' value='$num_questoes' checked style='visibility:hidden;'></tbody>";
         
     return $html;
     }
@@ -608,15 +610,17 @@
         var valor = parseInt("<?php echo $_GET["value"]; ?>");
 
         $('form input[type=number]').each(function() {
-            somaValores += parseInt($(this).val());
+            somaValores += parseFloat($(this).val());
         });
         
-        if (somaValores !== valor) {
-            if(somaValores > valor){
+        if (parseFloat(somaValores) !== parseFloat(valor)) {
+            if(parseFloat(somaValores) > parseFloat(valor)){
+                alert(valor)
                 demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MAIOR</strong> que o limite', 'danger', 'info','10')
                 return false
             }
             else{
+                alert(somaValores)
                 demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MENOR</strong> que o limite', 'danger', 'info','10')
                 return false
             }
