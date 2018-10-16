@@ -23,13 +23,14 @@
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
         
-        $sql="SELECT * FROM professor WHERE email='$email' AND senha='$senha'";
+        $sql="SELECT idprofessor,email,primeiro_nome FROM professor WHERE email='$email' AND senha='$senha' ";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             $row = $result->fetch_assoc();
             $_SESSION["id_user"] = $row["idprofessor"];
-            $_SESSION["email"] = $email;
+            $_SESSION["email"] = $row["email"];
             $_SESSION["nome"] = $row["primeiro_nome"];
+            
             header("Location: home.php");
         }else{
             echo "Erro ao fazer login.";

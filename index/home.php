@@ -35,7 +35,7 @@
     include("conexao.php");
     
 	if(!isset($_SESSION["login"])){
-		header("Location: login.html");
+		//header("Location: login.html");
 	}
     
     $id_user = $_SESSION["id_user"];

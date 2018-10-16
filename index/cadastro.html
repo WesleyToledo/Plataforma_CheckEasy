@@ -31,6 +31,8 @@
 
 </head>
 
+
+
 <body style="background: linear-gradient(45deg, #1de099, #1dc8cd);">
     <nav class="navbar navbar-transparent navbar-absolute" style="position: relative">
         <div class="container-fluid">
@@ -86,13 +88,15 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group label-floating">
                                                 <label class="control-label"><span><i class="fas fa-university"></i></span>Instituição</label>
                                                 <input type="text" name="instituicao" class="form-control" style="width: 100%;" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 col-sm-5">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-7">
                                             <div class="form-group label-floating">
                                                 <label class="control-label"><span><i class="fas fa-building"></i></span>Cidade</label>
                                                 <input type="text" name="cidade" class="form-control" style="width: 100%;" required>
@@ -110,9 +114,6 @@
                                             </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                    <div class="row">
                                         <div class="col-md-4 col-sm-5">
                                             <div class="form-group label-floating">
                                                 <label class="control-label"><span><i class="fas fa-building"></i></span>CEP</label>
@@ -147,7 +148,7 @@
                                         </div>
                                     </div>
                                     <div class="rowLogin">
-                                        <button type="submit" class="btn" data-background-color="blue400">Cadastrar</button>
+                                        <button type="submit" class="btn" data-background-color="blue400" id="submit">Cadastrar</button>
 
                                         <!-- <h6>Possui uma conta? <a href="#" style="color: #26c6da">Criar</a> </h6> -->
 
@@ -180,5 +181,72 @@
 <script src="assets/js/material-dashboard.js?v=1.2.0"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
+
+
+<script type="text/javascript">
+    $(function() { // declaro o início do jquery
+        $("input[name='email']").blur(function() {
+            var email = $("input[name='email']").val();
+            //alert(email);
+
+            $.post('general_functions_JS.php?a=VEmail', {
+                email: email
+            }, function(data) {
+                //$('#resultado').html(data); //onde vou escrever o resultado
+                var valor = data.toString();
+                valor = valor.substring(1, valor.length)
+
+                if (valor === 'usado') {
+                    //alert("Este email já está sendo usado");
+                    //from/align/message/icon
+                    demo.showNotification('top', 'right', 'Este e-mail já está sendo usado', 'danger', 'email')
+                    document.querySelector('#submit').disabled = true;
+                    $("input[name='email']").focus()
+                }else{
+                    document.querySelector('#submit').disabled = false;
+                }
+            });
+        });
+
+
+        $("input[name='nome_user']").blur(function() {
+            var nomeUser = $("input[name='nome_user']").val();
+
+            $.post('general_functions_JS.php?a=VNomeUser', {
+                nomeUser: nomeUser
+            }, function(data) {
+
+                var valor = data.toString();
+                valor = valor.substring(1, valor.length)
+
+                if (valor === 'usado') {
+                    //alert("Este email já está sendo usado");
+                    //from/align/message/icon
+                    demo.showNotification('top', 'right', 'Este nome de usuário já está sendo usado', 'danger', 'person')
+                    $("input[name='nome_user']").focus();
+                    document.querySelector('#submit').disabled = true;
+                }else{
+                    document.querySelector('#submit').disabled = false;
+                }
+            });
+        });
+        
+        $("input[name='confirm_senha']").blur(function() {
+            var senha = $("input[name='senha']").val();
+            var Csenha = $("input[name='confirm_senha']").val();
+            
+            if(Csenha.toString() !== senha.toString()){
+                demo.showNotification('top', 'right', 'Senhas não coincidem', 'danger', 'info')
+                document.querySelector('#submit').disabled = true;
+            }else{
+                document.querySelector('#submit').disabled = false;
+            }
+        });
+
+
+    }); // fim do jquery
+
+</script>
+
 
 </html>

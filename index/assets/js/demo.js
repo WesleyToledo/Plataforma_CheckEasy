@@ -248,10 +248,10 @@ demo = {
         marker.setMap(map);
     },
 
-    showNotification: function(from, align,messenger,tipo) {
+    showNotification: function(from, align,messenger,tipo,icon) {
 
         $.notify({
-            icon: "notifications",
+            icon: icon,
             message: messenger
 
         }, {
