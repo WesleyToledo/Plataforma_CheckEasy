@@ -71,7 +71,7 @@
         $html = "";
         $count = 1;
         
-        $sql = "SELECT idturma, nome FROM turma where idturma not in (select id_turma_prova_turma from turma_prova where id_turma_prova_professor = $id_user) and id_turma_professor = $id_user";
+        $sql = "SELECT idturma, nome FROM turma where idturma NOT IN (SELECT id_turma_prova_turma FROM turma_prova WHERE id_turma_prova_professor = $id_user) AND id_turma_professor = $id_user";
         
          $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -86,7 +86,10 @@
                 $count++;
             }
         return $html;
-    }}
+    }else{
+        echo "Nenhuma turma disponível";
+        }
+    }
     
     function listTurmas(){
         $id_user = $_SESSION["id_user"];
@@ -129,7 +132,7 @@
                         </div>";
             }
         } else {
-            echo "Nenhuma turma encontrada";
+            echo "<p style='margin: 15px'>Nenhuma Turma Vinculada</p>";
         }
         return $html;
     }
@@ -439,12 +442,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">person</i>
-                                    <p class="hidden-lg hidden-md">Profile</p>
-                                </a>
-                            </li>
+                            <?php echo userDropDown(); ?>
                         </ul>
                         <!-- <form class="navbar-form navbar-right" role="search">
                             <div class="form-group  is-empty">
@@ -464,7 +462,7 @@
                     <div class="row">
                         <ul class="nav navbar-nav navbar-left">
                             <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
-                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#cadastrarTurma">
+                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#adicionarTurma" onclick="verificaSerie();">
                                     <i class="material-icons" style="font-size: 27px;">add_circle_outline</i>
                                     &nbsp;&nbsp;&nbsp;Adicionar Turma
                                 </button>
@@ -477,7 +475,7 @@
                     </div>
 
 
-                    <form action="cadastrarGabarito.php" >
+                    <form action="cadastrarGabarito.php">
                         <div class="row justify-content-center">
                             <div class="col-md-2">
                             </div>
@@ -529,8 +527,8 @@
     <!----- MODAL AREA ----->
 
 
-    <!----- CRIA TURMA ----->
-    <div class="modal fade" id="cadastrarTurma" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <!----- ADICIONAR TURMA ----->
+    <div class="modal fade" id="adicionarTurma" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -551,7 +549,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-info">Adicionar</button>
+                            <button type="submit" class="btn btn-info" id="submitAdicionar">Adicionar</button>
 
                             <!-- onclick="demo.showNotification('top','right','Turma Cadastrada')" -->
 
@@ -562,10 +560,7 @@
         </div>
     </div>
 
-
     <?php echo geraExcluirTurma(); ?>
-
-
 
 </body>
 
@@ -598,39 +593,19 @@
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
-
-    });
-
-    function verificaSoma() {
-        var somaValores = 0;
-        var valor = parseInt("<?php echo $_GET["value"]; ?>");
-
-        $('form input[type=number]').each(function() {
-            somaValores += parseFloat($(this).val());
+    
+    function verificaSerie() {
+        $.post('general_functions_JS.php?a=VSerieAvaliacao', {
+            idUser: <?php echo $_SESSION["id_user"]; ?>
+        }, function(data) {
+            var valor = data.toString();
+            valor = valor.substring(1, valor.length)
+            if (valor === 'existe') {
+                document.querySelector('#submitAdicionar').disabled = false;
+            } else {
+                document.querySelector('#submitAdicionar').disabled = true;
+            }
         });
-        
-        if (parseFloat(somaValores) !== parseFloat(valor)) {
-            if(parseFloat(somaValores) > parseFloat(valor)){
-                alert(valor)
-                demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MAIOR</strong> que o limite', 'danger', 'info','10')
-                return false
-            }
-            else{
-                alert(somaValores)
-                demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MENOR</strong> que o limite', 'danger', 'info','10')
-                return false
-            }
-            
-            return false
-            
-        }else{
-            return true
-        }
-
     }
 
 </script>

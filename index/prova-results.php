@@ -36,7 +36,6 @@
     $id_user = $_SESSION["id_user"];
     $nome = $_SESSION["nome"];
     
-    
     ?>
 
 <body>
@@ -131,12 +130,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">person</i>
-                                    <p class="hidden-lg hidden-md">Profile</p>
-                                </a>
-                            </li>
+                            <?php echo userDropDown(); ?>
                         </ul>
                         <!-- <form class="navbar-form navbar-right" role="search">
                             <div class="form-group  is-empty">
@@ -397,15 +391,13 @@
 <script src="assets/js/perfect-scrollbar.jquery.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="assets/js/bootstrap-notify.js"></script>
-<!--  Google Maps Plugin    -->
-<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
+
 <!-- Material Dashboard javascript methods -->
 <script src="assets/js/material-dashboard.js?v=1.2.0"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-
         // Javascript method's body can be found in assets/js/demos.js
         demo.initDashboardPageCharts();
 
