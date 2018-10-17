@@ -125,8 +125,33 @@
                                                 <div class='form-group label-floating'>
                                                     <select name='estado' class='form-control' style='width: 100%;' required name='estado'>
                                                         <option value='$estado'>$estado</option>
-                                                        <option value='SP'>SP</option>
-                                                        <option value='RJ'>RJ</option>
+                                                        <option value='Acre'>Acre</option>
+                                                        <option value='Alagoas'>Alagoas</option>
+                                                        <option value='Amapá'>Amapá</option>
+                                                        <option value='Amazonas'>Amazonas</option>
+                                                        <option value='Bahia'>Bahia</option>
+                                                        <option value='Ceará'>Ceará</option>
+                                                        <option value='Distrito Federal'>Distrito Federal</option>
+                                                        <option value='Espirito Santo'>Espirito Santo</option>
+                                                        <option value='Goiás'>Goiás</option>
+                                                        <option value='Maranhão'>Maranhão</option>
+                                                        <option value='Mato Grosso do Sul'>Mato Grosso do Sul</option>
+                                                        <option value='Mato Grosso''>Mato Grosso</option>
+                                                        <option value='Minas Gerais'>Minas Gerais</option>
+                                                        <option value='Pará'>Pará</option>
+                                                        <option value='Paraíba'>Paraíba</option>
+                                                        <option value='Paraná'>Paraná</option>
+                                                        <option value='Pernambuco'>Pernambuco</option>
+                                                        <option value='Piauí'>Piauí</option>
+                                                        <option value='Rio de Janeiro'>Rio de Janeiro</option>
+                                                        <option value='Rio Grande do Norte'>Rio Grande do Norte</option>
+                                                        <option value='Rio Grande do Sul'>Rio Grande do Sul</option>
+                                                        <option value='Rondônia'>Rondônia</option>
+                                                        <option value='Roraima'>Roraima</option>
+                                                        <option value='Santa Catarina'>Santa Catarina</option>
+                                                        <option value='São Paulo'>São Paulo</option>
+                                                        <option value='Sergipe'>Sergipe</option>
+                                                        <option value='Tocantins'>Tocantins</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -150,23 +175,11 @@
                                             </div>
                                         </div>
                                         <div class='row'>
-                                            <div class='col-md-12'>
-                                                <div class='form-group label-floating'>
-                                                    <label class='control-label'><span><i class='fa fa-lock'></i></span>Senha</label>
-                                                    <input type='password' class='form-control' style='width: 100%;' value='$senha' name='senha'>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='row'>
-                                            <div class='col-md-12'>
-                                                <div class='form-group label-floating'>
-                                                    <label class='control-label'><span><i class='fa fa-lock'></i></span>Confirmar Senha</label>
-                                                    <input type='password' class='form-control' style='width: 100%;' name='confirm_senha' required>
-                                                </div>
-                                            </div>
+                                            <button type='button' class='btn btn-info pull-left' style='margin:15px;padding:12px;' data-toggle='modal' data-target='#novaSenha'>Alterar Senha</button>
                                         </div>
                                         
-                                        <button type='submit' class='btn btn-info pull-right'>Salvar alterações</button>
+                                        <button type='submit' id='submit' class='btn btn-info pull-right'>Salvar alterações</button>
+                                            
                                         <div class='clearfix'></div>
                                     </form>
                                 </div>
@@ -220,7 +233,6 @@
         return $html;
     }
     
-    
 ?>
 
     <body>
@@ -236,9 +248,9 @@
                     CheckEasy
                 </a>
                 </div>
-                
+
                 <?php echo setSidebar_wrapper(''); ?>
-                
+
             </div>
             <div class="main-panel">
                 <nav class="navbar navbar-transparent navbar-absolute">
@@ -303,9 +315,9 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-4">
-                               <?php  echo initUserFolder();  ?>
+                                <?php  echo initUserFolder();  ?>
                             </div>
-                            
+
                             <?php echo initUserEdit(); ?>
 
                         </div>
@@ -325,6 +337,35 @@
                 </footer>
             </div>
         </div>
+
+        <div class='modal fade' id='novaSenha' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button>
+                        <h3 class='modal-title mx-auto' id='lineModalLabel'>Nova Senha</h3>
+                    </div>
+                    <div class='modal-body'>
+                        <!-- content goes here -->
+                        <form action='cadastrarNovaSenhaUser.php' method='post'>
+                            <div class='form-group'>
+                                <label>Nova senha</label>
+                                <input type='text' name='senhaAnterior' class='form-control' name='nome_turma'>
+                            </div>
+                            <div class='form-group'>
+                                <label>Confirmar nova senha</label>
+                                <input type='text' name='senhaAnteriorC' class='form-control' name='nome_turma'>
+                            </div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                <button type='submit' id='submitSenha' class='btn btn-info' disabled>Salvar Alteração</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
     <!--   Core JS Files   -->
     <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
@@ -344,5 +385,77 @@
     <script src="assets/js/material-dashboard.js?v=1.2.0"></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="assets/js/demo.js"></script>
+    <script src="assets/js/jquery-1.2.6.pack.js"></script>
+    <script src="assets/js/jquery.maskedinput-1.1.4.pack.js"></script>
+    <script type="text/javascript">
+        $(function() { // declaro o início do jquery
+            $("input[name='email']").blur(function() {
+                var email = $("input[name='email']").val();
+                var idUser = <?php echo $_SESSION["id_user"]; ?>
+
+                //alert(email);
+                $.post('general_functions_JS.php?a=VEmailUser', {
+                    email: email,
+                    id_user: idUser
+                }, function(data) {
+                    var valor = data.toString();
+                    valor = valor.substring(1, valor.length)
+
+                    if (valor === 'usado') {
+                        //alert("Este email já está sendo usado");
+                        //from/align/message/icon
+                        demo.showNotification('top', 'right', 'Este e-mail já está sendo usado', 'danger', 'email')
+                        $("input[name='email']").focus()
+                    }
+                });
+            });
+
+
+            $("input[name='nome_user']").blur(function() {
+                var nomeUser = $("input[name='nome_user']").val();
+                var idUser = <?php echo $_SESSION["id_user"]; ?>
+
+                $.post('general_functions_JS.php?a=VNomeUserUser', {
+                    nomeUser: nomeUser,
+                    id_user: idUser
+                }, function(data) {
+
+                    var valor = data.toString();
+                    valor = valor.substring(1, valor.length)
+
+                    if (valor === 'usado') {
+                        //alert("Este email já está sendo usado");
+                        //from/align/message/icon
+                        demo.showNotification('top', 'right', 'Este nome de usuário já está sendo usado', 'danger', 'person')
+                        $("input[name='nome_user']").focus();
+                    }
+                });
+            });
+
+            $("input[name='senhaAnteriorC']").blur(function() {
+                var senha = $("input[name='senhaAnterior']").val();
+                var Csenha = $("input[name='senhaAnteriorC']").val();
+                
+                if (Csenha.toString() !== senha.toString()) {
+                    $("input[name='senhaAnterior']").focus()
+                    document.querySelector('#submitSenha').disabled = true;
+                } else {
+                    document.querySelector('#submitSenha').disabled = false;
+                }
+            });
+
+
+
+
+
+        }); // fim do jquery
+
+        $(document).ready(function() {
+            $("input[name='cep']").mask("99.999-999");
+        });
+
+
+
+    </script>
 
 </html>

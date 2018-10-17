@@ -273,60 +273,7 @@
             }
         return $html;
     }
-    function geraEditTurma(){
-        include("conexao.php");
-        $id_user = $_SESSION["id_user"];
-        $html = "";
-        
-        $sql = "SELECT idturma,nome,id_turma_serie FROM turma WHERE id_turma_professor = $id_user";
-        
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    
-                    $id_turma = $row["idturma"];
-                    $nome = $row["nome"];
-                    $id_serie = $row["id_turma_serie"];
-                    
-                    $html .= "
-                            <div class='modal fade' id='editarTurma$id_turma' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
-                                <div class='modal-dialog'>
-                                    <div class='modal-content'>
-                                        <div class='modal-header'>
-                                            <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button>
-                                            <h3 class='modal-title mx-auto' id='lineModalLabel'>Editar Turma</h3>
-                                        </div>
-                                        <div class='modal-body'>
-                                        <!-- content goes here -->
-                                        <form action='editarTurma.php?idT=$id_turma' method='post'>
-                                            <div class='form-group'>
-                                                <label >Nome da Turma</label>
-                                                <input type='text' name='nomeTurma' class='form-control' name='nome_turma' value='$nome' >
-                                            </div>
-                                            <div class='form-group' style='display: flex;flex-direction: column;'>
-                                                <label>Série</label>
-                                                <div style='display: flex; flex-direction: row;justify-content: flex-start'>
-                                                    <select id='turma' name='serie' class='custom-select' style='margin-top: 13px;margin-bottom: 13px;border: 0.5px #ccc solid; border-radius: 5px;width: 100%;'>    ".setSeries()."     
-                                                    
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class='modal-footer'>
-                                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                                <button type='submit' class='btn btn-info'>Editar Turma</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                    ";
-                }
-            } else {
-            }
-        return $html;
-    }
+  
     
     
                                                /* onclick="demo.showNotification('top','right','Turma Cadastrada')" */
@@ -513,7 +460,7 @@
                                         <a href="#">Another One</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </    li>
                             <?php echo userDropDown(); ?>
                         </ul>
                         <!-- <form class="navbar-form navbar-right" role="search">
