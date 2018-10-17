@@ -71,7 +71,7 @@
         $html = "";
         $count = 1;
         
-        $sql = "SELECT idturma, nome FROM turma where idturma NOT IN (SELECT id_turma_prova_turma FROM turma_prova WHERE id_turma_prova_professor = $id_user) AND id_turma_professor = $id_user";
+        $sql = "SELECT idturma, nome FROM turma where idturma NOT IN (SELECT id_turma_prova_turma FROM turma_prova WHERE id_turma_prova_professor = $id_user AND id_turma_prova_avaliacao = {$_GET["idA"]}) AND id_turma_professor = $id_user";
         
          $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -96,7 +96,7 @@
         $nome = $_SESSION["nome"];
         $html = "";
         include("conexao.php");
-        $sql = "SELECT t.idturma AS 'id_turma',t.nome AS 'nome_turma',s.cor AS 'cor',s.icone AS 'icone' ,s.nome AS 'nome_serie' FROM turma AS t INNER JOIN turma_prova AS tp JOIN serie as s WHERE tp.id_turma_prova_turma = t.idturma AND t.id_turma_serie = s.idserie AND t.id_turma_professor = $id_user AND tp.id_turma_prova_professor = $id_user";
+        $sql = "SELECT t.idturma AS 'id_turma',t.nome AS 'nome_turma',s.cor AS 'cor',s.icone AS 'icone' ,s.nome AS 'nome_serie' FROM turma AS t INNER JOIN turma_prova AS tp JOIN serie as s WHERE tp.id_turma_prova_turma = t.idturma AND t.id_turma_serie = s.idserie AND t.id_turma_professor = $id_user AND tp.id_turma_prova_professor = $id_user AND tp.id_turma_prova_avaliacao = {$_GET["idA"]}";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
@@ -596,7 +596,8 @@
     
     function verificaSerie() {
         $.post('general_functions_JS.php?a=VSerieAvaliacao', {
-            idUser: <?php echo $_SESSION["id_user"]; ?>
+            idUser: <?php echo $_SESSION["id_user"]; ?>,
+            idA : <?php echo $_GET['idA'] ?>
         }, function(data) {
             var valor = data.toString();
             valor = valor.substring(1, valor.length)

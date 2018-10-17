@@ -76,6 +76,66 @@
         }
         return $html;
     }
+    
+    function listProvas(){
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        include("conexao.php");
+        
+        $sql = "SELECT id_turma_prova_avaliacao FROM turma_prova WHERE id_turma_prova_turma = {$_GET["idT"]} AND id_turma_prova_professor = $id_user";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $id_prova = $row["id_turma_prova_avaliacao"];
+                    $sql2 = "SELECT quant_questoes,quant_alternativas, valor, nome FROM avaliacao WHERE idavaliacao = $id_prova AND id_avaliacao_professor = $id_user";
+                    $result2 = $conn->query($sql2);
+                    if ($result2->num_rows > 0) {
+                        while($row2 = $result2->fetch_assoc()) {
+                            $quant_questoes = $row2["quant_questoes"];
+                            $quant_alternativas = $row2["quant_alternativas"];
+                            $valor = $row2["valor"];
+                            $nome = $row2["nome"];
+                            
+                            $html .= " <div class='col-lg col-md-6 col-sm-6 col-xs-6 col-ws-100'>
+                                                <div class='card card-stats'>
+                                                    <a href='' style='color: inherit;'>
+                                                        <div class='card-header' data-background-color='blue400'>
+                                                            <i class='material-icons'>assignment</i>
+                                                        </div>
+                                                        <div class='card-content card-turmas'>
+                                                            <p class='category'>&nbsp;</p>
+                                                            <h3 class='title'>$nome
+                                                                <!-- <small>GB</small> -->
+                                                            </h3>
+                                                        </div>
+                                                    </a>
+                                                    <div class='card-footer' style='display: flex;flex-direction: row;justify-content: space-around;'>
+                                                        <div class='stats'>
+                                                            <i class='material-icons'>visibility</i>
+                                                            <a href='#' style='color: inherit;'>$quant_questoes Questões</a>
+                                                        </div>
+                                                        <div class='stats'>
+                                                            <i class='material-icons'>edit</i>
+                                                            <a href='#' style='color: inherit;'>$quant_alternativas Alternativas</a>
+                                                        </div>
+                                                        <div class='stats'>
+                                                            <i class='material-icons'>local_offer</i>
+                                                            <a href='#' style='color: inherit;'>$valor Pontos</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>";
+                        }
+                    }
+            }
+        } else {
+            $html .= "<p>Nenhuma prova vinculada</p>";
+        }
+        
+        return $html;
+    }
+    
     ?>
 
     <body>
@@ -189,43 +249,20 @@
                         <h4>Turmas</h4>
 
                         <div class="row">
-                            
+
                             <?php echo listTurmas(); ?>
-                        
+
                         </div>
 
-                        <h4>Provas</h4>
-
                         <div class="row">
-                            <div class="col-lg col-md-6 col-sm-6 col-xs-6 col-ws-100" style="">
-                                <div class="card card-stats ">
-                                    <a href="" style="color: inherit;">
-                                        <div class="card-header" data-background-color="blue400">
-                                            <i class="material-icons">assignment</i>
-                                        </div>
-                                        <div class="card-content card-turmas">
-                                            <p class="category">&nbsp;</p>
-                                            <h3 class="title">Sistemas Lineares
-                                                <!-- <small>GB</small> -->
-                                            </h3>
-                                        </div>
-                                    </a>
-                                    <div class="card-footer" style="display: flex;flex-direction: row;justify-content: space-around;">
-                                        <div class="stats">
-                                            <i class="material-icons">visibility</i>
-                                            <a href="#" style="color: inherit;">10 Questões</a>
-                                        </div>
-                                        <div class="stats">
-                                            <i class="material-icons">edit</i>
-                                            <a href="#" style="color: inherit;">5 Alternativas</a>
-                                        </div>
-                                        <div class="stats">
-                                            <i class="material-icons">local_offer</i>
-                                            <a href="#" style="color: inherit;">5 Pontos</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
+                        <?php    
+                            if ($_GET["idT"] == "all"){
+                                echo "<h4>Provas</h4><br><p>Nenhuma Turma Selecionada</p>";     
+                            }else{
+                                echo "<h4>Provas</h4><br>".listProvas();   
+                            }
+                        ?>
                         </div>
 
                         <div class="row">
@@ -330,7 +367,6 @@
 
                                         <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#criaSerie">
                                     <i class="material-icons" style="font-size: 20px;">add_circle_outline</i>
-                                   
                                 </button>
                                     </div>
                                 </div>
@@ -362,10 +398,8 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nome da Série</label>
                                 <input type="text" class="form-control" name="nome_turma" placeholder="">
-
                             </div>
                             <div class="form-group" style="display: flex;flex-direction: column;">
-
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -376,8 +410,6 @@
                 </div>
             </div>
         </div>
-
-
     </body>
 
     <script>

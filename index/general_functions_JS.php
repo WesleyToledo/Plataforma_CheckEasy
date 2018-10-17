@@ -65,7 +65,7 @@ header("Content-Type: text/html; charset=ISO-8859-1");
 
     if($action == "VSerieAvaliacao"){
         
-         $sql = "SELECT idturma, nome FROM turma WHERE idturma NOT IN (SELECT id_turma_prova_turma FROM turma_prova WHERE id_turma_prova_professor = {$_POST['idUser']}) AND id_turma_professor = {$_POST['idUser']}";//monto a query
+         $sql = "SELECT idturma, nome FROM turma WHERE idturma NOT IN (SELECT id_turma_prova_turma FROM turma_prova WHERE id_turma_prova_professor = {$_POST['idUser']} AND id_turma_prova_avaliacao = {$_POST["idA"]}) AND id_turma_professor = {$_POST['idUser']}";//monto a query
 
         $result = $conn->query($sql);
 
