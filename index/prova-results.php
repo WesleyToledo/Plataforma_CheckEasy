@@ -27,6 +27,18 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel='stylesheet'>
 
 </head>
+<style>
+    .dot {
+        height: 35px !important;
+        width: 35px !important;
+        background-color: #fff;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 3px 10px 3px 5px;
+        border: 1.3px solid #ccc;
+    }
+
+</style>
 <?php
     session_start();
     
@@ -54,7 +66,7 @@
                 $id_turma = $row["id_turma"];
                 $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                             <div class='card card-stats'>
-                                <a href='estatisticas.php?idT=$id_turma' style='color: inherit;'>
+                                <a href='prova-results.php?idT=$id_turma&idA={$_GET["idA"]}' style='color: inherit;'>
                                     <div class='card-header' data-background-color='$cor'>
                                         <i class='$icone'></i>
                                     </div>
@@ -79,6 +91,207 @@
         }
         return $html;
     }
+    function setTitleAlunosTurma(){
+        include("conexao.php");
+        $id_turma = $_GET["idT"];
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        
+        if($id_turma != 'all'){
+            
+        $sql = "SELECT t.nome AS 'turma_nome',s.nome AS 'nome_serie' FROM turma AS t INNER JOIN serie AS s ON s.idserie = t.id_turma_serie AND t.id_turma_professor = $id_user AND s.id_serie_professor = $id_user AND t.idturma = $id_turma";
+            
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+
+            $html = "<div style='width: 95%;'>
+                        <h3 class='title' style='font-weight: 600;'>".$row["turma_nome"]."</h3>
+                        <p class='category' style='font-weight: 500;'>".$row["nome_serie"]."</p>
+                    </div>
+                    <div style='float: right;'>
+                    </div>";
+        }
+    }else{
+            $html = $html = "<div style='width: 95%;'>
+                        <h3 class='title' style='font-weight: 600;'>Turma</h3>
+                        <p class='category' style='font-weight: 500;'>Série</p>
+                    </div>";
+        }
+        return $html;
+        
+        
+    }
+    
+    function setAlunosTurma(){
+        include("conexao.php");
+        $id_turma = $_GET["idT"];
+        $id_avaliacao = $_GET["idA"];
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        
+        $html = '';
+        
+        if($id_turma == "all"){
+            $html = '<tr>
+                        <td>Nenhuma Turma Selecionada</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>';
+        }else{
+            
+            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito,a.nome AS 'aluno_nome',a.sobrenome as 'sobrenome_aluno' FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = 8  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_correcoes = $row["idcorrecoes"];
+                    $nota = $row["nota"];
+                    $acertos = $row["acertos"];
+                    $erros = $row["erros"];
+                    $gabarito = $row["gabarito"];
+                    $nome = $row["aluno_nome"];
+                    $sobrenome = $row["sobrenome_aluno"];
+
+                    $html .= "<tr>
+                                <td>$nome $sobrenome</td>
+                                <td>$acertos</td>
+                                <td>$erros</td>
+                                <td>$nota</td>
+                                <td>
+                                    <div style='display: flex; flex-direction: row; justify-content: space-around;align-items: center;'>
+                                        <div>
+                                            <button type='button' class='btn' style='margin: 0;background-color: transparent;' data-toggle='modal' data-target='#mostrarGabarito$id_correcoes'>
+                                            <i class='material-icons' style='font-size: 20px;color: #404040'>assignment</i>
+                                        </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>";
+                }
+            } else {
+                echo "<tr>
+                        <td>Nenhum Correção Encontrada</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>";
+            }
+        }
+        return $html;
+    }
+    
+    function geraModalGabarito(){
+        include("conexao.php");
+        $id_turma = $_GET["idT"];
+        $id_avaliacao = $_GET["idA"];
+        
+        $id_user = $_SESSION["id_user"];
+        $nome = $_SESSION["nome"];
+        
+        $html = '';
+        
+        if($id_turma == "all"){
+            $html = '';
+        }else{
+            
+            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito,av.quant_questoes, av.quant_alternativas FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = 8  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_correcoes = $row["idcorrecoes"];
+                    $nota = $row["nota"];
+                    $acertos = $row["acertos"];
+                    $erros = $row["erros"];
+                    $gabarito = $row["gabarito"];
+                    $quant_questoes = $row["quant_questoes"];
+                    $quant_alternativas = $row["quant_alternativas"];
+                    
+                    $alternativas = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+    
+                    
+
+                    $html .= "<div class='modal fade' id='mostrarGabarito$id_correcoes' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
+                                <div class='modal-dialog' style='width:350px' >
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                            <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button>
+                                            <h3 class='modal-title mx-auto' id='lineModalLabel'>Nome</h3>
+                                        </div>
+                                        <div class='modal-body'>
+                                            <div style='width:100%;align-items:center;display:flex;flex-direction:column'>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>";
+                    for($x=1;$x <= $quant_alternativas;$x++){
+                        $html .= "<td style='text-align:center;justify-content:center;align-items:center'>
+                                        <h3 style='margin: 10px'>".strtoupper($alternativas[$x - 1])."</h3>
+                                  </td>";
+                    }
+                    $html .= "</tr>
+                                <tr>";
+                        
+                    for($x=1;$x <=$quant_questoes;$x++){
+                        $html .= "<td style='text-align:center'>
+                                        <h3>$x</h3>
+                                  </td>";
+                        
+                            for($y = 1;$y <= $quant_alternativas;$y++){
+                                $html .= "<td>
+                                              <p class='dot'></p>
+                                          </td>";
+                            }
+                             
+                        $html .= "</tr>";
+                    }
+                    $html .= "</tr>
+                                </table>
+                                <div class='row'>
+                                    <div style='display: flex;justify-content: space-around; flex-direction: row;'>
+                                        <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                            <i class='material-icons' style='padding: 5px; font-size: 1.2em'>visibility</i>
+                                            <p style='margin: 0; font-size: 0.8em'>$acertos Acertos</p>
+                                        </div>
+                                        <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                            <i class='material-icons' style='padding: 5px; font-size: 1.2em'>edit</i>
+                                            <p style='margin: 0; font-size: 0.8em'>$erros Erros</p>
+                                        </div>
+                                        <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                            <i class='material-icons' style='padding: 5px; font-size: 1.2em'>local_offer</i>
+                                            <p style='margin: 0; font-size: 0.8em'>$valor pontos</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>";
+                }
+            } else {
+                echo "";
+            }
+        }
+        return $html;
+    }
+    
+    
     
     ?>
 
@@ -191,7 +404,7 @@
                 </nav>
                 <div class="content">
                     <div class="container-fluid">
-                        
+
                         <div class="row">
                             <?php echo listTurmas(); ?>
                         </div>
@@ -199,34 +412,24 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
-                                    <div class="card-header" data-background-color="red400" style="text-align:justify;">
-                                        <h3 class="title" style="font-weight: 600;">9º A </h3>
-                                        <p class="category" style="font-weight: 500;">Ensino Médio</p>
+                                    <div class="card-header" style="text-align:justify;display:flex; align-items: center; background-color:#1dc8cd">
+                                        <?php  echo setTitleAlunosTurma(); ?>
                                     </div>
                                     <div class="card-content table-responsive">
                                         <table class="table">
-                                            <thead class="text-danger">
+                                            <thead class="text-success" style="color:#1dc8cd;">
                                                 <th>Aluno</th>
                                                 <th>Acertos</th>
                                                 <th>Erros</th>
+                                                <th>Nota</th>
                                                 <th>
-                                                    Nota
+                                                    <center>
+                                                        Ações
+                                                    </center>
                                                 </th>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Ícaro</td>
-                                                    <td>10</td>
-                                                    <td>0</td>
-                                                    <td>10</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Dédalos</td>
-                                                    <td>10</td>
-                                                    <td>0</td>
-                                                    <td>10</td>
-                                                </tr>
-
+                                                <?php  echo setAlunosTurma(); ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -253,81 +456,10 @@
         </div>
 
         <!----- MODAL AREA ----->
+        <?php echo geraModalGabarito(); ?>
 
+        <!----- MOSTRA GABARITO ----->
 
-        <!----- CRIA TURMA ----->
-        <div class="modal fade" id="cadastrarTurma" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
-                        <h3 class="modal-title mx-auto" id="lineModalLabel">Cadastrar Turma</h3>
-                    </div>
-                    <div class="modal-body">
-                        <!-- content goes here -->
-                        <form action="#" method="post">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nome da Turma</label>
-                                <input type="text" class="form-control" name="nome_turma" placeholder="">
-                            </div>
-                            <div class="form-group" style="display: flex;flex-direction: column;">
-                                <label for="exampleInputEmail1">Série</label>
-                                <div style="display: flex; flex-direction: row;justify-content: flex-start">
-                                    <select id="turma" class="custom-select" style="margin-top: 13px;margin-bottom: 13px;border: 0.5px #ccc solid; border-radius: 5px;width: 70%;">
-                                  <option value="1">Ensino Fundamental</option>
-                                  <option value="2">Ensino Médio</option>
-                                  <option value="3">Superior</option>
-                                </select>
-                                    <div style="display: flex;flex-direction: column; ustify-content: center; align-items: center; width: 30%">
-
-                                        <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#criaSerie">
-                                    <i class="material-icons" style="font-size: 20px;">add_circle_outline</i>
-                                   
-                                </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-info">Cadastrar Turma</button>
-
-                                <!-- onclick="demo.showNotification('top','right','Turma Cadastrada')" -->
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!----- CRIA SÉRIE ----->
-        <div class="modal fade" id="criaSerie" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                        <h3 class="modal-title mx-auto" id="lineModalLabel">Criar Série</h3>
-                    </div>
-                    <div class="modal-body">
-                        <!-- content goes here -->
-                        <form action="#" method="post">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nome da Série</label>
-                                <input type="text" class="form-control" name="nome_turma" placeholder="">
-
-                            </div>
-                            <div class="form-group" style="display: flex;flex-direction: column;">
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-info">Salvar Informações</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
     </body>

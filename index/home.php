@@ -93,7 +93,7 @@
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
          
-        $sql="SELECT COUNT(*) AS 'correcoes' FROM provas WHERE id_provas_professor ='$id_user'";
+        $sql="SELECT COUNT(*) AS 'correcoes' FROM correcoes WHERE id_correcoes_professor ='$id_user'";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             $row = $result->fetch_assoc();
@@ -282,7 +282,6 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-
                                         <img src="assets/img/test_gray.svg" height="16px" width="22px"> Todas as Correções
                                     </div>
                                 </div>

@@ -97,7 +97,7 @@
                                     </div>
                                 </div>
                                 </a>
-                                <a href='prova-results.php?idA=$id_avaliacao'>
+                                <a href='prova-results.php?idA=$id_avaliacao&idT=all'>
                                     <button type='button' class='btn btn-info'>Correções</button>
                                 </a>
                             </div>
