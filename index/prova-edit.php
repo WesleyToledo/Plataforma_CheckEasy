@@ -499,7 +499,7 @@
                         <div class="row">
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
-                                    <button type="submit" class="btn btn-success" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" onclick="return verificaSoma()">
+                                    <button type="submit" class="btn btn-success" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" onclick="return verificaSoma();">
                                     <i class="material-icons" style="font-size: 27px;">check_circle_outline</i>
                                     &nbsp;&nbsp;&nbsp; Confirmar
                                 </button>
@@ -607,6 +607,32 @@
                 document.querySelector('#submitAdicionar').disabled = true;
             }
         });
+    }
+    
+    function verificaSoma() {
+        var somaValores = 0;
+        var valor = parseFloat("<?php echo $_GET["value"]; ?>");
+
+        $('form input[type=number]').each(function() {
+            somaValores += parseFloat($(this).val());
+        });
+        
+        if (parseFloat(somaValores) !== parseFloat(valor)) {
+            if(parseFloat(somaValores) > parseFloat(valor)){
+                demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MAIOR</strong> que o limite', 'danger', 'info','10')
+                return false
+            }
+            else{
+                demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MENOR</strong> que o limite', 'danger', 'info','10')
+                return false
+            }
+            
+            return false
+            
+        }else{
+            return true
+        }
+
     }
 
 </script>

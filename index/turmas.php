@@ -539,16 +539,16 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header" style="text-align:justify;display:flex; align-items: center; background-color:#1dc8cd">
+                                <div class="card-header" style="text-align:justify;display:flex; align-items: center; background-color:#" data-background-color='<?php echo $_GET["c"]; ?>'>
                                     <?php  echo setTitleAlunosTurma(); ?>
                                 </div>
                                 <div class="card-content table-responsive">
                                     <table class="table">
-                                        <thead class="text-success" style="color:#1dc8cd;">
-                                            <th>Matrícula</th>
-                                            <th>Nome</th>
-                                            <th>Sobrenome</th>
-                                            <th>
+                                        <thead class="text-success" style='color: #666;font-weight: 800;'>
+                                            <th style="font-weight: 550;">Matrícula</th>
+                                            <th style="font-weight: 550;">Nome</th>
+                                            <th style="font-weight: 550;">Sobrenome</th>
+                                            <th style="font-weight: 550;">
                                                 <center>
                                                     Ações
                                                 </center>
@@ -673,7 +673,7 @@
                     </div>
                     <div class='modal-body'>
                         <!-- content goes here -->
-                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET[' id ']; ?>' method='post'>
+                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET['id']; ?>' method='post'>
                             <div class='form-group'>
                                 <label>Matrícula</label>
                                 <input type='text' class='form-control' name='matricula' value=''>
