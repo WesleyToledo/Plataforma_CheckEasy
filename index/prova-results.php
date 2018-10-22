@@ -29,13 +29,31 @@
 </head>
 <style>
     .dot {
-        height: 35px !important;
-        width: 35px !important;
+        height: 27px !important;
+        width: 27px !important;
         background-color: #fff;
         border-radius: 50%;
         display: inline-block;
-        margin: 3px 10px 3px 5px;
+        margin: 3px 10px 0px 5px;
         border: 1.3px solid #ccc;
+    }
+
+    .gabaritoAjuste td {
+        padding: 0px;
+        margin: 0px;
+        height: 35px !important;
+    }
+
+    .markedCorrect {
+        background-color: #43a047;
+    }
+
+    .markedWrong {
+        background-color: #e53935;
+    }
+
+    .NotMarked {
+        background-color: #fff;
     }
 
 </style>
@@ -206,7 +224,7 @@
             $html = '';
         }else{
             
-            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito,av.quant_questoes, av.quant_alternativas FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = 8  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
+            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito AS 'gabarito_correcoes',av.quant_questoes, av.quant_alternativas,a.nome AS 'nome_aluno', a.sobrenome AS 'sobrenome_aluno',av.gabarito AS 'gabarito_avaliacao' FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = 8  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
         
             $result = $conn->query($sql);
 
@@ -214,47 +232,87 @@
                 while($row = $result->fetch_assoc()) {
                     
                     $id_correcoes = $row["idcorrecoes"];
+                    $nome_aluno = $row["nome_aluno"];
+                    $sobrenome_aluno = $row["sobrenome_aluno"];
                     $nota = $row["nota"];
                     $acertos = $row["acertos"];
                     $erros = $row["erros"];
-                    $gabarito = $row["gabarito"];
+                    $gabarito_correcoes = $row["gabarito_correcoes"];
+                    //$gabarito_avaliacao = $row["gabarito_avaliacao"];
                     $quant_questoes = $row["quant_questoes"];
                     $quant_alternativas = $row["quant_alternativas"];
                     
                     $alternativas = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
-    
                     
+                    $count = 0;
+                    while($gabarito_correcoes != ""){      
+                        $barra = strpos($gabarito_correcoes,"/");
+                        $tamanho = strlen($gabarito_correcoes);
+                        if(strpos($gabarito_correcoes,"/")){
+                            $gabarito_array[$count] = substr($gabarito_correcoes,0,$barra);
+                            echo $gabarito_array[$count]."<br>";
+                            $gabarito_correcoes = substr($gabarito_correcoes, $barra + 1, $tamanho);
+                            $count++;
+                        }else{
+                            $gabarito_array[$count] = substr($gabarito_correcoes, 0, $tamanho);
+                            $gabarito_correcoes = "";
+                        }
+                    }
+
+                    $count = 0;
+                    for($x=0;$x<sizeof($gabarito_array);$x++){
+                        if($x%3 == 0){
+                            $respostas[$count] = $gabarito_array[$x + 1];
+                            //$valores[$count] = floatval($gabarito_array[$x + 2]);
+                            //echo "-".$certas[$count];
+                            //echo "-".$valores[$count];
+                            $count++;
+                        }
+                    }
+    
 
                     $html .= "<div class='modal fade' id='mostrarGabarito$id_correcoes' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
                                 <div class='modal-dialog' style='width:350px' >
                                     <div class='modal-content'>
                                         <div class='modal-header'>
                                             <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button>
-                                            <h3 class='modal-title mx-auto' id='lineModalLabel'>Nome</h3>
+                                            <h4 class='modal-title mx-auto' id='lineModalLabel' style='font-size:20px'>$nome_aluno $sobrenome_aluno</h4>
                                         </div>
                                         <div class='modal-body'>
                                             <div style='width:100%;align-items:center;display:flex;flex-direction:column'>
-                                                <table>
+                                                <table class='gabaritoAjuste'>
                                                     <tr>
                                                         <td>
                                                             &nbsp;
                                                         </td>";
+                    
                     for($x=1;$x <= $quant_alternativas;$x++){
                         $html .= "<td style='text-align:center;justify-content:center;align-items:center'>
-                                        <h3 style='margin: 10px'>".strtoupper($alternativas[$x - 1])."</h3>
+                                        <h3 style='margin: 10px;'>".strtoupper($alternativas[$x - 1])."</h3>
                                   </td>";
                     }
+
+
                     $html .= "</tr>
-                                <tr>";
+                              <tr style='padding: 0px;margin:0px'>";
                         
+                    
                     for($x=1;$x <=$quant_questoes;$x++){
                         $html .= "<td style='text-align:center'>
-                                        <h3>$x</h3>
+                                        <h4 style='font-size: 25px;margin: 3px;padding-right:10px'>$x</h4>
                                   </td>";
                         
                             for($y = 1;$y <= $quant_alternativas;$y++){
-                                $html .= "<td>
-                                              <p class='dot'></p>
+                                if($respostas[$x-1] == $alternativas[$y-1]."c"){
+                                    $class = "markedCorrect";
+                                }else if ($respostas[$x-1] == $alternativas[$y-1]."e"){
+                                    $class = "markedWrong";
+                                }else{
+                                    $class = "NotMarked";
+                                }
+                                
+                                $html .= "<td style='text-align:center'>
+                                              <p class='dot $class' ></p>
                                           </td>";
                             }
                              
@@ -265,16 +323,16 @@
                                 <div class='row'>
                                     <div style='display: flex;justify-content: space-around; flex-direction: row;'>
                                         <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                            <i class='material-icons' style='padding: 5px; font-size: 1.2em'>visibility</i>
+                                            <i class='material-icons' style='padding: 5px; font-size: 1.7em;color: #43a047'>check</i>
                                             <p style='margin: 0; font-size: 0.8em'>$acertos Acertos</p>
                                         </div>
                                         <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                            <i class='material-icons' style='padding: 5px; font-size: 1.2em'>edit</i>
+                                            <i class='material-icons' style='padding: 5px; font-size: 1.7em; color: #e53935'>close</i>
                                             <p style='margin: 0; font-size: 0.8em'>$erros Erros</p>
                                         </div>
                                         <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                            <i class='material-icons' style='padding: 5px; font-size: 1.2em'>local_offer</i>
-                                            <p style='margin: 0; font-size: 0.8em'>$valor pontos</p>
+                                            <i class='material-icons' style='padding: 5px; font-size: 1.7em'>local_offer</i>
+                                            <p style='margin: 0; font-size: 0.8em'>$nota pontos</p>
                                         </div>
                                     </div>
                                 </div>
@@ -290,6 +348,8 @@
         }
         return $html;
     }
+    
+    
     
     
     

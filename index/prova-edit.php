@@ -71,7 +71,7 @@
         $html = "";
         $count = 1;
         
-        $sql = "SELECT idturma, nome FROM turma where idturma NOT IN (SELECT id_turma_prova_turma FROM turma_prova WHERE id_turma_prova_professor = $id_user AND id_turma_prova_avaliacao = {$_GET["idA"]}) AND id_turma_professor = $id_user";
+        $sql = "SELECT idturma, nome FROM turma WHERE idturma NOT IN (SELECT id_turma_prova_turma FROM turma_prova WHERE id_turma_prova_professor = $id_user AND id_turma_prova_avaliacao = {$_GET["idA"]}) AND id_turma_professor = $id_user";
         
          $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -80,7 +80,7 @@
                 $id_turma = $row["idturma"];
                 
                 $html .= "<div class='funkyradio-info'>
-                            <input type='checkbox' name='checkbox$nomeTurma' id='checkbox$count' value='$id_turma'/>
+                            <input type='checkbox' name='checkbox".str_replace(" ", "",$nomeTurma)."' id='checkbox$count' value='$id_turma'/>
                             <label for='checkbox$count'>$nomeTurma</label>
                         </div>";
                 $count++;
