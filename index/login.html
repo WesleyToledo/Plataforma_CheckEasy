@@ -105,4 +105,20 @@
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 
+<script type="text/javascript">
+    
+     $(document).ready(function() {
+        
+         var hashe = window.location.href.slice(window.location.href.indexOf('?') + 1)
+         
+         if(hashe === "id=el"){
+             demo.showNotification('top', 'right', 'Erro ao fazer <strong>login</strong>', 'danger', 'person')
+         }
+         
+         //alert(hashe)
+        
+    });
+    
+    </script>
+
 </html>

@@ -9,7 +9,7 @@
     $sql = "DELETE FROM aluno WHERE idaluno = $id_aluno AND id_aluno_professor=$id_user AND id_aluno_turma = $id_turma";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: turmas.php?id=$id_turma");
+        header("Location: turmas.php?id=$id_turma&c={$_GET['c']}");
     } else {
         echo "Erro ao deletar aluno: " . $conn->error;
     }

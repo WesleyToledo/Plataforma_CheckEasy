@@ -244,7 +244,7 @@
                                 </div>
                                 <div class='modal-body'>
                                     <!-- content goes here -->
-                                    <form action='editarAlunoTurma.php?id=$id_aluno&idT=$id_turma' method='post'>
+                                    <form action='editarAlunoTurma.php?id=$id_aluno&idT=$id_turma&c={$_GET['c']}' method='post'>
                                         <div class='form-group'>
                                             <label>Matrícula</label>
                                             <input type='text' class='form-control' name='matricula' value='$matricula'>
@@ -279,15 +279,15 @@
         
         $sql = "SELECT idturma,nome,id_turma_serie FROM turma WHERE id_turma_professor = $id_user";
         
+        //$sql = "SELECT a.idaluno,a.id_aluno_turma,a.matricula,a.nome,a.sobrenome,t.id_turma_serie,s.cor FROM aluno AS a INNER JOIN turma AS t INNER JOIN serie AS s ON a.id_aluno_turma = t.idturma AND id_aluno_professor = $id_user AND id_aluno_turma = {$_GET['idT']} AND t.id_turma_serie = s.idserie";
+        
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    
                     $id_turma = $row["idturma"];
                     $nome = $row["nome"];
                     $id_serie = $row["id_turma_serie"];
-                    
                     $html .= "
                             <div class='modal fade' id='editarTurma$id_turma' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
                                 <div class='modal-dialog'>
@@ -337,7 +337,8 @@
         $id_user = $_SESSION["id_user"];
         $html = "";
         
-        $sql = "SELECT idaluno,id_aluno_turma,matricula,nome,sobrenome FROM aluno WHERE id_aluno_professor = $id_user";
+        $sql = "SELECT idaluno,id_aluno_turma,matricula,nome,sobrenome FROM aluno WHERE id_aluno_professor = $id_user AND id_aluno_turma = {$_GET['idT']}";
+        
         
             $result = $conn->query($sql);
 
