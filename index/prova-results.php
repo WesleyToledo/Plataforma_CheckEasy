@@ -84,7 +84,7 @@
                 $id_turma = $row["id_turma"];
                 $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                             <div class='card card-stats'>
-                                <a href='prova-results.php?idT=$id_turma&idA={$_GET["idA"]}' style='color: inherit;'>
+                                <a href='prova-results.php?idT=$id_turma&idA={$_GET["idA"]}&c=$cor' style='color: inherit;'>
                                     <div class='card-header' data-background-color='$cor'>
                                         <i class='$icone'></i>
                                     </div>
@@ -117,7 +117,7 @@
         
         if($id_turma != 'all'){
             
-        $sql = "SELECT t.nome AS 'turma_nome',s.nome AS 'nome_serie' FROM turma AS t INNER JOIN serie AS s ON s.idserie = t.id_turma_serie AND t.id_turma_professor = $id_user AND s.id_serie_professor = $id_user AND t.idturma = $id_turma";
+        $sql = "SELECT t.nome AS 'turma_nome',s.nome AS 'nome_serie' FROM turma AS t INNER JOIN serie AS s ON s.idserie = t.id_turma_serie AND t.id_turma_professor = $id_user AND s.id_serie_professor = $id_user AND t.idturma = $id_turma ";
             
         $result = $conn->query($sql);
 
@@ -474,12 +474,12 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
-                                    <div class="card-header" style="text-align:justify;display:flex; align-items: center; background-color:#1dc8cd">
+                                    <div class="card-header" style="text-align:justify;display:flex; align-items: center;" data-background-color="<?php echo $_GET["c"];  ?>">
                                         <?php  echo setTitleAlunosTurma(); ?>
                                     </div>
                                     <div class="card-content table-responsive">
                                         <table class="table">
-                                            <thead class="text-success" style="color:#1dc8cd;">
+                                            <thead style="color: #666;font-weight: 550 !important;">
                                                 <th>Aluno</th>
                                                 <th>Acertos</th>
                                                 <th>Erros</th>
@@ -510,7 +510,7 @@
                                 document.write(new Date().getFullYear())
 
                             </script>
-                            <a href="#">CheckEasy</a>, a plataforma online dedicada aos professores
+                            <a href="#" style="color: blue">CheckEasy</a>, a plataforma online dedicada aos professores
                         </p>
                     </div>
                 </footer>

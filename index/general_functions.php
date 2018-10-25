@@ -40,7 +40,7 @@
                         </a>
                     </li>
                     <li class='$active2'>
-                        <a href='./turmas.php?id=all'>
+                        <a href='./turmas.php?id=all&c=blue400'>
                             <i class=material-icons>group</i>
                             <p>Turmas</p>
                         </a>

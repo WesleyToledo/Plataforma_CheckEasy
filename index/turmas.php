@@ -190,7 +190,7 @@
         $nome = $_SESSION["nome"];
         
         if($id_turma != 'all'){
-        $sql = "SELECT t.nome as 'turma_nome', s.nome as 'nome_serie', idturma FROM turma AS t INNER JOIN serie as s where t.idturma = $id_turma";
+        $sql = "SELECT t.nome as 'turma_nome', s.nome as 'nome_serie', idturma FROM turma AS t INNER JOIN serie AS s ON t.idturma = $id_turma AND t.id_turma_serie = s.idserie AND t.id_turma_professor = $id_user";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
