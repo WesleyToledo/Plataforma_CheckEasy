@@ -164,7 +164,7 @@
                     </tr>';
         }else{
             
-            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito,a.nome AS 'aluno_nome',a.sobrenome as 'sobrenome_aluno' FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = 8  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
+            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito,a.nome AS 'aluno_nome',a.sobrenome as 'sobrenome_aluno',a.idaluno AS 'idaluno' FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = 8  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
         
             $result = $conn->query($sql);
 
@@ -172,10 +172,12 @@
                 while($row = $result->fetch_assoc()) {
                     
                     $id_correcoes = $row["idcorrecoes"];
+                    $id_aluno = $row['idaluno'];
                     $nota = $row["nota"];
                     $acertos = $row["acertos"];
                     $erros = $row["erros"];
                     $gabarito = $row["gabarito"];
+                    $idaluno = $row['idaluno'];
                     $nome = $row["aluno_nome"];
                     $sobrenome = $row["sobrenome_aluno"];
 
@@ -187,7 +189,7 @@
                                 <td>
                                     <div style='display: flex; flex-direction: row; justify-content: space-around;align-items: center;'>
                                         <div>
-                                            <button type='button' class='btn' style='margin: 0;background-color: transparent;' data-toggle='modal' data-target='#mostrarGabarito$id_correcoes'>
+                                            <button type='button' class='btn' style='margin: 0;background-color: transparent;' data-toggle='modal' data-target='#mostrarGabarito$id_aluno'>
                                             <i class='material-icons' style='font-size: 20px;color: #404040'>assignment</i>
                                         </button>
                                         </div>
@@ -224,7 +226,7 @@
             $html = '';
         }else{
             
-            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito AS 'gabarito_correcoes',av.quant_questoes, av.quant_alternativas,a.nome AS 'nome_aluno', a.sobrenome AS 'sobrenome_aluno',av.gabarito AS 'gabarito_avaliacao' FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = 8  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
+            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito AS 'gabarito_correcoes',av.quant_questoes, av.quant_alternativas,a.nome AS 'nome_aluno',a.idaluno AS 'idaluno', a.sobrenome AS 'sobrenome_aluno',av.gabarito AS 'gabarito_avaliacao' FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = 8  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
         
             $result = $conn->query($sql);
 
@@ -232,6 +234,7 @@
                 while($row = $result->fetch_assoc()) {
                     
                     $id_correcoes = $row["idcorrecoes"];
+                    $id_aluno = $row["idaluno"];
                     $nome_aluno = $row["nome_aluno"];
                     $sobrenome_aluno = $row["sobrenome_aluno"];
                     $nota = $row["nota"];
@@ -269,9 +272,8 @@
                             $count++;
                         }
                     }
-    
 
-                    $html .= "<div class='modal fade' id='mostrarGabarito$id_correcoes' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
+                    $html .= "<div class='modal fade' id='mostrarGabarito$id_aluno' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
                                 <div class='modal-dialog' style='width:350px' >
                                     <div class='modal-content'>
                                         <div class='modal-header'>
