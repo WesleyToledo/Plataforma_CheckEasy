@@ -26,8 +26,6 @@
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel='stylesheet'>
-
-
 </head>
 
 <?php session_start();
@@ -120,7 +118,7 @@
                                 <div class='card-footer'>
                                     <div class='stats'>
                                         <i class='material-icons'>group</i>
-                                        <a href='#' style='color: inherit'>$serie_nome</a>
+                                        <a style='color: inherit'>$serie_nome</a>
                                     </div>
                                     <div class='stats' style='float: right;'>
                                        <a data-toggle='modal' data-target='#excluirTurma$id_turma'>   

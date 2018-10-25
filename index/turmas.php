@@ -301,7 +301,7 @@
                                         <form action='editarTurma.php?idT=$id_turma' method='post'>
                                             <div class='form-group'>
                                                 <label >Nome da Turma</label>
-                                                <input type='text' name='nomeTurma' class='form-control' name='nome_turma' value='$nome' >
+                                                <input type='text' name='nomeTurma' class='form-control' name='nome_turma' value='$nome' required>
                                             </div>
                                             <div class='form-group' style='display: flex;flex-direction: column;'>
                                                 <label>Série</label>
@@ -337,8 +337,7 @@
         $id_user = $_SESSION["id_user"];
         $html = "";
         
-        $sql = "SELECT idaluno,id_aluno_turma,matricula,nome,sobrenome FROM aluno WHERE id_aluno_professor = $id_user AND id_aluno_turma = {$_GET['idT']}";
-        
+        $sql = "SELECT idaluno,id_aluno_turma,matricula,nome,sobrenome FROM aluno WHERE id_aluno_professor = $id_user AND id_aluno_turma = {$_GET['id']}";
         
             $result = $conn->query($sql);
 
@@ -364,7 +363,7 @@
                                 Tem certeza que deseja excluir o aluno $nome $sobrenome ?
                             </div>
                             <div class='modal-footer'>
-                            <form action='excluirAlunoTurma.php?id=$id_aluno&idT=$id_turma' method='post'>
+                            <form action='excluirAlunoTurma.php?id=$id_aluno&idT=$id_turma&c={$_GET['c']}' method='post'>
                                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
                                 <button type='submit' class='btn btn-info' >Excluir</button>
                                 </form>
@@ -598,7 +597,7 @@
                     <form action="cadastrarTurma.php" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nome da Turma</label>
-                            <input type="text" name="nomeTurma" class="form-control" name="nome_turma" placeholder="">
+                            <input type="text" name="nomeTurma" class="form-control" name="nome_turma" placeholder="" required>
                         </div>
                         <div class="form-group" style="display: flex;flex-direction: column;">
                             <label for="exampleInputEmail1">Série</label>
@@ -674,7 +673,7 @@
                     </div>
                     <div class='modal-body'>
                         <!-- content goes here -->
-                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET['id']; ?>' method='post'>
+                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET['id']."&c={$_GET['c']}"; ?>' method='post'>
                             <div class='form-group'>
                                 <label>Matrícula</label>
                                 <input type='text' class='form-control' name='matricula' value=''>
@@ -698,15 +697,13 @@
         </div>
 </body>
 
-<script>
+<script type="text/javascript">
     $('#turma').on('change', function() {
         if ($(this).val() == "1") {
             $('#criaSerie').modal('show');
         }
     });
-
 </script>
-
 <!--   Core JS Files   -->
 <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
@@ -728,10 +725,21 @@
 <script src="assets/js/demo.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
-
+         var vars = [], hash
+         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            //alert(hash[1])
+            if(hash[0] === "s"){
+                if(hash[1] === "s"){
+                    demo.showNotification('top', 'right', 'Turma excluida', 'success', 'group')
+                }else{
+                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir turma', 'error', 'group')
+                }
+            }
+        }
+        
     });
 
 </script>

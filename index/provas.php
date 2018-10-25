@@ -128,7 +128,7 @@
                     <div class='modal-dialog' role='document'>
                         <div class='modal-content'>
                             <div class='modal-header'>
-                                <h5 class='modal-title' id='exampleModalLabel'>Excluir Aluno</h5>
+                                <h5 class='modal-title' id='exampleModalLabel'>Excluir Prova</h5>
                                 <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
                                     <span aria-hidden='true'>&times;</span>
                                 </button>
@@ -180,21 +180,21 @@
                             <form action='editarProva.php?idA=$id_avaliacao' method='post'>
                                 <div class='form-group'>
                                     <label >Nome/Identificação</label>
-                                    <input type='text' class='form-control' name='nome_prova' value='$nome' >
+                                    <input type='text' class='form-control' name='nome_prova' value='$nome' required>
                                 </div>
 
                                 <div style='display: flex;flex-direction: row; justify-content: flex-start;'>
                                     <div class='form-group' style='width: 30% !important;margin-right: 10px;'>
                                         <label>Número de Questões</label>
-                                        <input type='number' class='form-control' name='num_questoes' value='$quant_questoes' >
+                                        <input type='number' class='form-control' name='num_questoes' value='$quant_questoes' required>
                                     </div>
                                     <div class='form-group' style='width: 30% !important;margin-right: 10px; '>
                                         <label >Número de Alternativas</label>
-                                        <input type='number' class='form-control' name='num_alternativas' value='$quant_alternativas'>
+                                        <input type='number' class='form-control' name='num_alternativas' value='$quant_alternativas' required>
                                     </div>
                                     <div class='form-group' style='width: 30% !important;margin-right: 10px;'>
                                         <label>Valor Total</label>
-                                        <input type='number' step='0.1' class='form-control' name='valor_total' value='$valor'>
+                                        <input type='number' step='0.1' class='form-control' name='valor_total' value='$valor' required>
                                     </div>
 
                                 </div>
@@ -377,21 +377,21 @@
                             <form action="cadastrarProva.php" method="post">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nome/Identificação</label>
-                                    <input type="text" class="form-control" name="nome_prova" placeholder="">
+                                    <input type="text" class="form-control" name="nome_prova" placeholder="" required>
                                 </div>
 
                                 <div style="display: flex;flex-direction: row; justify-content: flex-start;">
                                     <div class="form-group" style="width: 30% !important;margin-right: 10px;">
                                         <label for="exampleInputEmail1">Número de Questões</label>
-                                        <input type="number" class="form-control" name="num_questoes" placeholder="">
+                                        <input type="number" class="form-control" name="num_questoes" placeholder="" required>
                                     </div>
                                     <div class="form-group" style="width: 30% !important;margin-right: 10px; ">
                                         <label for="exampleInputEmail1">Número de Alternativas</label>
-                                        <input type="number" class="form-control" name="num_alternativas" placeholder="">
+                                        <input type="number" class="form-control" name="num_alternativas" placeholder="" required>
                                     </div>
                                     <div class="form-group" style="width: 30% !important;margin-right: 10px; ">
                                         <label for="exampleInputEmail1">Valor Total</label>
-                                        <input type="number" step="0.1" class="form-control" name="valor_total" placeholder="">
+                                        <input type="number" step="0.1" class="form-control" name="valor_total" placeholder="" required>
                                     </div>
 
                                 </div>
@@ -440,9 +440,21 @@
 <script src="assets/js/demo.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
+ var vars = [], hash
+         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            //alert(hash[1])
+            if(hash[0] === "s"){
+                if(hash[1] === "s"){
+                    demo.showNotification('top', 'right', 'Prova excluída', 'success', 'group')
+                }else{
+                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir prova', 'error', 'group')
+                }
+            }
+        }
+        
 
     });
 

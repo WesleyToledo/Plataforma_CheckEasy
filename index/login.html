@@ -109,9 +109,9 @@
     
      $(document).ready(function() {
         
-         var hashe = window.location.href.slice(window.location.href.indexOf('?') + 1)
+         var hash = window.location.href.slice(window.location.href.indexOf('?') + 1)
          
-         if(hashe === "id=el"){
+         if(hash === "id=el"){
              demo.showNotification('top', 'right', 'Erro ao fazer <strong>login</strong>', 'danger', 'person')
          }
          

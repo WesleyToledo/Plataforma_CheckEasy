@@ -13,9 +13,9 @@
     $sql = "UPDATE avaliacao SET nome = '$nome', quant_questoes = $num_questoes, quant_alternativas = $num_alternativas, valor = $valor  WHERE id_avaliacao_professor = $id_user AND idavaliacao = $id_avaliacao";
 
     if ($conn->query($sql) === TRUE) {
-            header("Location: provas.php");
+            header("Location: provas.php?s=s");
         }else{
-            echo "Erro ao editar prova";
+            header("Location: provas.php?s=e");
         }
     
 ?>
