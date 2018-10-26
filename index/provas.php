@@ -448,9 +448,16 @@
             //alert(hash[1])
             if(hash[0] === "s"){
                 if(hash[1] === "s"){
-                    demo.showNotification('top', 'right', 'Prova excluída', 'success', 'group')
-                }else{
-                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir prova', 'error', 'group')
+                    demo.showNotification('top', 'right', 'Prova excluída', 'success', 'assignment')
+                }else {
+                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir prova', 'danger', 'assignment')
+                }
+            }
+            if(hash[0] === "es"){
+                if(hash[1] === "s"){
+                    demo.showNotification('top', 'right', 'Prova editada', 'success', 'assignment')
+                }else {
+                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar prova', 'danger', 'assignment')
                 }
             }
         }

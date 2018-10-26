@@ -74,7 +74,7 @@ function userDropDown(){
                         <a href='user.php'><i class='material-icons' style='font-size: 1.6em;margin:0px 10px 0px 10px'>person</i>Profile</a>
                     </li>
                     <li>
-                        <a href='#'><i class='material-icons' style='font-size: 1.6em;margin:0px 10px 0px 10px'>keyboard_tab</i>Profile</a>
+                        <a href='index.html'><i class='material-icons' style='font-size: 1.6em;margin:0px 10px 0px 10px'>keyboard_tab</i>Profile</a>
                     </li>
                 </ul>
             </li>";
