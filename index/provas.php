@@ -364,7 +364,7 @@
             <!----- MODAL AREA ----->
 
 
-            <!----- CRIA TURMA ----->
+            <!----- CRIA prova ----->
             <div class="modal fade" id="criarProva" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -415,10 +415,7 @@
 
         </div>
     </div>
-</body>
-
-
-
+</body>s
 <!--   Core JS Files   -->
 <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
@@ -439,6 +436,7 @@
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 <script type="text/javascript">
+    
     $(document).ready(function() {
  var vars = [], hash
          var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -449,20 +447,25 @@
             if(hash[0] === "s"){
                 if(hash[1] === "s"){
                     demo.showNotification('top', 'right', 'Prova excluída', 'success', 'assignment')
-                }else {
+                }else if(hash[1] === "e"){
                     demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir prova', 'danger', 'assignment')
                 }
-            }
-            if(hash[0] === "es"){
-                if(hash[1] === "s"){
+                
+                if(hash[1] === "eds"){
                     demo.showNotification('top', 'right', 'Prova editada', 'success', 'assignment')
-                }else {
+                }else if(hash[1] === "ede"){
                     demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar prova', 'danger', 'assignment')
                 }
-            }
+                
+                if(hash[1] === "cs"){
+                    demo.showNotification('top', 'right', 'Prova Cadastrada', 'success', 'assignment')
+                }else if(hash[1] === "ce"){
+                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao cadastrar prova', 'danger', 'assignment')
+                }
+                
+            }// fim
+            
         }
-        
-
     });
 
 </script>

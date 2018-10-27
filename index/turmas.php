@@ -696,7 +696,6 @@
             </div>
         </div>
 </body>
-
 <script type="text/javascript">
     $('#turma').on('change', function() {
         if ($(this).val() == "1") {
@@ -725,21 +724,68 @@
 <script src="assets/js/demo.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-         var vars = [], hash
-         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        var vars = [], hash
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
         for(var i = 0; i < hashes.length; i++)
         {
             hash = hashes[i].split('=');
             //alert(hash[1])
             if(hash[0] === "s"){
-                if(hash[1] === "s"){
-                    demo.showNotification('top', 'right', 'Turma excluida', 'success', 'group')
-                }else{
-                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir turma', 'error', 'group')
+                
+                if(hash[1] === "eas"){
+                    demo.showNotification('top', 'right', 'Aluno Excluído', 'success', 'group')
+                }else if(hash[1] === "eae"){
+                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir aluno', 'danger', 'group')
                 }
+                
+                
+                switch(hash[1]){
+                        //cadastrar turma
+                    case 'cs':
+                        demo.showNotification('top', 'right', 'Turma Cadastrada', 'success', 'group')
+                        break
+                    case 'ce':
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao cadastrar turma', 'danger', 'group')
+                        break
+                        //excluir turma
+                    case 'es':
+                        demo.showNotification('top', 'right', 'Turma Excluída', 'success', 'group')
+                        break
+                    case 'ee':
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir turma', 'danger', 'group')
+                        break
+                        ///editar turma
+                    case 'eds':
+                        demo.showNotification('top', 'right', 'Turma Editada', 'success', 'group')
+                        break
+                    case 'ede':
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar turma', 'danger', 'group')
+                        break
+                        //excluir aluno
+                    case 'eas':
+                         demo.showNotification('top', 'right', 'Aluno Excluído', 'success', 'group')
+                        break
+                    case 'eae':
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir aluno', 'danger', 'group')
+                        break
+                        //editar aluno
+                    case 'edas':
+                        demo.showNotification('top', 'right', 'Aluno editado', 'success', 'group')
+                        break
+                    case 'edae':
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar aluno', 'danger', 'group')
+                        break
+                }
+                
+                
+                
+                
             }
         }
         
+        var url = window.location.href
+        var newUrl = url.substring(0,(url.lastIndexOf("s=") - 1))
+        history.pushState('teste','CheckEasy',newUrl)
     });
 
 </script>

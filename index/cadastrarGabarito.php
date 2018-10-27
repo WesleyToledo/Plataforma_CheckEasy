@@ -27,9 +27,10 @@
     $sql = "UPDATE avaliacao SET gabarito = '$gabarito' WHERE idavaliacao = $id_avaliacao AND id_avaliacao_professor=$id_user";
         
     if ($conn->query($sql) === TRUE) {
-        header("Location: prova-edit.php?idA=$id_avaliacao&value=$valorA");
+        header("Location: prova-edit.php?idA=$id_avaliacao&value=$valorA&s=es");
     }else{
-        echo "Erro ao cadastrar aluno";
+        
+        header("Location: prova-edit.php?idA=$id_avaliacao&value=$valorA&s=ee");
     }
     
 ?>

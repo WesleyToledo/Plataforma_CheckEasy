@@ -16,9 +16,9 @@
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
         
-            header("Location: turmas.php?id=$id_turma&c={$row['cor']}");
+            header("Location: turmas.php?id=$id_turma&c={$row['cor']}&s=eds");
         }else{
-            echo "Erro ao cadastrar turma";
+            header("Location: turmas.php?id=$id_turma&c={$row['cor']}&s=ede");
         }
     
 ?>

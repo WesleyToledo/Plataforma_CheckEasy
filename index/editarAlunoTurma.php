@@ -15,8 +15,8 @@
     $sql = "UPDATE aluno SET matricula='$matricula', nome = '$nome', sobrenome = '$sobrenome' WHERE idaluno = $id_aluno AND id_aluno_professor=$id_user AND id_aluno_turma = $id_turma";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: turmas.php?id=$id_turma&c={$_GET['c']}");
+        header("Location: turmas.php?id=$id_turma&c={$_GET['c']}&s=edas");
     } else {
-        echo "Erro ao atualizar aluno: " . $conn->error;
+        header("Location: turmas.php?id=$id_turma&c={$_GET['c']}&s=edae");
     }
 ?>

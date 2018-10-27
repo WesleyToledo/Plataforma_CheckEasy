@@ -105,7 +105,7 @@
                 $id_turma = $row["id_turma"];
                 $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                             <div class='card card-stats'>
-                                <a href='turmas.php?id=$id_turma' style='color: inherit;'>
+                                <a href='turmas.php?id=$id_turma&c=$cor' style='color: inherit;'>
                                     <div class='card-header' data-background-color='$cor'>
                                         <i class='$icone'></i>
                                     </div>
@@ -479,7 +479,7 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card">
-                                    <div class="card-header" data-background-color="green400" style="text-align:justify;">
+                                    <div class="card-header" data-background-color="blue400" style="text-align:justify;">
                                         <h3 class="title" style="font-weight: 600;">Gabarito</h3>
                                     </div>
                                     <div class="card-content table-responsive">
@@ -632,6 +632,30 @@
         }
 
     }
+    
+    $(document).ready(function() {
+        var vars = [], hash
+         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            //alert(hash[1])
+            if(hash[0] === "s"){
+                if(hash[1] === "es"){
+                    demo.showNotification('top', 'right', 'Gabarito Editado', 'success', 'assignment')
+                }else {
+                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar gabarito', 'danger', 'assignment')
+                }
+            }
+        }
+        var url = window.location.href
+        var newUrl = url.substring(0,(url.lastIndexOf("s=") - 1))
+        history.pushState('teste','CheckEasy',newUrl)
+
+    });
+    
+    
+    
 
 </script>
 

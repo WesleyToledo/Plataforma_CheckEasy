@@ -17,10 +17,11 @@
 
     $sql = "INSERT INTO avaliacao(gabarito,quant_questoes, id_avaliacao_professor, quant_alternativas, valor,nome) VALUES('$gabarito',$num_questoes,$id_user,$num_alternativas,$valor,'$nome');";
 
+
     if ($conn->query($sql) === TRUE) {
-            header("Location: provas.php");
+            header("Location: provas.php?s=cs");
         }else{
-            echo "Erro ao cadastrar prova";
+           header("Location: provas.php?s=ce");
         }
     
 ?>

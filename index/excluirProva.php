@@ -12,11 +12,11 @@
         $sql = "DELETE FROM avaliacao WHERE idavaliacao = $id_avaliacao AND id_avaliacao_professor = $id_user";
 
         if ($conn->query($sql) === TRUE) {
-            header("Location: provas.php");
+            header("Location: provas.php?s=s");
         } else {
-            echo "Erro ao deletar prova: " . $conn->error;
+            header("Location: provas.php?s=e");
         }
     } else {
-        echo "Erro ao deletar prova: " . $conn->error;
+            header("Location: provas.php?s=e");
     }
 ?>

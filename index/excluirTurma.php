@@ -16,15 +16,15 @@
             $sql = "DELETE FROM turma WHERE idturma = $id_turma AND id_turma_professor=$id_user";
 
             if ($conn->query($sql) === TRUE) {
-                header("Location: turmas.php?id=all&s=s");
+                header("Location: turmas.php?id=all&c=blue400&s=es");
             } else {
-                header("Location: turmas.php?id=all&s=e");
+                header("Location: turmas.php?id=all&c=blue400&s=ee");
             }
         } else {
-            header("Location: turmas.php?id=all&s=e");
+            header("Location: turmas.php?id=all&c=blue400&s=ee");
         }
         
     } else {
-        header("Location: turmas.php?id=all&s=e");
+        header("Location: turmas.php?id=all&c=blue400&s=ee");
     }
 ?>

@@ -9,9 +9,13 @@
     $sql = "INSERT INTO turma(id_turma_professor,id_turma_serie,nome) VALUES('$id_user','$id_serie','$nome')";
 
     if ($conn->query($sql) === TRUE) {
-            header("Location: turmas.php?id=all");
+            $sql = "SELECT cor FROM serie WHERE idserie = $id_serie AND id_serie_professor=$id_user";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+        
+            header("Location: turmas.php?id=all&c={$row['cor']}&s=cs");
         }else{
-            echo "Erro ao cadastrar turma";
+            header("Location: turmas.php?id=all&c={$row['cor']}&s=ce");
         }
     
 ?>
