@@ -132,7 +132,7 @@ h6 {
 
 #intro {
     width: 100%;
-    height: 105vh;
+    height: 100%;
     background: linear-gradient(45deg, #1de099, #1dc8cd);
     position: relative;
 }
@@ -220,12 +220,12 @@ h6 {
 }
 
 #intro .product-screens {
-    position: absolute;
+    position: relative;
     left: 0;
     right: 0;
     bottom: 0;
     overflow: hidden;
-    padding-top: 30px;
+    padding-top: 40px;
     text-align: center;
     width: 100%;
     height: 530px;
