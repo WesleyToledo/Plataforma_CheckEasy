@@ -25,6 +25,7 @@
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel='stylesheet'>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 
 </head>
 
@@ -49,7 +50,7 @@
                             <p>Home</p>
                         </a>
                     </li>
-                    <li >
+                    <li>
                         <a href="./user.html">
                             <i class="material-icons">group</i>
                             <p>Turmas</p>
@@ -283,42 +284,26 @@
                                     <div class="stats">
                                         <i class="material-icons">visibility</i>
                                         <a href="#" style="color: inherit;">10 Questões</a>
-                                    </div> 
+                                    </div>
                                     <div class="stats">
                                         <i class="material-icons">edit</i>
                                         <a href="#" style="color: inherit;">5 Alternativas</a>
-                                    </div> 
+                                    </div>
                                     <div class="stats">
                                         <i class="material-icons">local_offer</i>
                                         <a href="#" style="color: inherit;">5 Pontos</a>
-                                    </div>          
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header card-header-success">
-                                    <div class="ct-chart" id="dailySalesChart"></div>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">Daily Sales</h4>
-                                    <p class="card-category">
-                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> updated 4 minutes ago
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                    </div>
+
+                    <div class="row">
+                       
+                        <div class="col-md-6">
                             <div class="card card-chart">
                                 <div class="card-header card-header-warning">
-                                    <div class="ct-chart" id="websiteViewsChart"></div>
+                                    <div class="ct-chart" id="chart"></div>
                                 </div>
                                 <div class="card-body">
                                     <h4 class="card-title">Email Subscriptions</h4>
@@ -331,13 +316,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        
+                        <div class="col-md-6">
                             <div class="card card-chart">
-                                <div class="card-header card-header-danger">
-                                    <div class="ct-chart" id="completedTasksChart"></div>
+                                <div class="card-header card-header-warning">
+                                    <div class="ct-chart" id="chart2"></div>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title">Completed Tasks</h4>
+                                    <h4 class="card-title">Email Subscriptions</h4>
                                     <p class="card-category">Last Campaign Performance</p>
                                 </div>
                                 <div class="card-footer">
@@ -347,12 +333,10 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                     
-                    
-                    
                 </div>
-
             </div>
         </div>
         <footer class="footer">
@@ -482,6 +466,75 @@
         demo.initDashboardPageCharts();
 
     });
+
+    $(function() {
+        var myChart = Highcharts.chart('chart', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Média de Acertos'
+            },
+            xAxis: {
+                title: {
+                    text: 'Questões'
+                },
+                categories: [1,2,3,4,5,6,7,8]
+            },
+            yAxis: {
+                title: {
+                    text: 'Acertos'
+                },
+                tickInterval: 1
+            },
+            tooltip: {
+                formatter: function() {
+                    return 'Questão ' + this.x + '<br> Média: <b>' + this.y + '</b>';
+                }
+            },
+            series: [{
+                name: 'Turma E1',
+                data: [1, 5, 4, 5, 6, 7, 9, 10]
+            }]
+        });
+    });
+    
+    
+    $(function() {
+        var myChart = Highcharts.chart('chart2', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Turma x Turma'
+            },
+            xAxis: {
+                title: {
+                    text: 'Questões'
+                },
+                categories: [1,2,3,4,5,6,7,8]
+            },
+            yAxis: {
+                title: {
+                    text: 'Acertos'
+                },
+                tickInterval: 1
+            },
+            tooltip: {
+                formatter: function() {
+                    return 'Questão ' + this.x + '<br> Média: <b>' + this.y + '</b>';
+                }
+            },
+            series: [{
+                name: 'Turma E1',
+                data: [1, 5, 4, 5, 6, 7, 9, 10]
+            },{
+                name: 'Turma E2',
+                data: [2,3,6,5,4,8,6,7]
+            }]
+        });
+    });
+    
 </script>
 
 </html>
