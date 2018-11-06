@@ -112,7 +112,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
             <div class="logo">
-                <a href="#" class="simple-text">
+                <a href="index.html" class="simple-text">
                     CheckEasy
                 </a>
             </div>

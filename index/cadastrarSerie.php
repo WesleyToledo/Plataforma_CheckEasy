@@ -8,7 +8,7 @@
     $sql = "INSERT INTO serie(cor,icone,nome,id_serie_professor) VALUES('purple400','fa fa-graduation-cap','$nome','$id_user')";
 
     if ($conn->query($sql) === TRUE) {
-            header("Location: turmas.php?id=all");
+            header("Location: turmas.php?id=all&c=blue400");
         }else{
             echo "Erro ao cadastrar serie";
         }

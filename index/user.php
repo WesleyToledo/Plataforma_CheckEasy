@@ -350,11 +350,11 @@
                         <form action='cadastrarNovaSenhaUser.php' method='post'>
                             <div class='form-group'>
                                 <label>Nova senha</label>
-                                <input type='text' name='senhaAnterior' class='form-control' name='nome_turma'>
+                                <input type='password' name='senhaAnterior' class='form-control' name='nome_turma'>
                             </div>
                             <div class='form-group'>
                                 <label>Confirmar nova senha</label>
-                                <input type='text' name='senhaAnteriorC' class='form-control' name='nome_turma'>
+                                <input type='password' name='senhaAnteriorC' class='form-control' name='nome_turma'>
                             </div>
                             <div class='modal-footer'>
                                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
@@ -384,10 +384,10 @@
     <!-- Material Dashboard javascript methods -->
     <script src="assets/js/material-dashboard.js?v=1.2.0"></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-    <script src="assets/js/demo.js"></script>
-    <script src="assets/js/jquery-1.2.6.pack.js"></script>
     <script src="assets/js/jquery.maskedinput-1.1.4.pack.js"></script>
+    <script src="assets/js/demo.js"></script>
     <script type="text/javascript">
+        
         $(function() { // declaro o início do jquery
             $("input[name='email']").blur(function() {
                 var email = $("input[name='email']").val();
@@ -438,7 +438,8 @@
                 
                 if (Csenha.toString() !== senha.toString()) {
                     $("input[name='senhaAnterior']").focus()
-                    document.querySelector('#submitSenha').disabled = true;
+                    document.querySelector('#submitSenha').disabled = true
+                    demo.showNotification('top', 'right', 'Senhas não coincidem', 'danger', 'lock')
                 } else {
                     document.querySelector('#submitSenha').disabled = false;
                 }
