@@ -20,7 +20,7 @@
     <!-- Data-color-pallete-->
     <link rel="stylesheet" href="assets/css/data-background-color.css">
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="assets/css/demo.css" rel="stylesheet" />
+    <!-- <link href="assets/css/demo.css" rel="stylesheet" /> -->
 
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -28,6 +28,12 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
 
 </head>
+<style>
+    #rowsAlunos tr:hover {
+        background-color: #e6e6e6;
+    }
+
+</style>
 
 <body>
     <div class="wrapper">
@@ -299,43 +305,104 @@
                     </div>
 
                     <div class="row">
-                       
+
                         <div class="col-md-6">
                             <div class="card card-chart">
-                                <div class="card-header card-header-warning">
+                                <div class="card-header card-header-warning" style="background-color: white">
                                     <div class="ct-chart" id="chart"></div>
                                 </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">Email Subscriptions</h4>
+                                <!-- <div class="card-body" style="margin: 15px">
+                                    <h4 class="card-title">Rendimento</h4>
                                     <p class="card-category">Last Campaign Performance</p>
-                                </div>
+                                </div> -->
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                                        <i class="material-icons">access_time</i> Atualizado a x minutos
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="card card-chart">
-                                <div class="card-header card-header-warning">
+                                <div class="card-header card-header-warning" style="background-color: white">
                                     <div class="ct-chart" id="chart2"></div>
                                 </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">Email Subscriptions</h4>
+                                <!-- <div class="card-body" style="margin: 15px">
+                                    <h4 class="card-title">Rendimento</h4>
                                     <p class="card-category">Last Campaign Performance</p>
-                                </div>
+                                </div> -->
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                                        <i class="material-icons">access_time</i> Atualizado a x minutos
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
-                    
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-warning" data-background-color="green400">
+                                    <h3 class="title" style="font-weight: 600;">3ºE1</h3>
+                                    <p class="card-category">Alunos</p>
+                                </div>
+                                <div class="card-body table-responsive" style="margin: 15px">
+                                    <table class="table table-hover table-striped">
+                                        <thead class="text-warning">
+                                            <th style="max-width: 40px;">Matrícula</th>
+                                            <th>Nome</th>
+                                            <th>&nbsp;</th>
+                                        </thead>
+                                        <tbody id="rowsAlunos" style="overflow-y: auto">
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Dakota Rie</td>
+                                                <td><a href="#" style="color: black"><i class="material-icons">arrow_right_alt</i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Dakota Rie</td>
+                                                <td><a href="#"><i class="material-icons">arrow_right_alt</i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Dakota Rie</td>
+                                                <td><a href="#"><i class="material-icons">arrow_right_alt</i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Dakota Rie</td>
+                                                <td><a href="#"><i class="material-icons">arrow_right_alt</i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-warning" style="background-color: white">
+                                    <div class="ct-chart" id="alunoxturma"></div>
+                                </div>
+                                <!-- <div class="card-body" style="margin: 15px">
+                                    <h4 class="card-title">Rendimento</h4>
+                                    <p class="card-category">Last Campaign Performance</p>
+                                </div> -->
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> Atualizado a x minutos
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -345,6 +412,7 @@
                     &copy;
                     <script>
                         document.write(new Date().getFullYear())
+
                     </script>
                     <a href="#">CheckEasy</a>, a plataforma online dedicada aos professores
                 </p>
@@ -379,10 +447,8 @@
                                   <option value="3">Superior</option>
                                 </select>
                                 <div style="display: flex;flex-direction: column; ustify-content: center; align-items: center; width: 30%">
-
                                     <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#criaSerie">
                                     <i class="material-icons" style="font-size: 20px;">add_circle_outline</i>
-                                   
                                 </button>
                                 </div>
                             </div>
@@ -438,6 +504,7 @@
             $('#criaSerie').modal('show');
         }
     });
+
 </script>
 
 <!--   Core JS Files   -->
@@ -473,13 +540,13 @@
                 type: 'column'
             },
             title: {
-                text: 'Média de Acertos'
+                text: 'Média de Acertos \'<b>Sistemas Lineares</b>\'<br>Turma <b>3ºE1</b> '
             },
             xAxis: {
                 title: {
                     text: 'Questões'
                 },
-                categories: [1,2,3,4,5,6,7,8]
+                categories: [1, 2, 3, 4, 5, 6, 7, 8]
             },
             yAxis: {
                 title: {
@@ -494,25 +561,26 @@
             },
             series: [{
                 name: 'Turma E1',
-                data: [1, 5, 4, 5, 6, 7, 9, 10]
+                data: [1, 5, 4, 5, 6, 7, 9, 10],
+                color: '#00bcd4'
             }]
         });
     });
-    
-    
+
+
     $(function() {
         var myChart = Highcharts.chart('chart2', {
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Turma x Turma'
+                text: 'Média de Acertos por Turma'
             },
             xAxis: {
                 title: {
                     text: 'Questões'
                 },
-                categories: [1,2,3,4,5,6,7,8]
+                categories: [1, 2, 3, 4, 5, 6, 7, 8]
             },
             yAxis: {
                 title: {
@@ -526,15 +594,50 @@
                 }
             },
             series: [{
-                name: 'Turma E1',
+                name: 'Turma 3ºE1',
                 data: [1, 5, 4, 5, 6, 7, 9, 10]
-            },{
-                name: 'Turma E2',
-                data: [2,3,6,5,4,8,6,7]
+            }, {
+                name: 'Turma 3ºE2',
+                data: [2, 3, 6, 5, 4, 8, 6, 7]
             }]
         });
     });
     
+    $(function() {
+        var myChart = Highcharts.chart('alunoxturma', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Gráfico Aluno x Turma'
+            },
+            xAxis: {
+                title: {
+                    text: 'Questões'
+                },
+                categories: ['Sistema Lineares','Sistemas Lineares II']
+            },
+            yAxis: {
+                title: {
+                    text: 'Média da Nota'
+                },
+                tickInterval: 1
+            },
+            tooltip: {
+                formatter: function() {
+                    return 'Média: <b>' + this.y + '</b>';
+                }
+            },
+            series: [{
+                name: 'Wesley Toledo',
+                data: [10, 9.5]
+            }, {
+                name: 'Turma 3ºE1',
+                data: [8, 6]
+            }]
+        });
+    });
+
 </script>
 
 </html>
