@@ -25,6 +25,7 @@
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel='stylesheet'>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 
 </head>
 <?php
@@ -88,7 +89,7 @@
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $id_prova = $row["id_turma_prova_avaliacao"];
-                    $sql2 = "SELECT quant_questoes,quant_alternativas, valor, nome FROM avaliacao WHERE idavaliacao = $id_prova AND id_avaliacao_professor = $id_user";
+                    $sql2 = "SELECT idavaliacao,quant_questoes,quant_alternativas, valor, nome FROM avaliacao WHERE idavaliacao = $id_prova AND id_avaliacao_professor = $id_user";
                     $result2 = $conn->query($sql2);
                     if ($result2->num_rows > 0) {
                         while($row2 = $result2->fetch_assoc()) {
@@ -96,10 +97,11 @@
                             $quant_alternativas = $row2["quant_alternativas"];
                             $valor = $row2["valor"];
                             $nome = $row2["nome"];
+                            $idavaliacao = $row2["idavaliacao"];
                             
                             $html .= " <div class='col-lg col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                                                 <div class='card card-stats'>
-                                                    <a href='' style='color: inherit;'>
+                                                    <a href='estatisticas.php?idT={$_GET['idT']}&idA=$idavaliacao' style='color: inherit;'>
                                                         <div class='card-header' data-background-color='blue400'>
                                                             <i class='material-icons'>assignment</i>
                                                         </div>
@@ -255,8 +257,8 @@
                         </div>
 
                         <div class="row">
-                            
-                        <?php    
+
+                            <?php    
                             if ($_GET["idT"] == "all"){
                                 echo "<h4>Provas</h4><br><p>Nenhuma Turma Selecionada</p>";     
                             }else{
@@ -266,58 +268,104 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4">
+
+                            <div class="col-md-6">
                                 <div class="card card-chart">
-                                    <div class="card-header card-header-success">
-                                        <div class="ct-chart" id="dailySalesChart"></div>
+                                    <div class="card-header card-header-warning" style="background-color: white">
+                                        <div class="ct-chart" id="chart"></div>
                                     </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Daily Sales</h4>
-                                        <p class="card-category">
-                                            <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
-                                    </div>
+                                    <!-- <div class="card-body" style="margin: 15px">
+                                    <h4 class="card-title">Rendimento</h4>
+                                    <p class="card-category">Last Campaign Performance</p>
+                                </div> -->
                                     <div class="card-footer">
                                         <div class="stats">
-                                            <i class="material-icons">access_time</i> updated 4 minutes ago
+                                            <i class="material-icons">access_time</i> Atualizado a x minutos
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+
+                            <div class="col-md-6">
                                 <div class="card card-chart">
-                                    <div class="card-header card-header-warning">
-                                        <div class="ct-chart" id="websiteViewsChart"></div>
+                                    <div class="card-header card-header-warning" style="background-color: white">
+                                        <div class="ct-chart" id="chart2"></div>
                                     </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Email Subscriptions</h4>
-                                        <p class="card-category">Last Campaign Performance</p>
-                                    </div>
+                                    <!-- <div class="card-body" style="margin: 15px">
+                                    <h4 class="card-title">Rendimento</h4>
+                                    <p class="card-category">Last Campaign Performance</p>
+                                </div> -->
                                     <div class="card-footer">
                                         <div class="stats">
-                                            <i class="material-icons">access_time</i> campaign sent 2 days ago
+                                            <i class="material-icons">access_time</i> Atualizado a x minutos
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="card card-chart">
-                                    <div class="card-header card-header-danger">
-                                        <div class="ct-chart" id="completedTasksChart"></div>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Completed Tasks</h4>
-                                        <p class="card-category">Last Campaign Performance</p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="stats">
-                                            <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                        </div>
+
+                        </div>
+                        
+                        
+                         <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-warning" data-background-color="green400">
+                                    <h3 class="title" style="font-weight: 600;">3ºE1</h3>
+                                    <p class="card-category">Alunos</p>
+                                </div>
+                                <div class="card-body table-responsive" style="margin: 15px">
+                                    <table class="table table-hover table-striped">
+                                        <thead class="text-warning">
+                                            <th style="max-width: 40px;">Matrícula</th>
+                                            <th>Nome</th>
+                                            <th>&nbsp;</th>
+                                        </thead>
+                                        <tbody id="rowsAlunos" style="overflow-y: auto">
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Dakota Rie</td>
+                                                <td><a href="#" style="color: black"><i class="material-icons">arrow_right_alt</i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Dakota Rie</td>
+                                                <td><a href="#"><i class="material-icons">arrow_right_alt</i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Dakota Rie</td>
+                                                <td><a href="#"><i class="material-icons">arrow_right_alt</i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Dakota Rie</td>
+                                                <td><a href="#"><i class="material-icons">arrow_right_alt</i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-warning" style="background-color: white">
+                                    <div class="ct-chart" id="alunoxturma"></div>
+                                </div>
+                                <!-- <div class="card-body" style="margin: 15px">
+                                    <h4 class="card-title">Rendimento</h4>
+                                    <p class="card-category">Last Campaign Performance</p>
+                                </div> -->
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> Atualizado a x minutos
                                     </div>
                                 </div>
                             </div>
                         </div>
 
 
+                    </div>
 
                     </div>
 
@@ -443,8 +491,111 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
-            // Javascript method's body can be found in assets/js/demos.js
-            demo.initDashboardPageCharts();
+            $(function() {
+                var myChart = Highcharts.chart('chart', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Média de Acertos \'<b>Sistemas Lineares</b>\'<br>Turma <b>3ºE1</b> '
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Questões'
+                        },
+                        categories: [1, 2, 3, 4, 5, 6, 7, 8]
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Acertos'
+                        },
+                        tickInterval: 1
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return 'Questão ' + this.x + '<br> Média: <b>' + this.y + '</b>';
+                        }
+                    },
+                    series: [{
+                        name: 'Turma E1',
+                        data: [1, 5, 4, 5, 6, 7, 9, 10]
+                    }]
+                });
+            });
+
+
+            $(function() {
+                var myChart = Highcharts.chart('chart2', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Média de Acertos por Turma <br> <b>Sistemas Lineares</b>'
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Questões'
+                        },
+                        categories: [1, 2, 3, 4, 5, 6, 7, 8]
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Acertos'
+                        },
+                        tickInterval: 1
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return 'Questão ' + this.x + '<br> Média: <b>' + this.y + '</b>';
+                        }
+                    },
+                    series: [{
+                        name: 'Turma 3ºE1',
+                        data: [1, 5, 4, 5, 6, 7, 9, 10]
+                    }, {
+                        name: 'Turma 3ºE2',
+                        data: [2, 3, 6, 5, 4, 8, 6, 7]
+                    }, {
+                        name: 'Turma 3ºE2',
+                        data: [2, 3, 6, 5, 4, 8, 6, 7]
+                    }]
+                });
+            });
+
+            $(function() {
+                var myChart = Highcharts.chart('alunoxturma', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Gráfico Aluno x Turma'
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Questões'
+                        },
+                        categories: ['Sistema Lineares', 'Sistemas Lineares II']
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Média da Nota'
+                        },
+                        tickInterval: 1
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return 'Média: <b>' + this.y + '</b>';
+                        }
+                    },
+                    series: [{
+                        name: 'Wesley Toledo',
+                        data: [10, 9.5]
+                    }, {
+                        name: 'Turma 3ºE1',
+                        data: [8, 6]
+                    }]
+                });
+            });
 
         });
 
