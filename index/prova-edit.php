@@ -156,7 +156,7 @@
                     <div class='modal-dialog' role='document'>
                         <div class='modal-content'>
                             <div class='modal-header'>
-                                <h5 class='modal-title' id='exampleModalLabel'>Excluir Turma</h5>
+                                <h5 class='modal-title' id='exampleModalLabel'>Desvincular Turma</h5>
                                 <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
                                     <span aria-hidden='true'>&times;</span>
                                 </button>
@@ -165,9 +165,9 @@
                                 Tem certeza que deseja excluir a turma $nome ?
                             </div>
                             <div class='modal-footer'>
-                            <form action='excluirTurmaProva.php?idT=$id_turma&idA=$id_avaliacao' method='post'>
+                            <form action='excluirTurmaProva.php?idT=$id_turma&idA=$id_avaliacao&value={$_GET['value']}' method='post'>
                                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                <button type='submit' class='btn btn-info' >Excluir</button>
+                                <button type='submit' class='btn btn-info' >Desvincular</button>
                                 </form>
                                 </div>
                             </div>
@@ -379,67 +379,6 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Número de correções disponíveis">
-                                    <i class="material-icons">assignment</i>
-                                    
-                                    <!--
-                                        Se númeroCorreções <10
-                                            set style=""
-                                       
-                                        Se númeroCorreções > 9
-                                            set style="right: 5px;";
-                                        se número Correções > 99
-                                            set style="right: 0px;"
-                                        se numeroCorreções > 999
-                                            set style="right: -3px;"
-                                    
-                                    -->
-                                    <span class="notification" style="right: 0">150</span>
-                                    <p class="hidden-lg hidden-md">Notifications</p>
-                                </a>
-                                <!-- <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">Mike John responded to your email</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You have 5 new tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Andrew</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another Notification</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another One</a>
-                                    </li>
-                                </ul> -->
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">notifications</i>
-                                    <span class="notification">5</span>
-                                    <p class="hidden-lg hidden-md">Notifications</p>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">Mike John responded to your email</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You have 5 new tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Andrew</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another Notification</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another One</a>
-                                    </li>
-                                </ul>
-                            </li>
                             <?php echo userDropDown(); ?>
                         </ul>
                         <!-- <form class="navbar-form navbar-right" role="search">
@@ -462,7 +401,7 @@
                             <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
                                 <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#adicionarTurma" onclick="verificaSerie();">
                                     <i class="material-icons" style="font-size: 27px;">add_circle_outline</i>
-                                    &nbsp;&nbsp;&nbsp;Adicionar Turma
+                                    &nbsp;&nbsp;&nbsp;Vincular Turma
                                 </button>
                             </li>
                         </ul>
@@ -524,33 +463,25 @@
 
     <!----- MODAL AREA ----->
 
-
-    <!----- ADICIONAR TURMA ----->
+    <!----- VINCULAR TURMA ----->
     <div class="modal fade" id="adicionarTurma" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title mx-auto" id="lineModalLabel">Adicionar Turma</h3>
+                    <h3 class="modal-title mx-auto" id="lineModalLabel">Vincular Turma</h3>
                 </div>
                 <div class="modal-body">
-                    <!-- content goes here -->
-
-                    <form action="adicionarTurmaProva.php?idA=<?php echo $_GET["idA"]; ?>" method="post">
+                    <form action="adicionarTurmaProva.php?idA=<?php echo $_GET["idA"]."&value={$_GET['value']}" ?>" method="post">
                         <div class="form-group" style="display: flex;flex-direction: column;">
                             <label for="exampleInputEmail1">Turmas</label>
-
                             <div class="funkyradio">
                                 <?php echo setSeriesCheck(); ?>
                             </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-info" id="submitAdicionar">Adicionar</button>
-
-                            <!-- onclick="demo.showNotification('top','right','Turma Cadastrada')" -->
-
+                            <button type="submit" class="btn btn-info" id="submitAdicionar">Vincular</button>
                         </div>
                     </form>
                 </div>
@@ -630,28 +561,45 @@
         }else{
             return true
         }
-
     }
     
     $(document).ready(function() {
         var vars = [], hash
-         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
         for(var i = 0; i < hashes.length; i++)
         {
             hash = hashes[i].split('=');
             //alert(hash[1])
             if(hash[0] === "s"){
-                if(hash[1] === "es"){
-                    demo.showNotification('top', 'right', 'Gabarito Editado', 'success', 'assignment')
-                }else {
-                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar gabarito', 'danger', 'assignment')
+                 switch(hash[1]){
+                        //vincular turma
+                    case 'eds':
+                        demo.showNotification('top', 'right', 'Turma Vinculada', 'success', 'group')
+                        break
+                    case 'ede':
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao vincular turma', 'danger', 'group')
+                        break
+                    //desvincular turma
+                    case 'ees':
+                        demo.showNotification('top', 'right', 'Turma Desvinculada', 'success', 'group')
+                        break
+                    case 'eee':
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao desvincular turma', 'danger', 'group')
+                        break
+                        //cadastrar turma
+                    case 'es':
+                        demo.showNotification('top', 'right', 'Gabarito Editado', 'success', 'group')
+                        break
+                    case 'ee':
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar turma', 'danger', 'group')
+                        break
                 }
             }
         }
+        
         var url = window.location.href
         var newUrl = url.substring(0,(url.lastIndexOf("s=") - 1))
         history.pushState('teste','CheckEasy',newUrl)
-
     });
     
     

@@ -50,8 +50,14 @@
                 $icone = $row["icone"];
                 $serie_nome = $row["nome_serie"];
                 $id_turma = $row["id_turma"];
+                $selecionado = "";
+                
+                if($_GET['idT'] == "$id_turma"){
+                    $selecionado = "box-shadow: 0px -2px 19px 4px rgba(0, 0, 0, 0.19);";
+                }
+                
                 $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
-                            <div class='card card-stats'>
+                            <div class='card card-stats'  style='$selecionado'>
                                 <a href='estatisticas.php?idT=$id_turma' style='color: inherit;'>
                                     <div class='card-header' data-background-color='$cor'>
                                         <i class='$icone'></i>
@@ -98,9 +104,18 @@
                             $valor = $row2["valor"];
                             $nome = $row2["nome"];
                             $idavaliacao = $row2["idavaliacao"];
+                            $selecionado = "";
+                            if($_GET["idT"] != "all"){
+                                if(isset($_GET['idA'])){
+                                    if($_GET['idA'] == "$idavaliacao"){
+                                        $selecionado = "box-shadow: 0px -2px 19px 4px rgba(0, 0, 0, 0.19);";
+                                    }
+                                }
+                            }
+
                             
                             $html .= " <div class='col-lg col-md-6 col-sm-6 col-xs-6 col-ws-100'>
-                                                <div class='card card-stats'>
+                                                <div class='card card-stats' style='$selecionado'>
                                                     <a href='estatisticas.php?idT={$_GET['idT']}&idA=$idavaliacao' style='color: inherit;'>
                                                         <div class='card-header' data-background-color='blue400'>
                                                             <i class='material-icons'>assignment</i>
@@ -134,20 +149,17 @@
         } else {
             $html .= "<p>Nenhuma prova vinculada</p>";
         }
-        
         return $html;
     }
     
+    //GRÁFICOS
+    
+ 
+    
     ?>
-
     <body>
         <div class="wrapper">
             <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
-                <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
                 <div class="logo">
                     <a href="http://www.creative-tim.com" class="simple-text">
                     CheckEasy
@@ -169,79 +181,8 @@
                         </div>
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Número de correções disponíveis">
-                                    <i class="material-icons">assignment</i>
-                                    
-                                    <!--
-                                        Se númeroCorreções <10
-                                            set style=""
-                                       
-                                        Se númeroCorreções > 9
-                                            set style="right: 5px;";
-                                        se número Correções > 99
-                                            set style="right: 0px;"
-                                        se numeroCorreções > 999
-                                            set style="right: -3px;"
-                                    
-                                    -->
-                                    <span class="notification" style="right: 0">150</span>
-                                    <p class="hidden-lg hidden-md">Notifications</p>
-                                </a>
-                                    <!-- <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">Mike John responded to your email</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You have 5 new tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Andrew</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another Notification</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another One</a>
-                                    </li>
-                                </ul> -->
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">notifications</i>
-                                    <span class="notification">5</span>
-                                    <p class="hidden-lg hidden-md">Notifications</p>
-                                </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#">Mike John responded to your email</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">You have 5 new tasks</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">You're now friend with Andrew</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Another Notification</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Another One</a>
-                                        </li>
-                                    </ul>
-                                </li>
                                 <?php echo userDropDown(); ?>
                             </ul>
-                            <!-- <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group  is-empty">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="material-input"></span>
-                            </div>
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
-                        </form> -->
                         </div>
                     </div>
                 </nav>
@@ -257,7 +198,6 @@
                         </div>
 
                         <div class="row">
-
                             <?php    
                             if ($_GET["idT"] == "all"){
                                 echo "<h4>Provas</h4><br><p>Nenhuma Turma Selecionada</p>";     
@@ -304,7 +244,6 @@
                             </div>
 
                         </div>
-                        
                         
                          <div class="row">
                         <div class="col-lg-6 col-md-12">
