@@ -305,7 +305,7 @@
                                   </td>";
                         
                             for($y = 1;$y <= $quant_alternativas;$y++){
-                                if($respostas[$x-1] == $alternativas[$y-1]."c"){
+                                if($respostas[$x-1] == $alternativas[$y-1]."s"){
                                     $class = "markedCorrect";
                                 }else if ($respostas[$x-1] == $alternativas[$y-1]."e"){
                                     $class = "markedWrong";
