@@ -295,46 +295,68 @@
         
         if(isset($_GET['idA'])){
             
-            $sql = "SELECT al.nome,al.sobrenome,al.idaluno FROM turma_prova AS tp INNER JOIN aluno AS al ON tp.id_turma_prova_avaliacao = 17 AND tp.id_turma_prova_turma = 8 AND tp.id_turma_prova_professor = 9 AND tp.id_turma_prova_turma = al.id_aluno_turma";
+            $sql = "SELECT al.nome,al.sobrenome,al.idaluno,al.matricula FROM turma_prova AS tp INNER JOIN aluno AS al ON tp.id_turma_prova_avaliacao = {$_GET['idA']} AND tp.id_turma_prova_turma = {$_GET['idT']} AND tp.id_turma_prova_professor = $id_user AND tp.id_turma_prova_turma = al.id_aluno_turma";
 
-            $sql2 = "";
+            $sql2 = "SELECT t.nome,s.cor FROM turma AS t INNER JOIN serie AS s ON t.id_turma_serie=s.idserie AND t.idturma = {$_GET['idT']} AND s.id_serie_professor = $id_user AND t.id_turma_professor = $id_user";
             
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                while($row2 = $result->fetch_assoc()) {
-
-                    $html .= "<div class='col-lg-6 col-md-12'>
+            $result2 = $conn->query($sql2);
+            $row2 = $result2->fetch_assoc();
+            
+            $html = "<div class='col-lg-6 col-md-12'>
                             <div class='card'>
-                                <div class='card-header card-header-warning' data-background-color='green400'>
-                                    <h3 class='title' style='font-weight: 600;'>3ºE1</h3>
+                                <div class='card-header card-header-warning' data-background-color='{$row2['cor']}'>
+                                    <h3 class='title' style='font-weight: 600;'>{$row2['nome']}</h3>
                                     <p class='card-category'>Alunos</p>
                                 </div>
                                 <div class='card-body table-responsive' style='margin: 15px'>
                                     <table class='table table-hover table-striped'>
-                                        <thead class='text-warning'>
+                                        <thead style='color: #666;font-weight: 800 !important;'>
                                             <th style='max-width: 40px;'>Matrícula</th>
                                             <th>Nome</th>
-                                            <th>&nbsp;</th>
+                                            <th>Ações</th>
                                         </thead>
-                                        <tbody id='rowsAlunos' style='overflow-y: auto'>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Dakota Rie</td>
-                                                <td><a href='#' style='color: black'><i class='material-icons'>arrow_right_alt</i></a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-";
-                    
+                                        <tbody id='rowsAlunos' style='overflow-y: auto'>";
+            
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($row=$result->fetch_assoc()) {
+                    $html .= "<tr>
+                                <td>{$row['matricula']}</td>
+                                <td>{$row['nome']}{$row['sobrenome']}</td>
+                                <td><a href='estatisticas.php?idT={$_GET['idT']}&idA={$_GET['idA']}&idAL={$row['idaluno']}' style='color: black'><i class='material-icons'>arrow_right_alt</i></a></td>
+                            </tr>
+                        ";
                 }    
             }
+        $html .= "</tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>";
         }
         
         return $html;
     }
+    
+    function geraGraficoAlunoXTurma(){
+         $id_user = $_SESSION["id_user"];
+        $html = "";
+        include("conexao.php");
+        
+        if(isset($_GET['idAL'])){
+            
+            $sql = "";
+            
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($row=$result->fetch_assoc()) {
+                    $html .= "";
+                }    
+            }
+        }
+        return $html;
+    }
+    
     
     ?>
     <body>

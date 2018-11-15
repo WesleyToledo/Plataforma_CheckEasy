@@ -3449,7 +3449,6 @@ select.form-control[multiple],
 .table > thead > tr > th {
     border-bottom-width: 1px;
     font-size: 1em;
-    font-weight: 300;
 }
 
 .table .radio,
