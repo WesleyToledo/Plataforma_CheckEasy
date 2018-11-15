@@ -32,14 +32,16 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   KEY `id_aluno_professor` (`id_aluno_professor`),
   CONSTRAINT `id_aluno_professor` FOREIGN KEY (`id_aluno_professor`) REFERENCES `professor` (`idprofessor`),
   CONSTRAINT `id_aluno_turma` FOREIGN KEY (`id_aluno_turma`) REFERENCES `turma` (`idturma`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela db_checkeasy.aluno: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `aluno` DISABLE KEYS */;
 INSERT INTO `aluno` (`idaluno`, `id_aluno_turma`, `id_aluno_professor`, `matricula`, `nome`, `sobrenome`) VALUES
 	(1, 1, 8, '123', 'Wesley', '   Toledo'),
 	(2, 1, 8, '21234 ', 'André', '     Amaral di Salvo (the versalete men)'),
-	(10, 8, 9, '1234', 'Wesley', ' Evangelista ');
+	(10, 8, 9, '1234', 'Wesley', ' Evangelista '),
+	(11, 9, 9, '2342354', 'André', ' Amaral diSalvo '),
+	(12, 8, 9, '1234', 'Eduardo', ' NAscimento ');
 /*!40000 ALTER TABLE `aluno` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela db_checkeasy.avaliacao
@@ -62,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `avaliacao` (
 /*!40000 ALTER TABLE `avaliacao` DISABLE KEYS */;
 INSERT INTO `avaliacao` (`idavaliacao`, `gabarito`, `quant_questoes`, `id_avaliacao_professor`, `quant_alternativas`, `valor`, `nome`) VALUES
 	(12, '1/a/2/2/b/2/3/c/2/4/d/2/5/a/2.5/6/d/1.5/7/d/2/8/a/2/9/a/2/10/a/2', 10, 8, 5, 20, 'Matemática Aplicada III '),
-	(17, '1/a/1/2/a/1/3/b/1/4/c/1/5/c/1/6/a/1.0/7/a/1/8/a/1/9/a/1/10/a/1', 10, 9, 5, 10, 'Matemática Aplicada III'),
+	(17, '1/a/2/2/b/2/3/c/2/4/c/2/5/c/2/6/c/2/7/d/2/8/b/2/9/c/2/10/e/2', 10, 9, 5, 20, 'Matemática Aplicada III'),
 	(18, '1/a/1/2/a/1/3/a/1/4/a/1/5/a/1/6/a/1/7/a/1/8/a/1/9/a/1/10/a/1/', 10, 8, 5, 10, 'Matemática Aplicada III'),
 	(20, '1/a/1/2/a/1/3/a/1/4/a/1/5/a/1/6/a/1/7/a/1/8/a/1/9/a/1/10/a/1/', 10, 8, 5, 10, 'Matemática Aplicada III');
 /*!40000 ALTER TABLE `avaliacao` ENABLE KEYS */;
@@ -89,13 +91,16 @@ CREATE TABLE IF NOT EXISTS `correcoes` (
   CONSTRAINT `id_provas_avaliacao` FOREIGN KEY (`id_correcoes_avaliacao`) REFERENCES `avaliacao` (`idavaliacao`),
   CONSTRAINT `id_provas_professor` FOREIGN KEY (`id_correcoes_professor`) REFERENCES `professor` (`idprofessor`),
   CONSTRAINT `id_provas_turma` FOREIGN KEY (`id_correcoes_turma`) REFERENCES `turma` (`idturma`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela db_checkeasy.correcoes: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela db_checkeasy.correcoes: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `correcoes` DISABLE KEYS */;
 INSERT INTO `correcoes` (`idcorrecoes`, `id_correcoes_avaliacao`, `id_correcoes_turma`, `id_correcoes_professor`, `id_correcoes_aluno`, `nota`, `acertos`, `erros`, `gabarito`) VALUES
-	(1, 12, 1, 8, 1, 10, '10', '0', '1/ac/0.2/2/ac/0.2/3/ac/0.2/4/ce/0.2/5/ae/0.2/6/ae/0.2/7/ae/0.2/8/ae/0.2/9/ae/0.2/10/ac/0.2'),
-	(5, 12, 1, 8, 2, 10, '10', '0', '1/ce/0.2/2/ac/0.2/3/ac/0.2/4/ce/0.2/5/ae/0.2/6/ae/0.2/7/ae/0.2/8/ae/0.2/9/ae/0.2/10/ac/0.2');
+	(1, 17, 8, 9, 1, 10, '10', '0', '1/as/0.2/2/as/0.2/3/as/0.2/4/as/0.2/5/as/0.2/6/as/0.2/7/as/0.2/8/as/0.2/9/as/0.2/10/as/0.2'),
+	(14, 17, 8, 9, 1, 10, '10', '0', '1/as/0.2/2/as/0.2/3/as/0.2/4/ae/0.2/5/as/0.2/6/as/0.2/7/as/0.2/8/as/0.2/9/as/0.2/10/as/0.2'),
+	(15, 17, 8, 9, 1, 10, '10', '0', '1/as/0.2/2/as/0.2/3/as/0.2/4/ae/0.2/5/as/0.2/6/as/0.2/7/as/0.2/8/as/0.2/9/as/0.2/10/as/0.2'),
+	(16, 17, 8, 9, 1, 10, '10', '0', '1/as/0.2/2/as/0.2/3/as/0.2/4/ae/0.2/5/as/0.2/6/as/0.2/7/as/0.2/8/as/0.2/9/as/0.2/10/as/0.2'),
+	(17, 17, 8, 9, 1, 10, '10', '0', '1/as/0.2/2/as/0.2/3/as/0.2/4/ae/0.2/5/ae/0.2/6/as/0.2/7/as/0.2/8/as/0.2/9/as/0.2/10/as/0.2');
 /*!40000 ALTER TABLE `correcoes` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela db_checkeasy.professor
@@ -120,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `professor` (
 /*!40000 ALTER TABLE `professor` DISABLE KEYS */;
 INSERT INTO `professor` (`idprofessor`, `primeiro_nome`, `sobrenome`, `nome_user`, `email`, `instituicao`, `cidade`, `cep`, `curriculo`, `senha`, `estado`) VALUES
 	(8, 'Chicão', 'Felipe', '123', '123', 'IFSULDEMINAS', 'Inconfidentes', '37.570-000', 'Professor de Física Foda pra cacete', '123', 'Minas Gerais'),
-	(9, 'Wesley', ' Evangelista de Toledo', '1234', 'wesley.toledo191@gmail.com', 'IFSULDEMINAS', 'MONTE SIAO', '37.580-000', 'Triste Estudante de TI', '123', 'Minas Gerais');
+	(9, 'Wesley', ' Evangelista de Toledo', '1234', 'wesley.toledo191@gmail.com', 'IFSULDEMINAS', 'MONTE SIAO', '37.580-000', 'Triste Estudante de TI Triste e Foda', '', 'Minas Gerais');
 /*!40000 ALTER TABLE `professor` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela db_checkeasy.serie
@@ -161,13 +166,14 @@ CREATE TABLE IF NOT EXISTS `turma` (
   KEY `id_turma_serie` (`id_turma_serie`),
   CONSTRAINT `id_turma_professor` FOREIGN KEY (`id_turma_professor`) REFERENCES `professor` (`idprofessor`),
   CONSTRAINT `id_turma_serie` FOREIGN KEY (`id_turma_serie`) REFERENCES `serie` (`idserie`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela db_checkeasy.turma: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `turma` DISABLE KEYS */;
 INSERT INTO `turma` (`idturma`, `id_turma_professor`, `id_turma_serie`, `nome`) VALUES
 	(1, 8, 10, '3º E1'),
-	(8, 9, 13, '3º E1');
+	(8, 9, 13, '3º E1'),
+	(9, 9, 13, '3 ºE2 ');
 /*!40000 ALTER TABLE `turma` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela db_checkeasy.turma_prova
@@ -185,13 +191,14 @@ CREATE TABLE IF NOT EXISTS `turma_prova` (
   CONSTRAINT `id_turma_prova_avaliacao` FOREIGN KEY (`id_turma_prova_avaliacao`) REFERENCES `avaliacao` (`idavaliacao`),
   CONSTRAINT `id_turma_prova_professor` FOREIGN KEY (`id_turma_prova_professor`) REFERENCES `professor` (`idprofessor`),
   CONSTRAINT `id_turma_prova_turma` FOREIGN KEY (`id_turma_prova_turma`) REFERENCES `turma` (`idturma`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela db_checkeasy.turma_prova: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela db_checkeasy.turma_prova: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `turma_prova` DISABLE KEYS */;
 INSERT INTO `turma_prova` (`idturma_prova`, `id_turma_prova_professor`, `id_turma_prova_turma`, `id_turma_prova_avaliacao`) VALUES
 	(11, 8, 1, 12),
-	(23, 9, 8, 17);
+	(35, 9, 8, 17),
+	(46, 9, 9, 17);
 /*!40000 ALTER TABLE `turma_prova` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela db_checkeasy.users

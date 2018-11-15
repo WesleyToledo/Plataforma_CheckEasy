@@ -25,7 +25,7 @@
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel='stylesheet'>
-
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
 
 <?php 
@@ -292,7 +292,7 @@
                         <div class="col-md-4 col-sm-6">
                             <div class="card">
                                 <div class="card-header card-chart" data-background-color="green400">
-                                    <div class="ct-chart" id="dailySalesChart"></div>
+                                    <div class="ct-chart" id="correcoesUltimosDias"></div>
                                 </div>
                                 <div class="card-content">
                                     <h4 class="title">Correções nos últimos dias</h4>
@@ -733,15 +733,11 @@
                                 </div>
                               </div>
                             </div> -->
-
                     </div>
-
-
                 </div>
             </div>
             <footer class="footer">
                 <div class="container-fluid">
-
                     <p class="copyright pull-right">
                         &copy;
                         <script>
@@ -775,10 +771,37 @@
 <script src="assets/js/demo.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
-
+        $(function() {
+            var myChart = Highcharts.chart('chart', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Média de Acertos \'<b>Sistemas Lineares</b>\'<br>Turma <b>3ºE1</b> '
+                },
+                xAxis: {
+                    title: {
+                        text: 'Questões'
+                    },
+                    categories: [1, 2, 3, 4, 5, 6, 7, 8]
+                },
+                yAxis: {
+                    title: {
+                        text: 'Acertos'
+                    },
+                    tickInterval: 1
+                },
+                tooltip: {
+                    formatter: function() {
+                        return 'Questão ' + this.x + '<br> Média: <b>' + this.y + '</b>';
+                    }
+                },
+                series: [{
+                    name: 'Turma E1',
+                    data: [1, 5, 4, 5, 6, 7, 9, 10]
+                }]
+            });
+        });
     });
 
 </script>

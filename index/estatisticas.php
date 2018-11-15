@@ -25,6 +25,7 @@
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel='stylesheet'>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 
 </head>
 <?php
@@ -49,8 +50,14 @@
                 $icone = $row["icone"];
                 $serie_nome = $row["nome_serie"];
                 $id_turma = $row["id_turma"];
+                $selecionado = "";
+                
+                if($_GET['idT'] == "$id_turma"){
+                    $selecionado = "box-shadow: 0px -2px 19px 4px rgba(0, 0, 0, 0.19);";
+                }
+                
                 $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
-                            <div class='card card-stats'>
+                            <div class='card card-stats'  style='$selecionado'>
                                 <a href='estatisticas.php?idT=$id_turma' style='color: inherit;'>
                                     <div class='card-header' data-background-color='$cor'>
                                         <i class='$icone'></i>
@@ -88,7 +95,7 @@
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $id_prova = $row["id_turma_prova_avaliacao"];
-                    $sql2 = "SELECT quant_questoes,quant_alternativas, valor, nome FROM avaliacao WHERE idavaliacao = $id_prova AND id_avaliacao_professor = $id_user";
+                    $sql2 = "SELECT idavaliacao,quant_questoes,quant_alternativas, valor, nome FROM avaliacao WHERE idavaliacao = $id_prova AND id_avaliacao_professor = $id_user";
                     $result2 = $conn->query($sql2);
                     if ($result2->num_rows > 0) {
                         while($row2 = $result2->fetch_assoc()) {
@@ -96,17 +103,27 @@
                             $quant_alternativas = $row2["quant_alternativas"];
                             $valor = $row2["valor"];
                             $nome = $row2["nome"];
+                            $idavaliacao = $row2["idavaliacao"];
+                            $selecionado = "";
+                            if($_GET["idT"] != "all"){
+                                if(isset($_GET['idA'])){
+                                    if($_GET['idA'] == "$idavaliacao"){
+                                        $selecionado = "box-shadow: 0px -2px 19px 4px rgba(0, 0, 0, 0.19);";
+                                    }
+                                }
+                            }
+
                             
                             $html .= " <div class='col-lg col-md-6 col-sm-6 col-xs-6 col-ws-100'>
-                                                <div class='card card-stats'>
-                                                    <a href='' style='color: inherit;'>
+                                                <div class='card card-stats' style='$selecionado'>
+                                                    <a href='estatisticas.php?idT={$_GET['idT']}&idA=$idavaliacao' style='color: inherit;'>
                                                         <div class='card-header' data-background-color='blue400'>
                                                             <i class='material-icons'>assignment</i>
                                                         </div>
                                                         <div class='card-content card-turmas'>
                                                             <p class='category'>&nbsp;</p>
                                                             <h3 class='title'>$nome
-                                                                <!-- <small>GB</small> -->
+                                                                <!--<small>GB</small>-->
                                                             </h3>
                                                         </div>
                                                     </a>
@@ -132,20 +149,197 @@
         } else {
             $html .= "<p>Nenhuma prova vinculada</p>";
         }
+        return $html;
+    }
+    
+    //GRÁFICOS
+    
+    function geraGraficoAcertosPorQuestao(){
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        include("conexao.php");
+        
+        if(isset($_GET['idA'])){
+        $sql = "SELECT a.nome AS 'nome_avaliacao',t.nome AS 'nome_turma',a.quant_questoes,c.gabarito FROM avaliacao AS a INNER JOIN turma AS t INNER JOIN correcoes AS c ON c.id_correcoes_avaliacao = {$_GET['idA']} AND c.id_correcoes_turma = {$_GET['idT']} AND c.id_correcoes_avaliacao = a.idavaliacao AND c.id_correcoes_turma = t.idturma AND c.id_correcoes_professor = $id_user AND t.id_turma_professor = $id_user AND a.id_avaliacao_professor = $id_user";
+        
+        $sql2 = "SELECT a.nome AS 'nome_avaliacao',t.nome AS 'nome_turma',a.quant_questoes,c.gabarito FROM avaliacao AS a INNER JOIN turma AS t INNER JOIN correcoes AS c ON c.id_correcoes_avaliacao = {$_GET['idA']} AND c.id_correcoes_turma = {$_GET['idT']} AND c.id_correcoes_avaliacao = a.idavaliacao AND c.id_correcoes_turma = t.idturma AND c.id_correcoes_professor = $id_user AND t.id_turma_professor = $id_user AND a.id_avaliacao_professor = $id_user";
+        
+        
+            
+            $result2 = $conn->query($sql2);
+
+            $row = $result2->fetch_assoc();
+            for($x=0;$x<$row["quant_questoes"];$x++){
+                        $acertos[$x] = 0;
+                    }
+
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($row2 = $result->fetch_assoc()) {
+                        $gabaritoAluno = $row2["gabarito"];
+
+                        $count = 0;
+                        while($gabaritoAluno != ""){      
+                            $barra = strpos($gabaritoAluno,"/");
+                            $tamanho = strlen($gabaritoAluno);
+                            if(strpos($gabaritoAluno,"/")){
+                                $gabarito_array[$count] = substr($gabaritoAluno,0,$barra);
+                                $gabaritoAluno = substr($gabaritoAluno, $barra + 1, $tamanho);
+                                $count++;
+                            }else{
+                                $gabarito_array[$count] = substr($gabaritoAluno, 0, $tamanho);
+                                $gabaritoAluno = "";
+                            }
+                        }
+                        $count = 0;
+                        for($x=0;$x<sizeof($gabarito_array);$x++){
+                            if($x%3 == 0){
+                                if(substr($gabarito_array[$x+1],1,1) == "s"){
+                                    $acertos[$count]= $acertos[$count] + 1;
+                                    $count++;
+                                }else if(substr($gabarito_array[$x+1],1,1) == "e"){
+                                    $count++;
+                                }
+
+                            }
+                        }
+
+                    }
+                    $html .= "$(function() {
+                    var myChart = Highcharts.chart('chart', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Acertos por Questão \'<b>{$row['nome_avaliacao']}</b>\'<br>Turma <b>{$row['nome_turma']}</b> '
+                        },
+                        xAxis: {
+                            title: {
+                                text: 'Questões'
+                            },
+                            categories: [";
+                        for($x=1;$x<$row['quant_questoes'];$x++){
+                            $html .= "$x,";
+                        }
+
+                        $html .="{$row['quant_questoes']}]
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Acertos'
+                            },
+                            tickInterval: 1
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                return 'Questão ' + this.x + '<br> Acertos: <b>' + this.y + '</b>';
+                            }
+                        },
+                        series: [{
+                            name: 'Turma {$row["nome_turma"]}',";
+
+                        $html .= "
+                        data: [";
+                        for($x=0;$x<sizeof($acertos) - 1;$x++){
+                            $html .= "$acertos[$x],";   
+                        }
+                            $html .= $acertos[sizeof($acertos) - 1]."]
+                        }]
+                    });
+                });";
+
+            } else {
+                $html = "$(function() {
+                    var myChart = Highcharts.chart('chart', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Nenhuma Correção Encontrada'
+                        },
+                        xAxis: {
+                            title: {
+                                text: 'Questões'
+                            },
+                            categories: []
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Acertos'
+                            },
+                            tickInterval: 1
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                return 'Questão ' + this.x + '<br> Acertos: <b>' + this.y + '</b>';
+                            }
+                        },
+                        series: [{
+                            name: 'Turma Não Econtrada',";
+
+                        $html .= "
+                        data: []
+                        }]
+                    });
+                });";
+            }
+                    
+        }
+            return $html;
+    }
+    
+    function geraTabelaAlunos(){
+         $id_user = $_SESSION["id_user"];
+        $html = "";
+        include("conexao.php");
+        
+        if(isset($_GET['idA'])){
+            
+            $sql = "SELECT al.nome,al.sobrenome,al.idaluno FROM turma_prova AS tp INNER JOIN aluno AS al ON tp.id_turma_prova_avaliacao = 17 AND tp.id_turma_prova_turma = 8 AND tp.id_turma_prova_professor = 9 AND tp.id_turma_prova_turma = al.id_aluno_turma";
+
+            $sql2 = "";
+            
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($row2 = $result->fetch_assoc()) {
+
+                    $html .= "<div class='col-lg-6 col-md-12'>
+                            <div class='card'>
+                                <div class='card-header card-header-warning' data-background-color='green400'>
+                                    <h3 class='title' style='font-weight: 600;'>3ºE1</h3>
+                                    <p class='card-category'>Alunos</p>
+                                </div>
+                                <div class='card-body table-responsive' style='margin: 15px'>
+                                    <table class='table table-hover table-striped'>
+                                        <thead class='text-warning'>
+                                            <th style='max-width: 40px;'>Matrícula</th>
+                                            <th>Nome</th>
+                                            <th>&nbsp;</th>
+                                        </thead>
+                                        <tbody id='rowsAlunos' style='overflow-y: auto'>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Dakota Rie</td>
+                                                <td><a href='#' style='color: black'><i class='material-icons'>arrow_right_alt</i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+";
+                    
+                }    
+            }
+        }
         
         return $html;
     }
     
     ?>
-
     <body>
         <div class="wrapper">
             <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
-                <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
                 <div class="logo">
                     <a href="http://www.creative-tim.com" class="simple-text">
                     CheckEasy
@@ -167,79 +361,8 @@
                         </div>
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Número de correções disponíveis">
-                                    <i class="material-icons">assignment</i>
-                                    
-                                    <!--
-                                        Se númeroCorreções <10
-                                            set style=""
-                                       
-                                        Se númeroCorreções > 9
-                                            set style="right: 5px;";
-                                        se número Correções > 99
-                                            set style="right: 0px;"
-                                        se numeroCorreções > 999
-                                            set style="right: -3px;"
-                                    
-                                    -->
-                                    <span class="notification" style="right: 0">150</span>
-                                    <p class="hidden-lg hidden-md">Notifications</p>
-                                </a>
-                                    <!-- <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">Mike John responded to your email</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You have 5 new tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Andrew</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another Notification</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another One</a>
-                                    </li>
-                                </ul> -->
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">notifications</i>
-                                    <span class="notification">5</span>
-                                    <p class="hidden-lg hidden-md">Notifications</p>
-                                </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#">Mike John responded to your email</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">You have 5 new tasks</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">You're now friend with Andrew</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Another Notification</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Another One</a>
-                                        </li>
-                                    </ul>
-                                </li>
                                 <?php echo userDropDown(); ?>
                             </ul>
-                            <!-- <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group  is-empty">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="material-input"></span>
-                            </div>
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
-                        </form> -->
                         </div>
                     </div>
                 </nav>
@@ -255,8 +378,7 @@
                         </div>
 
                         <div class="row">
-                            
-                        <?php    
+                            <?php    
                             if ($_GET["idT"] == "all"){
                                 echo "<h4>Provas</h4><br><p>Nenhuma Turma Selecionada</p>";     
                             }else{
@@ -266,58 +388,72 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <?php
+                             if(isset($_GET['idA'])){
+                                $sql = "SELECT COUNT(*) FROM correcoes WHERE id_correcoes_avaliacao = 17 AND id_correcoes_turma = 8 AND id_correcoes_professor = 9";
+                                echo "<div class='col-md-6'>
+                                        <div class='card card-chart'>
+                                            <div class='card-header card-header-warning' style='background-color: white'>
+                                                <div class='ct-chart' id='chart'></div>
+                                            </div>
+                                            <!-- <div class='card-body' style='margin: 15px'>
+                                            <h4 class='card-title'>Rendimento</h4>
+                                            <p class='card-category'>Last Campaign Performance</p>
+                                                </div> -->
+                                            <div class='card-footer' style='display: flex;flex-direction: row;justify-content: space-around;'>
+                                                <div class='stats'>
+                                                    <i class='material-icons'>person</i>
+                                                    <a href='#' style='color: inherit;'><strong>10</strong> alunos de <strong>25</strong></a>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>";    
+                             }
+                            ?>
+                            
+                            <div class="col-md-6">
                                 <div class="card card-chart">
-                                    <div class="card-header card-header-success">
-                                        <div class="ct-chart" id="dailySalesChart"></div>
+                                    <div class="card-header card-header-warning" style="background-color: white">
+                                        <div class="ct-chart" id="chart2"></div>
                                     </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Daily Sales</h4>
-                                        <p class="card-category">
-                                            <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
-                                    </div>
+                                    <!-- <div class="card-body" style="margin: 15px">
+                                    <h4 class="card-title">Rendimento</h4>
+                                    <p class="card-category">Last Campaign Performance</p>
+                                </div> -->
                                     <div class="card-footer">
                                         <div class="stats">
-                                            <i class="material-icons">access_time</i> updated 4 minutes ago
+                                            <i class="material-icons">access_time</i> Atualizado a x minutos
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="card card-chart">
-                                    <div class="card-header card-header-warning">
-                                        <div class="ct-chart" id="websiteViewsChart"></div>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Email Subscriptions</h4>
-                                        <p class="card-category">Last Campaign Performance</p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="stats">
-                                            <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                        </div>
-                                    </div>
+
+                        </div>
+                        
+                         <div class="row">
+                         
+                         <?php echo geraTabelaAlunos(); ?>
+                        
+                        <div class="col-md-6">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-warning" style="background-color: white">
+                                    <div class="ct-chart" id="alunoxturma"></div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card card-chart">
-                                    <div class="card-header card-header-danger">
-                                        <div class="ct-chart" id="completedTasksChart"></div>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Completed Tasks</h4>
-                                        <p class="card-category">Last Campaign Performance</p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="stats">
-                                            <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                        </div>
+                                <!-- <div class="card-body" style="margin: 15px">
+                                    <h4 class="card-title">Rendimento</h4>
+                                    <p class="card-category">Last Campaign Performance</p>
+                                </div> -->
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> Atualizado a x minutos
                                     </div>
                                 </div>
                             </div>
                         </div>
 
 
+                    </div>
 
                     </div>
 
@@ -410,6 +546,10 @@
                 </div>
             </div>
         </div>
+        
+        
+        
+        
     </body>
 
     <script>
@@ -442,9 +582,83 @@
     <script src="assets/js/demo.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            
+            <?php
+             echo geraGraficoAcertosPorQuestao();
+            ?>
 
-            // Javascript method's body can be found in assets/js/demos.js
-            demo.initDashboardPageCharts();
+            $(function() {
+                var myChart = Highcharts.chart('chart2', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Média de Acertos por Turma <br> <b>Sistemas Lineares</b>'
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Questões'
+                        },
+                        categories: [1, 2, 3, 4, 5, 6, 7, 8]
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Acertos'
+                        },
+                        tickInterval: 1
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return 'Questão ' + this.x + '<br> Média: <b>' + this.y + '</b>';
+                        }
+                    },
+                    series: [{
+                        name: 'Turma 3ºE1',
+                        data: [1, 5, 4, 5, 6, 7, 9, 10]
+                    }, {
+                        name: 'Turma 3ºE2',
+                        data: [2, 3, 6, 5, 4, 8, 6, 7]
+                    }, {
+                        name: 'Turma 3ºE2',
+                        data: [2, 3, 6, 5, 4, 8, 6, 7]
+                    }]
+                });
+            });
+
+            $(function() {
+                var myChart = Highcharts.chart('alunoxturma', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Gráfico Aluno x Turma'
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Questões'
+                        },
+                        categories: ['Sistema Lineares', 'Sistemas Lineares II']
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Média da Nota'
+                        },
+                        tickInterval: 1
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return 'Média: <b>' + this.y + '</b>';
+                        }
+                    },
+                    series: [{
+                        name: 'Wesley Toledo',
+                        data: [10, 9.5]
+                    }, {
+                        name: 'Turma 3ºE1',
+                        data: [8, 6]
+                    }]
+                });
+            });
 
         });
 

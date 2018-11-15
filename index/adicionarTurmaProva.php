@@ -15,9 +15,9 @@
                  $sql = "INSERT INTO turma_prova(id_turma_prova_professor,id_turma_prova_turma, id_turma_prova_avaliacao) VALUES($id_user,".$row['idturma'].",".$_GET['idA'].")";
                  
                  if ($conn->query($sql) === TRUE) {
-                    header("Location: prova-edit.php?idA=".$_GET["idA"]);
+                    header("Location: prova-edit.php?idA=".$_GET["idA"]."&value={$_GET['value']}&s=eds");
                 }else{
-                    echo "Erro ao cadastrar turma";
+                    header("Location: prova-edit.php?idA=".$_GET["idA"]."&value={$_GET['value']}&s=ede");
                 }
             }else{
                 echo "123456";

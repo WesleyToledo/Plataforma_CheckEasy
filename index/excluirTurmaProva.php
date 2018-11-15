@@ -9,8 +9,8 @@
     $sql = "DELETE FROM turma_prova WHERE id_turma_prova_turma = $id_turma AND id_turma_prova_professor=$id_user AND id_turma_prova_avaliacao = $id_avaliacao";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: prova-edit.php?idA=$id_avaliacao");
+        header("Location: prova-edit.php?idA=$id_avaliacao&value={$_GET['value']}&s=ees");
     } else {
-        echo "Erro ao deletar turma: ".$conn->error;
+        header("Location: prova-edit.php?idA=$id_avaliacao&value={$_GET['value']}&s=eee");
     }
 ?>

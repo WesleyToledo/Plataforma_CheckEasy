@@ -75,7 +75,6 @@ demo = {
         md.startAnimationForLineChart(dailySalesChart);
 
 
-
         /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
 
         dataCompletedTasksChart = {

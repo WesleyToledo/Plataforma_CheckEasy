@@ -11,11 +11,12 @@
     $valor = $_POST["valor_total"];
 
 
-    $sql = "SELECT gabarito FROM avaliacao WHERE idavaliacao = $id_avaliacao AND id_avaliacao_professor = $id_user";
+    $sql = "SELECT gabarito,quant_questoes FROM avaliacao WHERE idavaliacao = $id_avaliacao AND id_avaliacao_professor = $id_user";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     
     $gabaritoOld = $row['gabarito'];
+    $quant_questoesOld = $row['quant_questoes'];
 
      $gabaritoNew = "";
      $alternativas = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
@@ -44,10 +45,14 @@
             $count++;
         }
     }
-
-    for($x = 1;$x<=$num_questoes;$x++){
-        $gabaritoNew .= $x."/".$respostas[$x-1]."/".$valor_alternativa."/";
-        $count++;
+    if($quant_questoesOld == $num_questoes){
+        for($x = 1;$x<=$num_questoes;$x++){
+            $gabaritoNew .= $x."/".$respostas[$x-1]."/".$valor_alternativa."/";
+            $count++;
+        }
+    }else{
+        $gabaritoNew .= $x."/a/".$valor_alternativa."/";
+            $count++;
     }
 
     $sql = "UPDATE avaliacao SET nome = '$nome', quant_questoes = $num_questoes, quant_alternativas = $num_alternativas, valor = $valor,gabarito = '$gabaritoNew'  WHERE id_avaliacao_professor = $id_user AND idavaliacao = $id_avaliacao";
