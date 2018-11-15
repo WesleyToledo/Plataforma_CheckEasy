@@ -345,13 +345,140 @@
         
         if(isset($_GET['idAL'])){
             
-            $sql = "";
+            $sql = "SELECT a.nome AS 'nome_avaliacao',t.nome AS 'nome_turma' FROM avaliacao AS a INNER JOIN turma_prova AS tp INNER JOIN turma AS t ON tp.id_turma_prova_turma = {$_GET['idT']} AND tp.id_turma_prova_avaliacao = a.idavaliacao AND tp.id_turma_prova_professor = $id_user AND a.id_avaliacao_professor = $id_user AND t.id_turma_professor = $id_user AND t.idturma=tp.id_turma_prova_turma";
             
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
-                while($row=$result->fetch_assoc()) {
-                    $html .= "";
+                    $html .= "$(function() {
+                    var myChart = Highcharts.chart('alunoxturma', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Gráfico Aluno x Turma'
+                        },
+                        xAxis: {
+                            title: {
+                                text: 'Provas'
+                            },
+                            categories: [";
+                $count = 0;
+                while($row=$result->fetch_assoc()){
+                        $html .= "'{$row['nome_avaliacao']}',";
+                        $nomesTurmas[$count] = $row['nome_turma'];
+                        $nomesAvaliacao[$count] = $row['nome_avaliacao'];
+                        $count++;
+                }
+                
+                $html .= "]
+                },yAxis: {
+                    title: {
+                        text: 'Média da Nota'
+                    },
+                    tickInterval: 1
+                },
+                tooltip: {
+                    formatter: function() {
+                        return 'Média: <b>' + this.y + '</b>';
+                    }
+                },
+                series: [";
+                
+                $sql2 = "SELECT co.nota FROM aluno AS a INNER JOIN correcoes AS co ON a.idaluno= {$_GET['idAL']} AND a.idaluno=co.id_correcoes_aluno AND co.id_correcoes_professor = $id_user AND a.id_aluno_professor = $id_user";
+                
+               
+                $count = 0;
+                $result2 = $conn->query($sql2);
+                if ($result2->num_rows > 0) {
+                    while($row2=$result2->fetch_assoc()){
+                        $notasAluno[$count] = $row2['nota'];
+                        //echo $notasAluno[$count];
+                        $count++;
+                    }    
+                }else{
+                    $notasAluno[$count] =0;
+                }
+                
+                $sql4 = "SELECT tp.id_turma_prova_avaliacao AS 'id_avaliacao' FROM turma_prova AS tp WHERE tp.id_turma_prova_turma = {$_GET['idT']} AND tp.id_turma_prova_professor = $id_user";
+                
+                $sql5 = "SELECT COUNT(*) as 'quant' FROM turma_prova AS tp WHERE tp.id_turma_prova_turma = {$_GET['idT']} AND tp.id_turma_prova_professor = $id_user";
+                
+                
+                $quant_results = 0;
+                $result5 = $conn->query($sql5);
+                $row5 = $result5->fetch_assoc();
+                if($result5->num_rows>0){
+                    $quant_results = $row5['quant'];
                 }    
+                
+                $count = 0;
+                $result4 = $conn->query($sql4);
+                if ($result4->num_rows > 0) {
+                    while($row4=$result4->fetch_assoc()){
+                        $idAvaliacao = $row4['id_avaliacao'];
+                        
+                        $sql6 = "SELECT co.nota FROM correcoes AS co WHERE co.id_correcoes_avaliacao = $idAvaliacao AND co.id_correcoes_professor = $id_user";
+                        
+                        $somaNotas = 0;
+                        $result6 = $conn->query($sql6);
+                        if($result6->num_rows > 0){
+                            while($row6=$result6->fetch_assoc()){
+                                $somaNotas += $row6['nota'];
+                            }
+                        }
+                        
+                        $sql7 = "SELECT COUNT(*) AS 'quant' FROM correcoes AS co WHERE co.id_correcoes_avaliacao = $idAvaliacao AND co.id_correcoes_professor = $id_user";
+                        
+                        $quant_results = 1;
+                        $result7 = $conn->query($sql7);
+                        if($result7->num_rows > 0){
+                            $row7=$result7->fetch_assoc();
+                            if($row7['quant'] > 0){   
+                                $quant_results = $row7['quant'];
+                            }else{
+                                $quant_results = 1;
+                            }
+                        }
+                        $notasTurma[$count]=$somaNotas/$quant_results;
+                        //echo $notasTurma[$count];
+                        $count++;
+                    }    
+                }
+                
+                   /* echo "Nomes turmas".$nomesTurmas[$x];
+                    echo "    Notas turmas".$notasTurma[$x];
+                    echo "     Notas Aluno".$notasAluno[$x];
+*/
+                    $sql8 = "SELECT a.nome FROM aluno AS a WHERE a.idaluno = {$_GET['idAL']} AND a.id_aluno_professor = $id_user";
+                
+                    $result8 = $conn->query($sql8);
+                        if($result8->num_rows > 0){
+                            $row8=$result8->fetch_assoc();
+                            $nomeAluno = $row8['nome'];
+                        }
+                
+                    $html .= "{
+                        name: '$nomeAluno',
+                        data: [";
+                    
+                    for($x=0;$x<sizeof($notasAluno);$x++){
+                        $html .= "$notasAluno[$x],";
+                    }
+                            $html .= "]
+                            },";
+                
+                    $html .= "{
+                        name: '$nomesTurmas[0]',
+                        data: [";
+                     
+                    for($x=0;$x<sizeof($notasAluno);$x++){
+                        $html .= "$notasTurma[$x],";
+                    }  
+                
+                $html .= "]
+                        }
+                        ]});
+                        });";
             }
         }
         return $html;
@@ -607,6 +734,7 @@
             
             <?php
              echo geraGraficoAcertosPorQuestao();
+             echo geraGraficoAlunoXTurma();
             ?>
 
             $(function() {
@@ -647,40 +775,7 @@
                 });
             });
 
-            $(function() {
-                var myChart = Highcharts.chart('alunoxturma', {
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: 'Gráfico Aluno x Turma'
-                    },
-                    xAxis: {
-                        title: {
-                            text: 'Questões'
-                        },
-                        categories: ['Sistema Lineares', 'Sistemas Lineares II']
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Média da Nota'
-                        },
-                        tickInterval: 1
-                    },
-                    tooltip: {
-                        formatter: function() {
-                            return 'Média: <b>' + this.y + '</b>';
-                        }
-                    },
-                    series: [{
-                        name: 'Wesley Toledo',
-                        data: [10, 9.5]
-                    }, {
-                        name: 'Turma 3ºE1',
-                        data: [8, 6]
-                    }]
-                });
-            });
+            
 
         });
 
