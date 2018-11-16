@@ -471,7 +471,7 @@
                         name: '$nomesTurmas[0]',
                         data: [";
                      
-                    for($x=0;$x<sizeof($notasAluno);$x++){
+                    for($x=0;$x<sizeof($notasTurma);$x++){
                         $html .= "$notasTurma[$x],";
                     }  
                 
@@ -479,6 +479,38 @@
                         }
                         ]});
                         });";
+            }else{
+                $html .= "$(function() {
+                var myChart = Highcharts.chart('alunoxturma', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Nenhuma Correção Encontrada'
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Questões'
+                        },
+                        categories: []
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Acertos'
+                        },
+                        tickInterval: 1
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return 'Questão ' + this.x + '<br> Média: <b>' + this.y + '</b>';
+                        }
+                    },
+                    series: [{
+                        name: 'Aluno Não Encontrado',
+                        data: []
+                    }]
+                });
+            });";
             }
         }
         return $html;
@@ -539,7 +571,15 @@
                         <div class="row">
                             <?php
                              if(isset($_GET['idA'])){
-                                $sql = "SELECT COUNT(*) FROM correcoes WHERE id_correcoes_avaliacao = 17 AND id_correcoes_turma = 8 AND id_correcoes_professor = 9";
+                                 $sql = "SELECT COUNT(*) AS 'quant' FROM correcoes AS co WHERE co.id_correcoes_turma = {$_GET['idT']} AND co.id_correcoes_avaliacao = {$_GET['idA']} AND co.id_correcoes_professor = $id_user";
+                                 $result = $conn->query($sql);
+                                 $row = $result->fetch_assoc();
+                                 
+                                 
+                                 $sql2 = "SELECT COUNT(*) AS 'quant' FROM aluno AS a WHERE a.id_aluno_turma = {$_GET['idT']} AND a.id_aluno_professor = $id_user";
+                                 $result2 = $conn->query($sql2);
+                                 $row2 = $result2->fetch_assoc();
+                                 
                                 echo "<div class='col-md-6'>
                                         <div class='card card-chart'>
                                             <div class='card-header card-header-warning' style='background-color: white'>
@@ -552,7 +592,11 @@
                                             <div class='card-footer' style='display: flex;flex-direction: row;justify-content: space-around;'>
                                                 <div class='stats'>
                                                     <i class='material-icons'>person</i>
-                                                    <a href='#' style='color: inherit;'><strong>10</strong> alunos de <strong>25</strong></a>
+                                                    <a href='#' style='color: inherit;'><strong>{$row['quant']}</strong> correções de <strong>{$row2['quant']}</strong> alunos</a>
+                                                </div>
+                                                <div class='stats'>
+                                                    <i class='material-icons'>person</i>
+                                                    <a href='#' style='color: inherit;'>Alunos restantes para corrigir</a>
                                                 </div>
                                                 
                                             </div>
@@ -584,22 +628,28 @@
                          
                          <?php echo geraTabelaAlunos(); ?>
                         
-                        <div class="col-md-6">
-                            <div class="card card-chart">
-                                <div class="card-header card-header-warning" style="background-color: white">
-                                    <div class="ct-chart" id="alunoxturma"></div>
-                                </div>
-                                <!-- <div class="card-body" style="margin: 15px">
-                                    <h4 class="card-title">Rendimento</h4>
-                                    <p class="card-category">Last Campaign Performance</p>
-                                </div> -->
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> Atualizado a x minutos
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                             if(isset($_GET['idAL'])){
+                                echo "<div class='col-md-6'>
+                                        <div class='card card-chart'>
+                                            <div class='card-header card-header-warning' style='background-color: white'>
+                                                <div class='ct-chart' id='alunoxturma'></div>
+                                            </div>
+                                            <!-- <div class='card-body' style='margin: 15px'>
+                                            <h4 class='card-title'>Rendimento</h4>
+                                            <p class='card-category'>Last Campaign Performance</p>
+                                                </div> -->
+                                            <div class='card-footer' style='display: flex;flex-direction: row;justify-content: space-around;'>
+                                                <div class='stats'>
+                                                    <i class='material-icons'>person</i>
+                                                    <a href='#' style='color: inherit;'><strong>10</strong> alunos de <strong>25</strong></a>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>";    
+                             }
+                            ?>
 
 
                     </div>
@@ -731,7 +781,6 @@
     <script src="assets/js/demo.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            
             <?php
              echo geraGraficoAcertosPorQuestao();
              echo geraGraficoAlunoXTurma();
