@@ -71,10 +71,10 @@ function userDropDown(){
                 </a>
                 <ul class='dropdown-menu'>
                     <li>
-                        <a href='user.php'><i class='material-icons' style='font-size: 1.6em;margin:0px 10px 0px 10px'>person</i>Profile</a>
+                        <a href='user.php'><i class='material-icons' style='font-size: 1.6em;margin:0px 10px 0px 10px'>person</i>Perfil</a>
                     </li>
                     <li>
-                        <a href='index.html'><i class='material-icons' style='font-size: 1.6em;margin:0px 10px 0px 10px'>keyboard_tab</i>Profile</a>
+                        <a href='index.html'><i class='material-icons' style='font-size: 1.6em;margin:0px 10px 0px 10px'>keyboard_tab</i>Sair</a>
                     </li>
                 </ul>
             </li>";

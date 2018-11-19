@@ -58,7 +58,7 @@
                 
                 $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                             <div class='card card-stats'  style='$selecionado'>
-                                <a href='estatisticas.php?idT=$id_turma' style='color: inherit;'>
+                                <a href='estatisticas.php?idT=$id_turma&c=$cor' style='color: inherit;'>
                                     <div class='card-header' data-background-color='$cor'>
                                         <i class='$icone'></i>
                                     </div>
@@ -70,8 +70,8 @@
                                 </a>
                                 <div class='card-footer'>
                                     <div class='stats'>
-                                        <i class='material-icons'>group</i>
-                                        <a href='#' style='color: inherit'>$serie_nome</a>
+                                        <i class='material-icons' style='color:#4e4e4e'>group</i>
+                                        <a href='#' style='color: inherit;font-weight: 500;color: #4e4e4e'>$serie_nome</a>
                                     </div>
                                     
                                 </div>
@@ -116,8 +116,8 @@
                             
                             $html .= " <div class='col-lg col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                                                 <div class='card card-stats' style='$selecionado'>
-                                                    <a href='estatisticas.php?idT={$_GET['idT']}&idA=$idavaliacao' style='color: inherit;'>
-                                                        <div class='card-header' data-background-color='blue400'>
+                                                    <a href='estatisticas.php?idT={$_GET['idT']}&idA=$idavaliacao&c={$_GET['c']}' style='color: inherit;'>
+                                                        <div class='card-header' data-background-color='{$_GET['c']}'>
                                                             <i class='material-icons'>assignment</i>
                                                         </div>
                                                         <div class='card-content card-turmas'>
@@ -129,16 +129,16 @@
                                                     </a>
                                                     <div class='card-footer' style='display: flex;flex-direction: row;justify-content: space-around;'>
                                                         <div class='stats'>
-                                                            <i class='material-icons' style='background:linear-gradient(45deg, #1de099, #1dc8cd);-webkit-text-fill-color:transparent;-webkit-background-clip: text;'>visibility</i>
-                                                            <a href='#' style='color: inherit;font-weight: 500;color: #4e4e4e''>$quant_questoes Questões</a>
+                                                            <i class='material-icons' style='font-weight: 500;color: #2d2d2d'>visibility</i>
+                                                            <a href='#' style='color: inherit;font-weight: 500;color: #2d2d2d'>$quant_questoes Questões</a>
                                                         </div>
                                                         <div class='stats'>
-                                                            <i class='material-icons' style='background:linear-gradient(45deg, #1de099, #1dc8cd);-webkit-text-fill-color:transparent;-webkit-background-clip: text;'>edit</i>
-                                                            <a href='#' style='color: inherit;font-weight: 500;color: #4e4e4e''>$quant_alternativas Alternativas</a>
+                                                            <i class='material-icons' style='font-weight: 500;color: #2d2d2d' >edit</i>
+                                                            <a href='#' style='color: inherit;font-weight: 500;color: #2d2d2d'>$quant_alternativas Alternativas</a>
                                                         </div>
                                                         <div class='stats'>
-                                                            <i class='material-icons' style='background:linear-gradient(45deg, #1de099, #1dc8cd);-webkit-text-fill-color:transparent;-webkit-background-clip: text;'>local_offer</i>
-                                                            <a href='#' style='color: inherit;font-weight:500;color: #4e4e4e''>$valor Pontos</a>
+                                                            <i class='material-icons' style='font-weight: 500;color: #2d2d2d'>local_offer</i>
+                                                            <a href='#' style='color: inherit;font-weight:500;color: #2d2d2d'>$valor Pontos</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -329,7 +329,7 @@
                     $html .= "<tr style='$selecionado'>
                                 <td>{$row['matricula']}</td>
                                 <td>{$row['nome']}{$row['sobrenome']}</td>
-                                <td><a href='estatisticas.php?idT={$_GET['idT']}&idA={$_GET['idA']}&idAL={$row['idaluno']}' style='color: black;'><i class='material-icons'>arrow_right_alt</i></a></td>
+                                <td><a href='estatisticas.php?idT={$_GET['idT']}&idA={$_GET['idA']}&idAL={$row['idaluno']}&c={$_GET['c']}' style='color: black;'><i class='material-icons'>arrow_right_alt</i></a></td>
                             </tr>
                         ";
                 }    

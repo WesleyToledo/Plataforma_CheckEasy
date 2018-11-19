@@ -175,10 +175,10 @@
                                             </div>
                                         </div>
                                         <div class='row'>
-                                            <button type='button' class='btn btn-info pull-left' style='margin:15px;padding:12px;' data-toggle='modal' data-target='#novaSenha'>Alterar Senha</button>
+                                            <button type='button' class='btn pull-left' style='margin:15px;padding:12px;background: linear-gradient(45deg, #1de099, #1dc8cd)' data-toggle='modal' data-target='#novaSenha'>Alterar Senha</button>
                                         </div>
                                         
-                                        <button type='submit' id='submit' class='btn btn-info pull-right'>Salvar alterações</button>
+                                        <button type='submit' id='submit' class='btn pull-right' style='background: linear-gradient(45deg, #1de099, #1dc8cd)'>Salvar alterações</button>
                                             
                                         <div class='clearfix'></div>
                                     </form>
@@ -266,36 +266,6 @@
                         </div>
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
-                                <li>
-                                    <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">dashboard</i>
-                                    <p class="hidden-lg hidden-md">Dashboard</p>
-                                </a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">notifications</i>
-                                    <span class="notification">5</span>
-                                    <p class="hidden-lg hidden-md">Notifications</p>
-                                </a>
-                                    <!-- <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">Mike John responded to your email</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You have 5 new tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Andrew</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another Notification</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another One</a>
-                                    </li>
-                                </ul> -->
-                                </li>
                                 <?php echo userDropDown(); ?>
                             </ul>
                             <!-- <form class="navbar-form navbar-right" role="search">
@@ -358,7 +328,7 @@
                             </div>
                             <div class='modal-footer'>
                                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                <button type='submit' id='submitSenha' class='btn btn-info' disabled>Salvar Alteração</button>
+                                <button type='submit' id='submitSenha' class='btn' disabled style="background: linear-gradient(45deg, #1de099, #1dc8cd)">Salvar Alteração</button>
                             </div>
                         </form>
                     </div>

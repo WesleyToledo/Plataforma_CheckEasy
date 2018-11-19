@@ -73,8 +73,8 @@
                                 </a>
                                 <div class='card-footer'>
                                     <div class='stats'>
-                                        <i class='material-icons'>group</i>
-                                        <a href='#' style='color: inherit'>$serie_nome</a>
+                                        <i class='material-icons' style='color:#4e4e4e'>group</i>
+                                        <a href='#' style='color: inherit;font-weight: 500;color: #4e4e4e'>$serie_nome</a>
                                     </div>
                                     <div class='stats' style='float: right;'>
                                        <a data-toggle='modal' data-target='#excluirTurma$id_turma'>   

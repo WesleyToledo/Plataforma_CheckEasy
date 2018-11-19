@@ -875,7 +875,7 @@ h2.title {
 
 .sidebar[data-color="blue"] .nav li.active a,
 .off-canvas-sidebar[data-color="blue500"] .nav li.active a {
-    background:linear-gradient(45deg, #1de099, #1dc8cd);
+    background: linear-gradient(45deg, #1de099, #1dc8cd);
     box-shadow: 0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2);
 }
 
@@ -2830,7 +2830,7 @@ fieldset[disabled] .form-group .form-control {
 
 .form-group.is-focused .form-control {
     outline: none;
-    background-image: linear-gradient(#00bcd4,#00bcd4), linear-gradient(#D2D2D2, #D2D2D2);
+    background-image: linear-gradient(#00bcd4, #00bcd4), linear-gradient(#D2D2D2, #D2D2D2);
     background-size: 100% 2px, 100% 1px;
     box-shadow: none;
     transition-duration: 0.3s;
@@ -4356,7 +4356,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 @media (max-width: 767px) {
-  
+
     .navbar .navbar-nav .navbar-text {
         color: inherit;
         margin-top: 15px;
@@ -4574,14 +4574,15 @@ fieldset[disabled] .navbar .btn-link:focus {
 .navbar.navbar-primary .dropdown-menu li > a:hover,
 .navbar.navbar-primary .dropdown-menu li > a:focus {
     color: #FFFFFF;
-    background-color: #9c27b0;
-    box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2);
+    background: linear-gradient(45deg, #1de099, #1dc8cd);
+    box-shadow: 0 12px 20px -10px #1dc8cd, 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px #1dc8cd;
 }
 
 .navbar.navbar-primary .dropdown-menu .active > a {
-    background-color: #9c27b0;
+
+    background: linear-gradient(45deg, #1de099, #1dc8cd);
     color: #ffffff;
-    box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2);
+    box-shadow: 0 12px 20px -10px #1dc8cd, 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px #1dc8cd;
 }
 
 .navbar.navbar-primary .dropdown-menu .active > a:hover,
@@ -5055,9 +5056,9 @@ footer .btn {
 .navbar.navbar-default .dropdown-menu li a:hover,
 .navbar.navbar-default .dropdown-menu li a:focus,
 .navbar.navbar-default .dropdown-menu li a:active {
-    background-color: #9c27b0;
     color: #FFFFFF;
-    box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2);
+    background: linear-gradient(45deg, #1de099, #1dc8cd);
+    box-shadow: 0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2);
 }
 
 .navbar-nav > li > .dropdown-menu,
@@ -5406,8 +5407,7 @@ footer .btn {
     margin-top: 0;
 }
 
-.card-avatar > a > img
-{
+.card-avatar > a > img {
     /*background-color: #1dcfc0;*/
     width: 130px;
     height: 130px;
@@ -6829,15 +6829,13 @@ footer .btn {
 }
 
 
-.control-label i
-{
- padding-right: 5px;   
- padding-left: 10px;   
+.control-label i {
+    padding-right: 5px;
+    padding-left: 10px;
 }
 
-.mask
-{
- background-image: url('/assets/img/cover.jpeg');
+.mask {
+    background-image: url('/assets/img/cover.jpeg');
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
 }
