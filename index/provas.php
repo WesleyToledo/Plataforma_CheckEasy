@@ -72,33 +72,32 @@
                                     <button class='card-header' style='position: absolute; width: 4em;height: 1em; display: flex; justify-content: center;flex-direction: column;align-items: center; background-color: transparent;box-shadow: none;margin-left: 67%;margin-top: 0.1em;color: white;border:none;' data-toggle='modal' data-target='#editarProva$id_avaliacao'>
                                         <i class='material-icons' style='color: #fff; font-weight: 800;cursor: pointer;font-size: 1.3em;'>create</i>
                                     </button>
- 
                                 <a href='prova-edit.php?idA=$id_avaliacao&value=$valor'>
                                 <img class='card-img-top' src='https://picsum.photos/1900/1080?image=315' >
                                 <div class='card-body' id='card'>
-                                    <h5 class='card-title text-info' style='font-weight: 500'>$nome</h5>
+                                    <h5 class='card-title' style='font-weight: 500;color:#4e4e4e;margin:5px'>$nome</h5>
                                 </div>
                                 <div class='card-footer text-muted'>
                                     <div class='row'>
                                         <div style='display: flex;justify-content: space-around; flex-direction: row;'>
                                             <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                                <i class='material-icons' style='padding: 5px; font-size: 1.2em'>visibility</i>
-                                                <p style='margin: 0; font-size: 0.8em'>$quant_questoes questões</p>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.2em;background:linear-gradient(45deg, #1de099, #1dc8cd);-webkit-text-fill-color:transparent;-webkit-background-clip: text;'>visibility</i>
+                                                <p style='margin: 0; font-size: 0.8em;font-weight: 600;color: #4e4e4e'>$quant_questoes questões</p>
                                             </div>
                                             <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                                <i class='material-icons' style='padding: 5px; font-size: 1.2em'>edit</i>
-                                                <p style='margin: 0; font-size: 0.8em'>$quant_alternativas Alternativas</p>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.2em;background:linear-gradient(45deg, #1de099, #1dc8cd);-webkit-text-fill-color:transparent;-webkit-background-clip: text;'>edit</i>
+                                                <p style='margin: 0; font-size: 0.8em;font-weight: 600;color: #4e4e4e''>$quant_alternativas Alternativas</p>
                                             </div>
                                             <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                                <i class='material-icons' style='padding: 5px; font-size: 1.2em'>local_offer</i>
-                                                <p style='margin: 0; font-size: 0.8em'>$valor pontos</p>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.2em;background:linear-gradient(45deg, #1de099, #1dc8cd);-webkit-text-fill-color:transparent;-webkit-background-clip: text;'>local_offer</i>
+                                                <p style='margin: 0; font-size: 0.8em;font-weight: 600;color: #4e4e4e''>$valor pontos</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 </a>
                                 <a href='prova-results.php?idA=$id_avaliacao&idT=all&c=blue400'>
-                                    <button type='button' class='btn btn-info'>Correções</button>
+                                    <button type='button' class='btn btn-info' style='background:linear-gradient(45deg, #1de099, #1dc8cd)'>Correções</button>
                                 </a>
                             </div>
                         </div>";
@@ -139,7 +138,7 @@
                             <div class='modal-footer'>
                             <form action='excluirProva.php?idA=$id_avaliacao' method='post'>
                                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                <button type='submit' class='btn btn-info' >Excluir</button>
+                                <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd)'>Excluir</button>
                                 </form>
                                 </div>
                             </div>
@@ -201,7 +200,7 @@
                                 </div>
                                 <div class='modal-footer'>
                                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                    <button type='submit' class='btn btn-info'>Editar Prova</button>
+                                    <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd)'>Editar Prova</button>
 
                                     <!-- onclick='demo.showNotification('top','right','Turma Cadastrada')' -->
 
@@ -272,7 +271,7 @@
                     <div class="row">
                         <ul class="nav navbar-nav navbar-left">
                             <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
-                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#criarProva">
+                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row; background:linear-gradient(45deg, #1de099, #1dc8cd)" data-toggle="modal" data-target="#criarProva">
                                     <i class="material-icons" style="font-size: 27px;">add_circle_outline</i>
                                     &nbsp;&nbsp;&nbsp;Criar Prova
                                 </button>
@@ -338,7 +337,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                    <button type="submit" class="btn btn-info">Criar</button>
+                                    <button type="submit" class="btn" style="background: linear-gradient(45deg, #1de099, #1dc8cd)">Criar</button>
 
                                     <!-- onclick="demo.showNotification('top','right','Turma Cadastrada')" -->
 

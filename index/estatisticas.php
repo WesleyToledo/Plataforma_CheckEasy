@@ -129,16 +129,16 @@
                                                     </a>
                                                     <div class='card-footer' style='display: flex;flex-direction: row;justify-content: space-around;'>
                                                         <div class='stats'>
-                                                            <i class='material-icons'>visibility</i>
-                                                            <a href='#' style='color: inherit;'>$quant_questoes Questões</a>
+                                                            <i class='material-icons' style='background:linear-gradient(45deg, #1de099, #1dc8cd);-webkit-text-fill-color:transparent;-webkit-background-clip: text;'>visibility</i>
+                                                            <a href='#' style='color: inherit;font-weight: 500;color: #4e4e4e''>$quant_questoes Questões</a>
                                                         </div>
                                                         <div class='stats'>
-                                                            <i class='material-icons'>edit</i>
-                                                            <a href='#' style='color: inherit;'>$quant_alternativas Alternativas</a>
+                                                            <i class='material-icons' style='background:linear-gradient(45deg, #1de099, #1dc8cd);-webkit-text-fill-color:transparent;-webkit-background-clip: text;'>edit</i>
+                                                            <a href='#' style='color: inherit;font-weight: 500;color: #4e4e4e''>$quant_alternativas Alternativas</a>
                                                         </div>
                                                         <div class='stats'>
-                                                            <i class='material-icons'>local_offer</i>
-                                                            <a href='#' style='color: inherit;'>$valor Pontos</a>
+                                                            <i class='material-icons' style='background:linear-gradient(45deg, #1de099, #1dc8cd);-webkit-text-fill-color:transparent;-webkit-background-clip: text;'>local_offer</i>
+                                                            <a href='#' style='color: inherit;font-weight:500;color: #4e4e4e''>$valor Pontos</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -320,10 +320,16 @@
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while($row=$result->fetch_assoc()) {
-                    $html .= "<tr>
+                    $selecionado = "";
+                    if(isset($_GET['idAL'])){
+                        if($row['idaluno'] == $_GET['idAL']){    
+                            $selecionado = "font-weight: 600";
+                        }
+                    }
+                    $html .= "<tr style='$selecionado'>
                                 <td>{$row['matricula']}</td>
                                 <td>{$row['nome']}{$row['sobrenome']}</td>
-                                <td><a href='estatisticas.php?idT={$_GET['idT']}&idA={$_GET['idA']}&idAL={$row['idaluno']}' style='color: black'><i class='material-icons'>arrow_right_alt</i></a></td>
+                                <td><a href='estatisticas.php?idT={$_GET['idT']}&idA={$_GET['idA']}&idAL={$row['idaluno']}' style='color: black;'><i class='material-icons'>arrow_right_alt</i></a></td>
                             </tr>
                         ";
                 }    
@@ -417,7 +423,7 @@
                     while($row4=$result4->fetch_assoc()){
                         $idAvaliacao = $row4['id_avaliacao'];
                         
-                        $sql6 = "SELECT co.nota FROM correcoes AS co WHERE co.id_correcoes_avaliacao = $idAvaliacao AND co.id_correcoes_professor = $id_user";
+                        $sql6 = "SELECT co.nota FROM correcoes AS co WHERE co.id_correcoes_avaliacao = $idAvaliacao AND co.id_correcoes_professor = $id_user AND co.id_correcoes_turma = {$_GET['idT']}";
                         
                         $somaNotas = 0;
                         $result6 = $conn->query($sql6);
@@ -444,11 +450,13 @@
                         $count++;
                     }    
                 }
-                
-                   /* echo "Nomes turmas".$nomesTurmas[$x];
+                /*
+                for($x=0;$x<sizeof($nomesTurmas);$x++){
+                   echo "Nomes turmas".$nomesTurmas[$x];/*
                     echo "    Notas turmas".$notasTurma[$x];
                     echo "     Notas Aluno".$notasAluno[$x];
-*/
+                   }*/
+
                     $sql8 = "SELECT a.nome FROM aluno AS a WHERE a.idaluno = {$_GET['idAL']} AND a.id_aluno_professor = $id_user";
                 
                     $result8 = $conn->query($sql8);
@@ -518,6 +526,7 @@
     
     
     ?>
+
     <body>
         <div class="wrapper">
             <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
@@ -561,7 +570,7 @@
                         <div class="row">
                             <?php    
                             if ($_GET["idT"] == "all"){
-                                echo "<h4>Provas</h4><br><p>Nenhuma Turma Selecionada</p>";     
+                                //echo "<h4>Provas</h4><br><p>Nenhuma Turma Selecionada</p>";     
                             }else{
                                 echo "<h4>Provas</h4><br>".listProvas();   
                             }
@@ -604,32 +613,42 @@
                                     </div>";    
                              }
                             ?>
-                            
-                            <div class="col-md-6">
+
+                                <!-- <div class="col-md-6">
                                 <div class="card card-chart">
                                     <div class="card-header card-header-warning" style="background-color: white">
                                         <div class="ct-chart" id="chart2"></div>
                                     </div>
-                                    <!-- <div class="card-body" style="margin: 15px">
+                                    <div class="card-body" style="margin: 15px">
                                     <h4 class="card-title">Rendimento</h4>
                                     <p class="card-category">Last Campaign Performance</p>
-                                </div> -->
+                                </div>
                                     <div class="card-footer">
                                         <div class="stats">
                                             <i class="material-icons">access_time</i> Atualizado a x minutos
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
-                        
-                         <div class="row">
-                         
-                         <?php echo geraTabelaAlunos(); ?>
-                        
-                        <?php
+
+                        <div class="row">
+
+                            <?php echo geraTabelaAlunos(); ?>
+
+                            <?php
                              if(isset($_GET['idAL'])){
+                                 
+                                 $sql = "SELECT COUNT(*) AS 'quant' FROM correcoes AS co WHERE co.id_correcoes_turma = {$_GET['idT']} AND co.id_correcoes_avaliacao = {$_GET['idA']} AND co.id_correcoes_professor = $id_user";
+                                 $result = $conn->query($sql);
+                                 $row = $result->fetch_assoc();
+                                 
+                                 
+                                 $sql2 = "SELECT COUNT(*) AS 'quant' FROM aluno AS a WHERE a.id_aluno_turma = {$_GET['idT']} AND a.id_aluno_professor = $id_user";
+                                 $result2 = $conn->query($sql2);
+                                 $row2 = $result2->fetch_assoc();
+                                 
                                 echo "<div class='col-md-6'>
                                         <div class='card card-chart'>
                                             <div class='card-header card-header-warning' style='background-color: white'>
@@ -642,7 +661,7 @@
                                             <div class='card-footer' style='display: flex;flex-direction: row;justify-content: space-around;'>
                                                 <div class='stats'>
                                                     <i class='material-icons'>person</i>
-                                                    <a href='#' style='color: inherit;'><strong>10</strong> alunos de <strong>25</strong></a>
+                                                    <a href='#' style='color: inherit;'><strong>{$row['quant']}</strong> correções de <strong>{$row2['quant']}</strong> alunos</a>
                                                 </div>
                                                 
                                             </div>
@@ -650,12 +669,8 @@
                                     </div>";    
                              }
                             ?>
-
-
+                        </div>
                     </div>
-
-                    </div>
-
                 </div>
             </div>
             <footer class="footer">
@@ -666,7 +681,7 @@
                             document.write(new Date().getFullYear())
 
                         </script>
-                        <a href="#">CheckEasy</a>, a plataforma online dedicada aos professores
+                        <a href="#" class="text-info">CheckEasy</a>, a plataforma online dedicada aos professores
                     </p>
                 </div>
             </footer>
@@ -745,10 +760,10 @@
                 </div>
             </div>
         </div>
-        
-        
-        
-        
+
+
+
+
     </body>
 
     <script>
@@ -824,7 +839,7 @@
                 });
             });
 
-            
+
 
         });
 

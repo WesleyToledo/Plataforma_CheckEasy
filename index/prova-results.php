@@ -447,7 +447,7 @@
                                 document.write(new Date().getFullYear())
 
                             </script>
-                            <a href="#" style="color: blue">CheckEasy</a>, a plataforma online dedicada aos professores
+                            <a href="#" class="text-info">CheckEasy</a>, a plataforma online dedicada aos professores
                         </p>
                     </div>
                 </footer>

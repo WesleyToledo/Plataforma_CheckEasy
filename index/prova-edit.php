@@ -203,12 +203,12 @@
                         &nbsp;
                     </center>
                 </th>";
-        
+        //font-weight: 600;background:linear-gradient(45deg, #1de099, #1dc8cd);-webkit-text-fill-color:transparent;-webkit-background-clip: text;
         for($x=1;$x<=$num_alternativas;$x++)
         {
-            $html .= "<th>
+            $html .= "<th style=''>
                         <center>
-                            <h4>".strtoupper($alternativas[$x-1])."</h4>
+                            <h4 style='font-weight: 600;color:black'>".strtoupper($alternativas[$x-1])."</h4>
                         </center>
                     </th>";
         }
@@ -218,9 +218,9 @@
                         &nbsp;
                     </center>
                 </th>
-                <th style='width: 20%'>
+                <th style='width: 20%;color:black'>
                     <center>
-                        <h4>Pontuação</h4>
+                        <h4 style='font-weight: 600;color:black'>Pontuação</h4>
                     </center>
                   </th>";
         
@@ -281,7 +281,7 @@
             $html .= "<tr>
                         <td>
                             <center>
-                                <h4>$x</h4>
+                                <h4 style='font-weight: 600;color:black'>$x</h4>
                             </center>
                         </td>";
             
@@ -399,7 +399,7 @@
                     <div class="row">
                         <ul class="nav navbar-nav navbar-left">
                             <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
-                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#adicionarTurma" onclick="verificaSerie();">
+                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row; background:linear-gradient(45deg, #1de099, #1dc8cd)" data-toggle="modal" data-target="#adicionarTurma" onclick="verificaSerie();">
                                     <i class="material-icons" style="font-size: 27px;">add_circle_outline</i>
                                     &nbsp;&nbsp;&nbsp;Vincular Turma
                                 </button>
@@ -408,6 +408,7 @@
                     </div>
 
                     <div class="row">
+                       <h4 style="margin: 15px;">Turmas</h4>
                         <?php echo listTurmas(); ?>
                     </div>
 
@@ -418,7 +419,7 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card">
-                                    <div class="card-header" data-background-color="blue400" style="text-align:justify;">
+                                    <div class="card-header" style="text-align:justify; background: linear-gradient(45deg, #1de099, #1dc8cd)">
                                         <h3 class="title" style="font-weight: 600;">Gabarito</h3>
                                     </div>
                                     <div class="card-content table-responsive">
@@ -436,7 +437,7 @@
                         <div class="row">
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
-                                    <button type="submit" class="btn btn-success" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" onclick="return verificaSoma();">
+                                    <button type="submit" class="btn btn-success" style="justify-content: center;align-items: center;display: flex;flex-direction: row;background:linear-gradient(45deg, #1de099, #1dc8cd)" onclick="return verificaSoma();">
                                     <i class="material-icons" style="font-size: 27px;">check_circle_outline</i>
                                     &nbsp;&nbsp;&nbsp; Confirmar
                                 </button>
@@ -454,7 +455,7 @@
                             document.write(new Date().getFullYear())
 
                         </script>
-                        <a href="#">CheckEasy</a>, a plataforma online dedicada a professores
+                        <a href="#" class="text-info">CheckEasy</a>, a plataforma online dedicada a professores
                     </p>
                 </div>
             </footer>
@@ -588,7 +589,7 @@
                         break
                         //cadastrar turma
                     case 'es':
-                        demo.showNotification('top', 'right', 'Gabarito Editado', 'success', 'group')
+                        demo.showNotification('top', 'right', 'Gabarito Editado', 'success', 'assignment')
                         break
                     case 'ee':
                         demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar turma', 'danger', 'group')

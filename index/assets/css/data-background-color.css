@@ -12,7 +12,7 @@
 }
 */
 .card [data-background-color="blue400"] {
-    background: linear-gradient(60deg, #1dc8cd, #1dc8cd);
+    background: linear-gradient(45deg, #1de099, #1dc8cd);
     box-shadow: 0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2);
 }
 

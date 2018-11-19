@@ -264,7 +264,7 @@
                                         </div>
                                         <div class='modal-footer'>
                                             <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                            <button type='submit' class='btn btn-info'>Salvar Informações</button>
+                                            <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd);'>Salvar Informações</button>
                                         </div>
                                     </form>
                                 </div>
@@ -319,7 +319,7 @@
                                             </div>
                                             <div class='modal-footer'>
                                                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                                <button type='submit' class='btn btn-info'>Editar Turma</button>
+                                                <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd);'>Editar Turma</button>
                                             </div>
                                         </form>
                                     </div>
@@ -371,7 +371,7 @@
                             <div class='modal-footer'>
                             <form action='excluirAlunoTurma.php?id=$id_aluno&idT=$id_turma&c={$_GET['c']}' method='post'>
                                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                <button type='submit' class='btn btn-info' >Excluir</button>
+                                <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd);'>Excluir</button>
                                 </form>
                                 </div>
                             </div>
@@ -413,7 +413,7 @@
                             <div class='modal-footer'>
                             <form action='excluirTurma.php?idT=$id_turma' method='post'>
                                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                <button type='submit' class='btn btn-info' >Excluir</button>
+                                <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd);'>Excluir</button>
                                 </form>
                                 </div>
                             </div>
@@ -470,7 +470,7 @@
                     <div class="row">
                         <ul class="nav navbar-nav navbar-left">
                             <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
-                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#cadastrarTurma">
+                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;background:linear-gradient(45deg, #1de099, #1dc8cd)" data-toggle="modal" data-target="#cadastrarTurma">
                                     <i class="material-icons" style="font-size: 27px;">add_circle_outline</i>
                                     &nbsp;&nbsp;&nbsp;Cadastrar turma
                                 </button>
@@ -478,35 +478,43 @@
                         </ul>
                     </div>
 
-                    <div class="row">
                         <?php  echo listTurmas(); ?>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header" style="text-align:justify;display:flex; align-items: center; background-color:#" data-background-color='<?php echo $_GET["c"]; ?>'>
-                                    <?php  echo setTitleAlunosTurma(); ?>
-                                </div>
-                                <div class="card-content table-responsive">
-                                    <table class="table">
-                                        <thead class="text-success" style='color: #666;font-weight: 800;'>
-                                            <th style="font-weight: 550;">Matrícula</th>
-                                            <th style="font-weight: 550;">Nome</th>
-                                            <th style="font-weight: 550;">Sobrenome</th>
-                                            <th style="font-weight: 550;">
+                       <?php
+                        if($_GET['id'] != "all"){ 
+                            echo "<div class='col-md-12'>
+                            <div class='card'>
+                                <div class='card-header' style='text-align:justify;display:flex; align-items: center; background-color:#' data-background-color='{$_GET["c"]}'>";
+                                    echo setTitleAlunosTurma();
+                                echo "</div>
+                                <div class='card-content table-responsive'>
+                                    <table class='table'>
+                                        <thead class='text-success' style='color: #666;font-weight: 800;'>
+                                            <th style='font-weight: 550;'>Matrícula</th>
+                                            <th style='font-weight: 550;'>Nome</th>
+                                            <th style='font-weight: 550;'>Sobrenome</th>
+                                            <th style='font-weight: 550;'>
                                                 <center>
                                                     Ações
                                                 </center>
                                             </th>
                                         </thead>
-                                        <tbody>
-                                            <?php  echo setAlunosTurma(); ?>
+                                        <tbody>";
+                                            echo setAlunosTurma();
+                                        echo "
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                    </div>
+";
+                        }
+                        
+                        ?>
+                        
                     </div>
 
 
@@ -525,7 +533,6 @@
                 </div>
             </footer>
         </div>
-    </div>
 
     <!----- MODAL AREA ----->
 
@@ -554,7 +561,7 @@
                                 </select>
                                 <div style="display: flex;flex-direction: column; ustify-content: center; align-items: center; width: 30%">
 
-                                    <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;" data-toggle="modal" data-target="#criaSerie">
+                                    <button type="button" class="btn" style="justify-content: center;align-items: center;display: flex;flex-direction: row;background: linear-gradient(45deg, #1de099, #1dc8cd);" data-toggle="modal" data-target="#criaSerie">
                                     <i class="material-icons" style="font-size: 20px;">add_circle_outline</i>
                                    
                                 </button>
@@ -563,7 +570,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-info">Cadastrar Turma</button>
+                            <button type="submit" class="btn" style="background: linear-gradient(45deg, #1de099, #1dc8cd);">Cadastrar Turma</button>
 
                             <!-- onclick="demo.showNotification('top','right','Turma Cadastrada')" -->
 
@@ -595,7 +602,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-info">Salvar Informações</button>
+                            <button type="submit" class="btn" style="background: linear-gradient(45deg, #1de099, #1dc8cd);">Salvar Informações</button>
                         </div>
                     </form>
                 </div>
@@ -634,7 +641,7 @@
                             </div>
                             <div class='modal-footer'>
                                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                <button type='submit' class='btn btn-info'>Salvar Informações</button>
+                                <button type='submit' class='btn' style="background: linear-gradient(45deg, #1de099, #1dc8cd);">Salvar Informações</button>
                             </div>
                         </form>
                     </div>
