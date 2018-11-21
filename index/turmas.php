@@ -691,35 +691,35 @@
                         demo.showNotification('top', 'right', 'Turma Cadastrada', 'success', 'group')
                         break
                     case 'ce':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao cadastrar turma', 'danger', 'group')
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Cadastrar Turma', 'danger', 'group')
                         break
                         //excluir turma
                     case 'es':
                         demo.showNotification('top', 'right', 'Turma Excluída', 'success', 'group')
                         break
                     case 'ee':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir turma', 'danger', 'group')
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Excluir Turma', 'danger', 'group')
                         break
                         ///editar turma
                     case 'eds':
                         demo.showNotification('top', 'right', 'Turma Editada', 'success', 'group')
                         break
                     case 'ede':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar turma', 'danger', 'group')
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Turma', 'danger', 'group')
                         break
                         //excluir aluno
                     case 'eas':
                          demo.showNotification('top', 'right', 'Aluno Excluído', 'success', 'group')
                         break
                     case 'eae':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir aluno', 'danger', 'group')
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Excluir Aluno', 'danger', 'group')
                         break
                         //editar aluno
                     case 'edas':
-                        demo.showNotification('top', 'right', 'Aluno editado', 'success', 'group')
+                        demo.showNotification('top', 'right', 'Aluno Editado', 'success', 'group')
                         break
                     case 'edae':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar aluno', 'danger', 'group')
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Aluno', 'danger', 'group')
                         break
                 }
                 

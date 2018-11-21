@@ -117,8 +117,8 @@
                                 </a>
                                 <div class='card-footer'>
                                     <div class='stats'>
-                                        <i class='material-icons'>group</i>
-                                        <a style='color: inherit'>$serie_nome</a>
+                                        <i class='material-icons' style='color: #4e4e4e'>group</i>
+                                        <a style='color: inherit;font-weight: 500;color: #4e4e4e'>$serie_nome</a>
                                     </div>
                                     <div class='stats' style='float: right;'>
                                        <a data-toggle='modal' data-target='#excluirTurma$id_turma'>   
@@ -167,7 +167,7 @@
                             <div class='modal-footer'>
                             <form action='excluirTurmaProva.php?idT=$id_turma&idA=$id_avaliacao&value={$_GET['value']}' method='post'>
                                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                <button type='submit' class='btn btn-info' >Desvincular</button>
+                                <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd)'>Desvincular</button>
                                 </form>
                                 </div>
                             </div>
@@ -482,7 +482,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-info" id="submitAdicionar">Vincular</button>
+                            <button type="submit" class="btn" id="submitAdicionar" style="background: linear-gradient(45deg, #1de099, #1dc8cd)">Vincular</button>
                         </div>
                     </form>
                 </div>
@@ -578,21 +578,21 @@
                         demo.showNotification('top', 'right', 'Turma Vinculada', 'success', 'group')
                         break
                     case 'ede':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao vincular turma', 'danger', 'group')
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Vincular Turma', 'danger', 'group')
                         break
                     //desvincular turma
                     case 'ees':
                         demo.showNotification('top', 'right', 'Turma Desvinculada', 'success', 'group')
                         break
                     case 'eee':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao desvincular turma', 'danger', 'group')
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Desvincular Turma', 'danger', 'group')
                         break
                         //cadastrar turma
                     case 'es':
                         demo.showNotification('top', 'right', 'Gabarito Editado', 'success', 'assignment')
                         break
                     case 'ee':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar turma', 'danger', 'group')
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Turma', 'danger', 'group')
                         break
                 }
             }

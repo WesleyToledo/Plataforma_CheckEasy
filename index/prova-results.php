@@ -164,7 +164,7 @@
                     </tr>';
         }else{
             
-            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito,a.nome AS 'aluno_nome',a.sobrenome as 'sobrenome_aluno',a.idaluno AS 'idaluno' FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = 8  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
+            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito,a.nome AS 'aluno_nome',a.sobrenome as 'sobrenome_aluno',a.idaluno AS 'idaluno' FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = $id_user  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
         
             $result = $conn->query($sql);
 
@@ -226,7 +226,7 @@
             $html = '';
         }else{
             
-            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito AS 'gabarito_correcoes',av.quant_questoes, av.quant_alternativas,a.nome AS 'nome_aluno',a.idaluno AS 'idaluno', a.sobrenome AS 'sobrenome_aluno',av.gabarito AS 'gabarito_avaliacao' FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = 8  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
+            $sql = "SELECT c.idcorrecoes, c.nota, c.acertos, c.erros, c.gabarito AS 'gabarito_correcoes',av.quant_questoes, av.quant_alternativas,a.nome AS 'nome_aluno',a.idaluno AS 'idaluno', a.sobrenome AS 'sobrenome_aluno',av.gabarito AS 'gabarito_avaliacao' FROM correcoes AS c INNER JOIN turma AS t ON t.idturma = c.id_correcoes_turma AND t.id_turma_professor = $id_user AND c.id_correcoes_professor = $id_user INNER JOIN aluno AS a ON a.idaluno = c.id_correcoes_aluno AND a.id_aluno_professor = $id_user  INNER JOIN avaliacao AS av ON av.idavaliacao = $id_avaliacao AND av.id_avaliacao_professor = $id_user AND c.id_correcoes_avaliacao = $id_avaliacao AND t.idturma = $id_turma";
         
             $result = $conn->query($sql);
 
@@ -266,9 +266,9 @@
                     for($x=0;$x<sizeof($gabarito_array);$x++){
                         if($x%3 == 0){
                             $respostas[$count] = $gabarito_array[$x + 1];
-                            //$valores[$count] = floatval($gabarito_array[$x + 2]);
+                            /*$valores[$count] = floatval($gabarito_array[$x + 2]);
                             //echo "-".$certas[$count];
-                            //echo "-".$valores[$count];
+                            echo "-".$valores[$count];*/
                             $count++;
                         }
                     }
@@ -333,7 +333,7 @@
                                             <p style='margin: 0; font-size: 0.8em'>$erros Erros</p>
                                         </div>
                                         <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                            <i class='material-icons' style='padding: 5px; font-size: 1.7em'>local_offer</i>
+                                            <i class='material-icons' style='padding: 5px; font-size: 1.5em'>local_offer</i>
                                             <p style='margin: 0; font-size: 0.8em'>$nota pontos</p>
                                         </div>
                                     </div>
@@ -350,10 +350,6 @@
         }
         return $html;
     }
-    
-    
-    
-    
     
     ?>
 
@@ -410,32 +406,39 @@
                             <?php echo listTurmas(); ?>
                         </div>
 
+
+
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header" style="text-align:justify;display:flex; align-items: center;" data-background-color="<?php echo $_GET["c"];  ?>">
-                                        <?php  echo setTitleAlunosTurma(); ?>
-                                    </div>
-                                    <div class="card-content table-responsive">
-                                        <table class="table">
-                                            <thead style="color: #666;font-weight: 550 !important;">
-                                                <th>Aluno</th>
+
+                            <?php
+                        if($_GET['idT'] != "all"){ 
+                            echo "<div class='col-md-12'>
+                            <div class='card'>
+                                <div class='card-header' style='text-align:justify;display:flex; align-items: center;' data-background-color='{$_GET["c"]}'>";
+                                    echo setTitleAlunosTurma();
+                                echo "</div>
+                                <div class='card-content table-responsive'>
+                                    <table class='table'>
+                                        <thead class='text-success' style='color: #666;font-weight: 800;'>
+                                            <th>Aluno</th>
                                                 <th>Acertos</th>
                                                 <th>Erros</th>
                                                 <th>Nota</th>
                                                 <th>
                                                     <center>
-                                                        Ações
+                                                        Mostrar Gabarito
                                                     </center>
                                                 </th>
-                                            </thead>
-                                            <tbody>
-                                                <?php  echo setAlunosTurma(); ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        </thead>
+                                        <tbody>";
+                                            echo setAlunosTurma();
+                                        echo "
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
+                        </div>
+                    </div>"; }?>
                         </div>
                     </div>
                 </div>
@@ -458,7 +461,6 @@
         <?php echo geraModalGabarito(); ?>
 
         <!----- MOSTRA GABARITO ----->
-
 
 
     </body>

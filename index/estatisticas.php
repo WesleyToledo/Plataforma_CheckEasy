@@ -309,7 +309,7 @@
                                     <p class='card-category'>Alunos</p>
                                 </div>
                                 <div class='card-body table-responsive' style='margin: 15px'>
-                                    <table class='table table-hover table-striped'>
+                                    <table class='table table-hover'>
                                         <thead style='color: #666;font-weight: 800 !important;'>
                                             <th style='max-width: 40px;'>Matrícula</th>
                                             <th>Nome</th>

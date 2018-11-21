@@ -386,21 +386,21 @@
             //alert(hash[1])
             if(hash[0] === "s"){
                 if(hash[1] === "s"){
-                    demo.showNotification('top', 'right', 'Prova excluída', 'success', 'assignment')
+                    demo.showNotification('top', 'right', 'Prova Excluída', 'success', 'assignment')
                 }else if(hash[1] === "e"){
-                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao excluir prova', 'danger', 'assignment')
+                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao Excluir Prova', 'danger', 'assignment')
                 }
                 
                 if(hash[1] === "eds"){
-                    demo.showNotification('top', 'right', 'Prova editada', 'success', 'assignment')
+                    demo.showNotification('top', 'right', 'Prova Editada', 'success', 'assignment')
                 }else if(hash[1] === "ede"){
-                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao editar prova', 'danger', 'assignment')
+                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Prova', 'danger', 'assignment')
                 }
                 
                 if(hash[1] === "cs"){
                     demo.showNotification('top', 'right', 'Prova Cadastrada', 'success', 'assignment')
                 }else if(hash[1] === "ce"){
-                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao cadastrar prova', 'danger', 'assignment')
+                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao Cadastrar Prova', 'danger', 'assignment')
                 }
                 
             }// fim
