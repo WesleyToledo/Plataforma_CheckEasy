@@ -15,7 +15,7 @@
         $gabarito .= $x."/a/".$valor_alternativa."/";
     }
 
-    $sql = "INSERT INTO avaliacao(gabarito,quant_questoes, id_avaliacao_professor, quant_alternativas, valor,nome) VALUES('$gabarito',$num_questoes,$id_user,$num_alternativas,$valor,'$nome');";
+    $sql = "INSERT INTO avaliacao(gabarito,quant_questoes, id_avaliacao_professor, quant_alternativas, valor,nome,img) VALUES('$gabarito',$num_questoes,$id_user,$num_alternativas,$valor,'$nome','assets/img/img_provas/1080.jpg');";
 
 
     if ($conn->query($sql) === TRUE) {

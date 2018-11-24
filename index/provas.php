@@ -59,6 +59,7 @@
                 $quant_alternativas = $row["quant_alternativas"];
                 $valor = $row["valor"];
                 $id_avaliacao = $row["idavaliacao"];
+                $pathImg  = $row['img'];
                 
                 $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                             <div class='card text-center'>
@@ -72,8 +73,11 @@
                                     <button class='card-header' style='position: absolute; width: 4em;height: 1em; display: flex; justify-content: center;flex-direction: column;align-items: center; background-color: transparent;box-shadow: none;margin-left: 67%;margin-top: 0.1em;color: white;border:none;' data-toggle='modal' data-target='#editarProva$id_avaliacao'>
                                         <i class='material-icons' style='color: #fff; font-weight: 800;cursor: pointer;font-size: 1.3em;'>create</i>
                                     </button>
+                                    <button class='card-header' style='position: absolute; width: 4em;height: 1em; display: flex; justify-content: center;flex-direction: column;align-items: center; background-color: transparent;box-shadow: none;margin-left: 54%;margin-top: 0.1em;color: white;border:none;' data-toggle='modal' data-target='#editarFoto$id_avaliacao'>
+                                        <i class='material-icons' style='color: #fff; font-weight: 800;cursor: pointer;font-size: 1.3em;'>image</i>
+                                    </button>
                                 <a href='prova-edit.php?idA=$id_avaliacao&value=$valor'>
-                                <img class='card-img-top' src='https://picsum.photos/1900/1080?image=315' >
+                                <img class='card-img-top imgProva' src='$pathImg'  >
                                 <div class='card-body' id='card'>
                                     <h5 class='card-title' style='font-weight: 500;color:#4e4e4e;margin:5px'>$nome</h5>
                                 </div>
@@ -216,6 +220,57 @@
             }
         return $html;
     }
+    
+     function geraEditFoto(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT idavaliacao,quant_questoes,quant_alternativas,nome,valor FROM avaliacao WHERE id_avaliacao_professor = $id_user";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_avaliacao = $row["idavaliacao"];
+                    $quant_questoes = $row["quant_questoes"];
+                    $quant_alternativas = $row["quant_alternativas"];
+                    $nome = $row["nome"];
+                    $valor = $row["valor"];
+                    
+                    $html .= "<div class='modal fade' id='editarFoto$id_avaliacao' tabindex='-1' role=''dialog' aria-labelledby='modalLabel' aria-hidden='true'>
+                <div class='modal-dialog'>
+                    <div class='modal-content'>
+                        <div class='modal-header'>
+                            <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'></span><span class='sr-only'>Close</span></button>
+                            <h3 class='modal-title mx-auto' id='lineModalLabel'>Editar Thumbnail</h3>
+                        </div>
+                        <div class='modal-body'>
+                            <form action='editarThumbProva.php?idA=$id_avaliacao' method='post' enctype='multipart/form-data'>
+                                <div class='input-group mb-3'>
+                                  <div class='input-group-prepend'>
+                                    <span class='input-group-text'>Selecione a Imagem</span>
+                                  </div>
+                                  <div class='custom-file' style='margin: 15px 0 15px 0;'>
+                                    <input type='file' class='custom-file-input' name='thum_prova'>
+                                  </div>
+                                </div>
+                                <div class='modal-footer'>
+                                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                    <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd)'>Editar Thumb</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>";
+                }
+            } else {
+                echo "";
+            }
+        return $html;
+    }
         
     
     
@@ -226,7 +281,7 @@
 <body>
     <div class="wrapper">
         <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
-            
+
             <div class="logo">
                 <a href="index.html" class="simple-text">
                     CheckEasy
@@ -250,8 +305,8 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            
-                           <?php echo userDropDown(); ?>
+
+                            <?php echo userDropDown(); ?>
                         </ul>
                         <!-- <form class="navbar-form navbar-right" role="search">
                             <div class="form-group  is-empty">
@@ -351,6 +406,8 @@
             <?php  
                 echo geraExcluirProva();  
                 echo geraEditProva();
+                echo geraEditFoto();
+            
             ?>
 
         </div>
@@ -376,41 +433,55 @@
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 <script type="text/javascript">
-    
     $(document).ready(function() {
-        var vars = [], hash
-         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-        for(var i = 0; i < hashes.length; i++)
-        {
+        var vars = [],
+            hash
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
             hash = hashes[i].split('=');
             //alert(hash[1])
-            if(hash[0] === "s"){
-                if(hash[1] === "s"){
+            if (hash[0] === "s") {
+                //excluir prova
+                if (hash[1] === "s") {
                     demo.showNotification('top', 'right', 'Prova Excluída', 'success', 'assignment')
-                }else if(hash[1] === "e"){
+                } else if (hash[1] === "e") {
                     demo.showNotification('top', 'right', '<strong> Erro </strong> ao Excluir Prova', 'danger', 'assignment')
                 }
-                
-                if(hash[1] === "eds"){
+                //edição de prova
+                if (hash[1] === "eds") {
                     demo.showNotification('top', 'right', 'Prova Editada', 'success', 'assignment')
-                }else if(hash[1] === "ede"){
+                } else if (hash[1] === "ede") {
                     demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Prova', 'danger', 'assignment')
                 }
-                
-                if(hash[1] === "cs"){
+                //cadastro de prova    
+                if (hash[1] === "cs") {
                     demo.showNotification('top', 'right', 'Prova Cadastrada', 'success', 'assignment')
-                }else if(hash[1] === "ce"){
+                } else if (hash[1] === "ce") {
                     demo.showNotification('top', 'right', '<strong> Erro </strong> ao Cadastrar Prova', 'danger', 'assignment')
                 }
+                //EDição imagem
+                if (hash[1] === "edfs") {
+                    demo.showNotification('top', 'right', 'Imagem Editada', 'success', 'assignment')
+                } else if (hash[1] === "edfe") {
+                    demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Imagem', 'danger', 'assignment')
+                } 
                 
-            }// fim
-            
+                if ((hash[1] === "edfe1") || (hash[1] === "edfe2")) {
+                    demo.showNotification('top', 'right', 'Imagem muito <strong> GRANDE </strong>', 'danger', 'assignment')
+                }
+                
+                if ((hash[1] === "edfe3") || (hash[1] === "edfe4") || (hash[1] === "edfe5") ||( hash[1] === "edfe6") || (hash[1] === "edfe7") || (hash[1] === "edfe8")) {
+                   demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Imagem', 'danger', 'assignment')
+                }
+
+            } // fim
+
         }
-        
-        
+
+
         var url = window.location.href
-        var newUrl = url.substring(0,(url.lastIndexOf("s=") - 1))
-        history.pushState('teste','CheckEasy',newUrl)
+        var newUrl = url.substring(0, (url.lastIndexOf("s=") - 1))
+        history.pushState('teste', 'CheckEasy', newUrl)
     });
 
 </script>

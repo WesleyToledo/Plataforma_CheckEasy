@@ -4834,6 +4834,12 @@ fieldset[disabled] .navbar .btn-link:focus {
         padding-top: 15px;
         padding-bottom: 15px;
     }
+    
+    .imgProva{
+        min-height: 250px;
+        max-height: 250px;
+    }
+    
 }
 
 .navbar .alert {
@@ -6838,4 +6844,8 @@ footer .btn {
     background-image: url('/assets/img/cover.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.imgProva{
+    min-height: 140px;
 }
