@@ -18,7 +18,7 @@
     $primeiro_nome = substr($nomeCompleto, 0, strpos($nomeCompleto," "));
     $sobrenome = substr($nomeCompleto, strpos($nomeCompleto," "), strlen($nomeCompleto) - strpos($nomeCompleto," "));
 
-    $sql = "INSERT INTO professor(primeiro_nome,sobrenome,nome_user,email,instituicao,cidade,cep,curriculo,senha,estado) VALUES('$primeiro_nome','$sobrenome','$nomeUser','$email','$instituicao','$cidade','$cep','$curriculo','$senha','$estado')";
+    $sql = "INSERT INTO professor(primeiro_nome,sobrenome,nome_user,email,instituicao,cidade,cep,curriculo,senha,estado,img) VALUES('$primeiro_nome','$sobrenome','$nomeUser','$email','$instituicao','$cidade','$cep','$curriculo','$senha','$estado','assets/img/users/user.png')";
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
