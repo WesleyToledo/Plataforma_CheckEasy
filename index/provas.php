@@ -409,7 +409,7 @@
                 echo geraEditFoto();
             
             ?>
-
+            
         </div>
     </div>
 </body>s
@@ -477,7 +477,6 @@
             } // fim
 
         }
-
 
         var url = window.location.href
         var newUrl = url.substring(0, (url.lastIndexOf("s=") - 1))

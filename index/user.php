@@ -201,7 +201,7 @@
         $nome = $_SESSION["nome"];
         $html = "";
         
-        $sql = "SELECT primeiro_nome,sobrenome,instituicao,curriculo FROM professor WHERE idprofessor=$id_user";
+        $sql = "SELECT primeiro_nome,sobrenome,instituicao,curriculo,img FROM professor WHERE idprofessor=$id_user";
         
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -210,12 +210,13 @@
                 $sobrenome = $row["sobrenome"];
                 $instituicao = $row["instituicao"];
                 $curriculo = $row["curriculo"];
+                $pathImg = $row["img"];
                 
                 $html .= "<div class='card card-profile'>
                                     <div class='card-avatar'>
-                                        <a href='#chicao'>
-                                        <img class='img' src='assets/img/users/chico.jpg'/>
-                                    </a>
+                                        <a href='#chicao'data-toggle='modal' data-target='#editarFotoPerfil' >
+                                        <img class='img' src='$pathImg'/>
+                                        </a>
                                     </div>
                                     <div class='content'>
                                         <h6 class='category text-gray' style='margin: 15px;'>Professor no(a) $instituicao</h6>
@@ -336,6 +337,35 @@
             </div>
         </div>
 
+
+
+        <div class='modal fade' id='editarFotoPerfil' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'></span><span class='sr-only'>Close</span></button>
+                        <h3 class='modal-title mx-auto' id='lineModalLabel'>Editar Foto Perfil</h3>
+                    </div>
+                    <div class='modal-body'>
+                        <form action='editarThumbPerfil.php' method='post' enctype='multipart/form-data'>
+                            <div class='input-group mb-3'>
+                                <div class='input-group-prepend'>
+                                    <span class='input-group-text'>Selecione a Imagem</span>
+                                </div>
+                                <div class='custom-file' style='margin: 15px 0 15px 0;'>
+                                    <input type='file' class='custom-file-input' name='thum_perfil'>
+                                </div>
+                            </div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd)'>Editar Foto</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
     <!--   Core JS Files   -->
     <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
@@ -357,7 +387,6 @@
     <script src="assets/js/jquery.maskedinput-1.1.4.pack.js"></script>
     <script src="assets/js/demo.js"></script>
     <script type="text/javascript">
-        
         $(function() { // declaro o início do jquery
             $("input[name='email']").blur(function() {
                 var email = $("input[name='email']").val();
@@ -405,7 +434,7 @@
             $("input[name='senhaAnteriorC']").blur(function() {
                 var senha = $("input[name='senhaAnterior']").val();
                 var Csenha = $("input[name='senhaAnteriorC']").val();
-                
+
                 if (Csenha.toString() !== senha.toString()) {
                     $("input[name='senhaAnterior']").focus()
                     document.querySelector('#submitSenha').disabled = true
@@ -416,16 +445,31 @@
             });
 
 
-
-
-
         }); // fim do jquery
 
         $(document).ready(function() {
-            $("input[name='cep']").mask("99.999-999");
-        });
-
-
+            var vars = [],
+                hash
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                //alert(hash[1])
+                if (hash[0] === "s") {
+                    //excluir prova
+                    if (hash[1] === "eds") {
+                        demo.showNotification('top', 'right', 'Foto de Perfil Alterada', 'success', 'assignment')
+                    } else if (hash[1] === "ede") {
+                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Alterar Foto de Perfi', 'danger', 'assignment')
+                    }
+                } // fim
+            }
+            
+            var url = window.location.href
+            var newUrl = url.substring(0, (url.lastIndexOf("s=") - 1))
+            history.pushState('teste', 'CheckEasy', newUrl)
+            
+             $("input[name='cep']").mask("99.999-999");
+            });
 
     </script>
 
