@@ -56,15 +56,15 @@
                     $selecionado = "box-shadow: 0px -2px 19px 4px rgba(0, 0, 0, 0.19);";
                 }
                 
-                $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
+                $html .= "<div class='col-lg-4 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                             <div class='card card-stats'  style='$selecionado'>
                                 <a href='estatisticas.php?idT=$id_turma&c=$cor' style='color: inherit;'>
                                     <div class='card-header' data-background-color='$cor'>
                                         <i class='$icone'></i>
                                     </div>
-                                    <div class='card-content card-turmas'>
+                                    <div class='card-content card-turmas' style='overflow:auto'>
                                         <p class='category'>&nbsp;</p>
-                                        <h3 class='title' style='overflow:hidden; width:130px;text-align:center;' title='$turma_nome'>$turma_nome
+                                        <h3 class='title' style='overflow:initial; width:100%;text-align:center;height:50px' title='$turma_nome'>$turma_nome
                                         </h3>
                                     </div>
                                 </a>
