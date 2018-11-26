@@ -294,11 +294,9 @@
                                   </td>";
                     }
 
-
                     $html .= "</tr>
                               <tr style='padding: 0px;margin:0px'>";
                         
-                    
                     for($x=1;$x <=$quant_questoes;$x++){
                         $html .= "<td style='text-align:center'>
                                         <h4 style='font-size: 25px;margin: 3px;padding-right:10px'>$x</h4>
@@ -320,29 +318,29 @@
                              
                         $html .= "</tr>";
                     }
-                    $html .= "</tr>
-                                </table>
-                                <div class='row'>
-                                    <div style='display: flex;justify-content: space-around; flex-direction: row;'>
-                                        <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                            <i class='material-icons' style='padding: 5px; font-size: 1.7em;color: #43a047'>check</i>
-                                            <p style='margin: 0; font-size: 0.8em'>$acertos Acertos</p>
-                                        </div>
-                                        <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                            <i class='material-icons' style='padding: 5px; font-size: 1.7em; color: #e53935'>close</i>
-                                            <p style='margin: 0; font-size: 0.8em'>$erros Erros</p>
-                                        </div>
-                                        <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                            <i class='material-icons' style='padding: 5px; font-size: 1.5em'>local_offer</i>
-                                            <p style='margin: 0; font-size: 0.8em'>$nota pontos</p>
+                        $html .= "</tr>
+                                    </table>
+                                    <div class='row'>
+                                        <div style='display: flex;justify-content: space-around; flex-direction: row;'>
+                                            <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.7em;color: #43a047'>check</i>
+                                                <p style='margin: 0; font-size: 0.8em'>$acertos Acertos</p>
+                                            </div>
+                                            <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.7em; color: #e53935'>close</i>
+                                                <p style='margin: 0; font-size: 0.8em'>$erros Erros</p>
+                                            </div>
+                                            <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.5em'>local_offer</i>
+                                                <p style='margin: 0; font-size: 0.8em'>$nota pontos</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>";
+                </div>";
                 }
             } else {
                 echo "";

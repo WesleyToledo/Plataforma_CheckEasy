@@ -529,7 +529,7 @@
         $html = "";
         include("conexao.php");
         
-        if(isset($_GET['idAL'])){
+        if(isset($_GET['idA'])){
             
             $sql = "SELECT c.gabarito FROM avaliacao AS a INNER JOIN turma AS t INNER JOIN correcoes AS c ON c.id_correcoes_avaliacao = {$_GET['idA']} AND c.id_correcoes_turma = {$_GET['idT']} AND c.id_correcoes_avaliacao = {$_GET['idA']} AND a.idavaliacao = {$_GET['idA']} AND c.id_correcoes_turma = t.idturma AND c.id_correcoes_professor = $id_user AND t.id_turma_professor = $id_user AND a.id_avaliacao_professor = $id_user";
         
@@ -653,6 +653,28 @@
                 $html .= "]
                 });
             });";
+                
+                
+                /*
+                
+                        {
+                        name: 'A',
+                        data: [1, 5, 4, 5, 6, 7, 9, 10, 9, 10]
+                    }, {
+                        name: 'B',
+                        data: [2, 3, 6, 5, 4, 8, 6, 7, 3, 3]
+                    }, {
+                        name: 'C',
+                        data: [2, 3, 6, 5, 4, 8, 6, 7, 2, 3]
+                    }, {
+                        name: 'D',
+                        data: [2, 3, 6, 5, 4, 8, 6, 7, 9, 5]
+                    }, {
+                        name: 'E',
+                        data: [2, 3, 6, 5, 4, 8, 6, 7, 2, 3]
+                    }]
+                });
+            });*/
                 
         }
         return $html;
@@ -800,13 +822,7 @@
                                     </div>
                                 </div>
                             </div> -->
-
-                        </div>
-
-                        <div class="row">
-
-                            <?php echo geraTabelaAlunos(); ?>
-
+                            
                             <?php
                              if(isset($_GET['idAL'])){
                                  
@@ -839,6 +855,14 @@
                                     </div>";    
                              }
                             ?>
+
+                        </div>
+
+                        <div class="row">
+
+                            <?php echo geraTabelaAlunos(); ?>
+
+                            
                         </div>
                     </div>
                 </div>
