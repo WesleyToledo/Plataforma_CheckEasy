@@ -51,7 +51,7 @@ function geraGabarito($nomeAvaliacao,$num_questoes,$alternativas){
 
     imagedestroy( $lim );
 
-     //header("Content-Disposition: attachment; filename=\"".$nomeAvaliacao."_Gabarito.jpg\";");
+     header("Content-Disposition: attachment; filename=\"".$nomeAvaliacao."_Gabarito.jpg\";");
         header('Content-Type: image/jpeg');
         imagejpeg($im);
         imageDestroy($im);
