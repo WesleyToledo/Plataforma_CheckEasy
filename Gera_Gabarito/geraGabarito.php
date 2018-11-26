@@ -58,6 +58,6 @@ function geraGabarito($nomeAvaliacao,$num_questoes,$alternativas){
 
 }
 
-geraGabarito("Matemática",10,5);
+geraGabarito($_GET['nome'],$_GET['num_questoes'],$_GET['num_alternativas']);
 
 ?>

@@ -286,7 +286,6 @@
                         </td>";
             
             for($y=1;$y<=$num_alternativas;$y++){
-                
                 if($certas[$x-1] == $alternativas[$y-1]){
                     $check = "checked";
                 }else{
@@ -422,7 +421,18 @@
                                     <div class="card-header" style="text-align:justify; background: linear-gradient(45deg, #1de099, #1dc8cd);display:flex;flex-direction:row;">
                                         <h3 class="title" style="font-weight: 600;width:50%">Gabarito</h3>
                                         <div style="display:flex;flex-direction:row;justify-content:flex-end;width:50%;align-items:center;margin-right:15px">
-                                           <a href="Gera_Gabarito/geraGabarito.php">
+                                          
+                                          <?php 
+                                            $sql = "SELECT a.nome,a.quant_questoes,a.quant_alternativas FROM avaliacao AS a WHERE a.idavaliacao={$_GET['idA']}";
+                                            
+                                            $result = $conn->query($sql);
+                                            $row = $result->fetch_assoc();
+                                            
+                                            $nome = substr($row['nome'],0,strpos($row['nome']," "));
+                                            
+                                            echo "<a href='Gera_Gabarito/geraGabarito.php?nome=$nome&num_questoes={$row['quant_questoes']}&num_alternativas={$row['quant_alternativas']}' >"; 
+                                            
+                                            ?>
                                                <i class='material-icons' style='font-size: 20px;color: white;font-size: 1.9em'>photo</i>
                                            </a> 
                                                 
