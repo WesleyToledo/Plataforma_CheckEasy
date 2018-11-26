@@ -122,7 +122,7 @@
                                                         </div>
                                                         <div class='card-content card-turmas'>
                                                             <p class='category'>&nbsp;</p>
-                                                            <h3 class='title'>$nome
+                                                            <h3 class='title' style='text-align:center'>$nome
                                                                 <!--<small>GB</small>-->
                                                             </h3>
                                                         </div>

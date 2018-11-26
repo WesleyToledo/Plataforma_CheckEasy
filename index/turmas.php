@@ -354,7 +354,7 @@
         $html = "";
         
         $sql = "SELECT idaluno,id_aluno_turma,matricula,nome,sobrenome FROM aluno WHERE id_aluno_professor = $id_user AND id_aluno_turma = {$_GET['id']}";
-        
+        if($_GET['id'] != "all"){
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -390,6 +390,7 @@
                             }
             } else {
             }
+        }
         return $html;
     }
     
