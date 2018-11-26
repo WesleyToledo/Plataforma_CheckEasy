@@ -206,8 +206,11 @@
                         <h3 class='title' style='font-weight: 600;'>".$row["turma_nome"]."</h3>
                         <p class='category' style='font-weight: 500;'>".$row["nome_serie"]."</p>
                     </div>
-                    <div style='float: right;'>
-                        <button type='button' class='btn' style='margin: 0; background-color: transparent;' data-toggle='modal' data-target='#cadastrarAluno'>
+                    <div style='float: right;display:flex;flex-direction:row;margin:'>
+                        <button type='button' class='btn' style='margin: 0; background-color: transparent;margin:10px' data-toggle='modal' data-target='#inserirAluno'>
+                        <i class='material-icons' style='font-size: 20px; color: #fff'>archive</i>
+                        </button>
+                        <button type='button' class='btn' style='margin: 0; background-color: transparent;margin:10px' data-toggle='modal' data-target='#cadastrarAluno'>
                         <i class='material-icons' style='font-size: 20px; color: #fff'>add_circle_outline</i>
                         </button>
                     </div>";
@@ -970,7 +973,7 @@
                     </div>
                     <div class='modal-body'>
                         <!-- content goes here -->
-                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET[' id ']."&c={$_GET['c ']}"; ?>' method='post'>
+                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET['id']."&c={$_GET['c']}"; ?>' method='post'>
                             <div class='form-group'>
                                 <label>Matrícula</label>
                                 <input type='text' class='form-control' name='matricula' value=''>
@@ -992,6 +995,39 @@
                 </div>
             </div>
         </div>
+        
+        <div class='modal fade' id='inserirAluno' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
+                <div class='modal-dialog'>
+                    <div class='modal-content'>
+                        <div class='modal-header'>
+                            <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'></span><span class='sr-only'>Close</span></button>
+                            <h3 class='modal-title mx-auto' id='lineModalLabel'>Inserir Alunos</h3>
+                        </div>
+                        <div class='modal-body'>
+                            <form action='#' method='post' enctype='multipart/form-data'>
+                                <div class='input-group mb-3'>
+                                  <div class='input-group-prepend'>
+                                    <span class='input-group-text'>Selecione o arquivo</span>
+                                  </div>
+                                  <div class='custom-file' style='margin: 15px 0 15px 0;'>
+                                    <input type='file' class='custom-file-input' name='thum_prova'>
+                                  </div>
+                                  <div class='input-group-prepend' style="display:flex;flex-direction:row;align-items: center;justify-content:flex-start"> 
+                                    <span class='input-group-text'>Baixe o Template</span>
+                                    <a href="#">    
+                                    <i class='material-icons' style='color:#4e4e4e;margin: 15px'>cloud_download</i>
+                                    </a>
+                                  </div>
+                                </div>
+                                <div class='modal-footer'>
+                                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                    <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd)'>Inserir</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 </body>
 <script type="text/javascript">
     $('#turma').on('change', function() {
