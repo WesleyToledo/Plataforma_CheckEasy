@@ -57,7 +57,7 @@ function geraGabarito($nomeAvaliacao,$num_questoes,$alternativas){
         imageDestroy($im);
 
 }
+geraGabarito($_GET['nome'],$_GET['num_questoes'],$_GET['num_alternativas']);
 
-geraGabarito("Matemática",10,5);
 
 ?>

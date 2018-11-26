@@ -79,7 +79,7 @@
                         </div>";
             }
         } else {
-            echo "0 resultados";
+            echo "<p style='margin: 15px'>Nenhuma Turma Cadastrada</p>";
         }
         return $html;
     }

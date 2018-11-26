@@ -21,7 +21,7 @@
      $gabaritoNew = "";
      $alternativas = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
     
-    $valor_alternativa = $valor / $num_questoes;
+    $valor_alternativa =number_format(($valor / $num_questoes), 2, '.', '') ;
 
     $count = 0;
     while($gabaritoOld != ""){      
@@ -51,9 +51,14 @@
             $count++;
         }
     }else{
-        $gabaritoNew .= $x."/a/".$valor_alternativa."/";
+        for($x = 1;$x<=$num_questoes;$x++){
+            $gabaritoNew .= $x."/a/".$valor_alternativa."/";
             $count++;
+        }
+        
     }
+
+    echo $gabaritoNew;
 
     $sql = "UPDATE avaliacao SET nome = '$nome', quant_questoes = $num_questoes, quant_alternativas = $num_alternativas, valor = $valor,gabarito = '$gabaritoNew'  WHERE id_avaliacao_professor = $id_user AND idavaliacao = $id_avaliacao";
 

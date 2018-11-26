@@ -309,7 +309,7 @@
                     </td>
                     <td class='radio-gabarito'>
                         <div style='padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start'>
-                            <input type='number' min='0' max='$valor' step='0.1' style='border: none; border-bottom: 1px solid #ccc;text-align:center;' value='".floatval($valores[$x-1])."' name='v$x'>
+                            <input type='number' min='0' max='$valor' step='0.01' style='border: none; border-bottom: 1px solid #ccc;text-align:center;' value='".floatval($valores[$x-1])."' name='v$x'>
                         </div>
                     </td>";
         }
@@ -410,7 +410,6 @@
                        <h4 style="margin: 15px;">Turmas</h4>
                         <?php echo listTurmas(); ?>
                     </div>
-
 
                     <form action="cadastrarGabarito.php">
                         <div class="row justify-content-center">
@@ -563,18 +562,26 @@
             somaValores += parseFloat($(this).val());
         });
         
-        if (parseFloat(somaValores) !== parseFloat(valor)) {
+        //alert(somaValores)
+        if (parseFloat(somaValores) !== parseFloat(valor) ) {
+            var diferenca = parseFloat(somaValores) - parseFloat(valor);
+            //alert(diferenca)
             if(parseFloat(somaValores) > parseFloat(valor)){
-                demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MAIOR</strong> que o limite', 'danger', 'info','10')
-                return false
+                if(diferenca > 0.1){    
+                    demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MAIOR</strong> que o limite', 'danger', 'info','10')
+                    return false
+                }else{
+                    return true
+                }
+            }else{
+                if(diferenca < 0.1){   
+                    demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MENOR</strong> que o limite', 'danger', 'info','10')
+                    return false
+                }else{
+                    return true
+                }
             }
-            else{
-                demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MENOR</strong> que o limite', 'danger', 'info','10')
-                return false
-            }
-            
             return false
-            
         }else{
             return true
         }

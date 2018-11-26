@@ -70,14 +70,14 @@
                                         <i class='material-icons' style='color: #ef5350; font-weight: 800;cursor: pointer;font-size: 1.3em;'>clear</i>
                                     </button>
                                     
-                                    <button class='card-header' style='position: absolute; width: 4em;height: 1em; display: flex; justify-content: center;flex-direction: column;align-items: center; background-color: transparent;box-shadow: none;margin-left: 67%;margin-top: 0.1em;color: white;border:none;' data-toggle='modal' data-target='#editarProva$id_avaliacao'>
+                                    <button class='card-header' style='position: absolute; width: 4em;height: 1em; display: flex; justify-content: center;flex-direction: column;align-items: center; background-color: transparent;box-shadow: none;margin-left: 65.5%;margin-top: 0.1em;color: white;border:none;' data-toggle='modal' data-target='#editarProva$id_avaliacao'>
                                         <i class='material-icons' style='color: #fff; font-weight: 800;cursor: pointer;font-size: 1.3em;'>create</i>
                                     </button>
-                                    <button class='card-header' style='position: absolute; width: 4em;height: 1em; display: flex; justify-content: center;flex-direction: column;align-items: center; background-color: transparent;box-shadow: none;margin-left: 54%;margin-top: 0.1em;color: white;border:none;' data-toggle='modal' data-target='#editarFoto$id_avaliacao'>
+                                    <button class='card-header' style='position: absolute; width: 4em;height: 1em; display: flex; justify-content: center;flex-direction: column;align-items: center; background-color: transparent;box-shadow: none;margin-left: 49%;margin-top: 0.1em;color: white;border:none;' data-toggle='modal' data-target='#editarFoto$id_avaliacao'>
                                         <i class='material-icons' style='color: #fff; font-weight: 800;cursor: pointer;font-size: 1.3em;'>image</i>
                                     </button>
                                 <a href='prova-edit.php?idA=$id_avaliacao&value=$valor'>
-                                <img class='card-img-top imgProva' src='$pathImg'  >
+                                <img class='card-img-top imgProva' src='$pathImg' >
                                 <div class='card-body' id='card'>
                                     <h5 class='card-title' style='font-weight: 500;color:#4e4e4e;margin:5px'>$nome</h5>
                                 </div>
@@ -191,7 +191,7 @@
                                         <label>Número de Questões</label>
                                         <input type='number' class='form-control' name='num_questoes' value='$quant_questoes' required>
                                     </div>
-                                    <div class='form-group' style='width: 30% !important;margin-right: 10px; '>
+                                    <div class='form-group' style='width: 30% !important;margin-right: 10px;'>
                                         <label >Número de Alternativas</label>
                                         <input type='number' class='form-control' name='num_alternativas' value='$quant_alternativas' required>
                                     </div>

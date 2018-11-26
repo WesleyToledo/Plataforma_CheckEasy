@@ -21,7 +21,8 @@
     if ($conn->query($sql) === TRUE) {
             header("Location: provas.php?s=cs");
         }else{
-           header("Location: provas.php?s=ce");
+           echo $conn->error;  
+            header("Location: provas.php?s=ce");
         }
     
 ?>
