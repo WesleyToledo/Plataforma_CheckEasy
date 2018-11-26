@@ -4,13 +4,14 @@
 
     $id_user = $_SESSION["id_user"];
     $nome = $_POST["nome_turma"];
+    $cor = $_POST['cor'];
 
-    $sql = "INSERT INTO serie(cor,icone,nome,id_serie_professor) VALUES('purple400','fa fa-graduation-cap','$nome','$id_user')";
+    $sql = "INSERT INTO serie(cor,icone,nome,id_serie_professor) VALUES('$cor','fa fa-graduation-cap','$nome','$id_user')";
 
     if ($conn->query($sql) === TRUE) {
-            header("Location: turmas.php?id=all&c=blue400");
+            header("Location: turmas.php?id=all&c=blue400&s=ess");
         }else{
-            echo "Erro ao cadastrar serie";
+            header("Location: turmas.php?id=all&c=blue400&s=ese");
         }
     
 ?>

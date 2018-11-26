@@ -425,8 +425,295 @@
         return $html;
     }
     
+    function setSeriesTable(){
+        
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT nome,idserie FROM serie WHERE id_serie_professor = $id_user ";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_serie = $row["idserie"];
+                    $nome = $row["nome"];
+                    
+                    $html .= "<tr>
+                                <td>$nome</td>
+                                <td>
+                                    <div style='display: flex; flex-direction: row; justify-content: space-around;align-items: center;'>
+                                        <div>
+                                            <button type='button' class='btn' style='margin: 0; background-color: transparent;' data-toggle='modal' data-target='#editarSerie$id_serie'>
+                                            <i class='material-icons' style='font-size: 20px; color: #404040'>create</i>
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <button type='button' class='btn' style='margin: 0;background-color: transparent;' data-toggle='modal' data-target='#excluirSerie$id_serie'>
+                                            <i class='material-icons' style='font-size: 20px;color: #404040'>clear</i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>";
+                            }
+            } else {
+            }
+        return $html;
+    }
+    
+    function geraEditSerie(){
+        
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT nome,idserie,cor FROM serie WHERE id_serie_professor = $id_user ";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    
+                    $id_serie = $row["idserie"];
+                    $nome = $row["nome"];
+                    $cor = $row['cor'];
+                    
+                    for($x=0;$x<5;$x++){
+                        $cores[$x] = " ";
+                    }
+                    
+                    switch($cor){
+                        case 'red400':
+                            $cores[0] = "checked";
+                            break;
+                        case 'purple400':
+                            $cores[1] = "checked";
+                            break;
+                        case 'blue4002':
+                            $cores[2] = "checked";
+                            break;
+                        case 'green400':
+                            $cores[3] = "checked";
+                            break;
+                        case 'orange400':
+                            $cores[4] = "checked";
+                            break;
+                    }
+                    
+                    $html .= "<div class='modal fade' id='editarSerie$id_serie' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true' style=''>
+                            <div class='modal-dialog'>
+                                <div class='modal-content'>
+                                    <div class='modal-header'>
+                                        <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button>
+                                        <h3 class='modal-title mx-auto' id='lineModalLabel'>Editar Série</h3>
+                                    </div>
+                                    <div class='modal-body'>
+                                        <!-- content goes here -->
+                                        <form action='cadastrarSerie.php' method='post'>
+                                            <div class='form-group'>
+                                                <label for='exampleInputEmail1'>Nome da Série</label>
+                                                <input type='text' class='form-control' name='nome_turma' value='$nome'>
+
+                                            </div>
+                                            <div class='form-group'>
+                                                <label for='exampleInputEmail1'>Selecione a Cor</label>
+                                                <div class='cores'>
+
+                                                    <label for='seleciona-cor$id_serie'></label>
+                                                    <input id='seleciona-cor$id_serie' type='checkbox' name='seleciona-cor$id_serie' $cores[0] />
+
+                                                    <div class='cor'>
+                                                        <input id='cor1' type='radio' name='cor' value='red400' />
+                                                        <label for='cor$id_serie' style='background :linear-gradient(45deg, #FF5252, #D32F2F)'></label>
+                                                    </div>
+                                                    <div class='cor'>
+                                                        <input id='cor2' type='radio' name='cor' value='purple400' $cores[1] />
+                                                        <label for='cor$id_serie' style='background :linear-gradient(45deg, #E040FB, #6A1B9A);'></label>
+                                                    </div>
+                                                    <div class='cor'>
+                                                        <input id='cor3' type='radio' name='cor' value='blue4002' $cores[2]  />
+                                                        <label for='cor$id_serie' style='background :linear-gradient(45deg, #40C4FF, #0277BD);'></label>
+                                                    </div>
+                                                    <div class='cor'>
+                                                        <input id='cor4' type='radio' name='cor' value='green400' $cores[3] />
+                                                        <label for='cor$id_serie' style='background :linear-gradient(45deg, #66bb6a, #2E7D32);'></label>
+                                                    </div>
+                                                    <div class='cor'>
+                                                        <input id='cor5' type='radio' name='cor' value='orange400' $cores[4] />
+                                                        <label for='cor$id_serie' style='background :linear-gradient(45deg, #FFAB40, #EF6C00);'></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class='modal-footer'>
+                                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                                <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd);'>Salvar Informações</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>";
+                            }
+            } else {
+            }
+        return $html;
+        
+    }
+    
+    function geraStyleColorPallete(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT nome,idserie,cor FROM serie WHERE id_serie_professor = $id_user ";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {  
+                    $id_serie = $row["idserie"];
+                    $nome = $row["nome"];
+                    
+                    $html .= ".cores input[name='seleciona-cor$id_serie'] {
+                                    display: none;
+                                }
+                                .cores label[for='seleciona-cor$id_serie'] {
+                                    background-color: #ddd;
+                                    box-sizing: border-box;
+                                    position: absolute;
+                                    left: calc(100% - 20px);
+                                    height: 30px;
+                                    width: 30px;
+                                }
+                                .cores label[for='seleciona-cor$id_serie']::after {
+                                    display: block;
+                                    content: \"\\1a06\";
+                                    font-size: 17px;
+                                    padding-left: 9px;
+                                    margin-top: 1px;
+                                    position: relative;
+                                }
+                                .cores label[for='seleciona-cor$id_serie']:checked::after {
+                                    content: \"\\1a08\";
+                                }
+                                .cores input[name='seleciona-cor$id_serie']:checked~.cor label {
+                                    display: block;
+                                }
+                                input[name='cor$id_serie'] {
+                                    display: none;
+                                }
+                                input[name='cor$id_serie']:checked+label::after {
+                                    color: #fff;
+                                    padding: 0px 5px;
+                                }
+                                input[name='cor$id_serie']:checked+label {
+                                    display: block;
+                                }
+                                label[for^='cor$id_serie'] {
+                                    display: none;
+                                    height: 30px;
+                                    border-radius: 5px;
+                                    width: calc(100% - 20px);
+                                }
+                                ";
+                }
+            } else {
+            }
+        return $html;
+    }
+    
+    function geraJavaColorPallete(){
+        include("conexao.php");
+        $id_user = $_SESSION["id_user"];
+        $html = "";
+        
+        $sql = "SELECT nome,idserie FROM serie WHERE id_serie_professor = $id_user ";
+        
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {  
+                    $id_serie = $row["idserie"];
+                    $nome = $row["nome"];
+                    
+                    $html .= "var cores$id_serie = document.querySelectorAll(\"label[for^='cor$id_serie']\");
+                            for (i = 0; i < cores$id_serie.length; i++) {
+                                cores".$id_serie."[i].addEventListener(\"click\", function() {
+                                    document.querySelector(\"input[name='seleciona-cor$id_serie']\").checked = false;
+                                });
+                            }
+                            
+                            ";
+                                    }
+            } else {
+            }
+        return $html;
+    }
     
 ?>
+
+<style>
+    <?php echo geraStyleColorPallete();
+    ?>.cores {
+        position: relative;
+        width: 30%;
+    }
+
+    .cores input[name="seleciona-cor"] {
+        display: none;
+    }
+
+    .cores label[for="seleciona-cor"] {
+        background-color: #ddd;
+        box-sizing: border-box;
+        position: absolute;
+        left: calc(100% - 20px);
+        height: 30px;
+        width: 30px;
+    }
+
+    .cores label[for="seleciona-cor"]::after {
+        display: block;
+        content: "\1a06";
+        font-size: 17px;
+        padding-left: 9px;
+        margin-top: 1px;
+        position: relative;
+    }
+
+    .cores label[for="seleciona-cor"]:checked::after {
+        content: "\1a08";
+    }
+
+    .cores input[name="seleciona-cor"]:checked~.cor label {
+        display: block;
+    }
+
+
+    input[name="cor"] {
+        display: none;
+    }
+
+    input[name="cor"]:checked+label::after {
+        color: #fff;
+        padding: 0px 5px;
+    }
+
+    input[name="cor"]:checked+label {
+        display: block;
+    }
+
+    label[for^="cor"] {
+        display: none;
+        height: 30px;
+        border-radius: 5px;
+        width: calc(100% - 20px);
+    }
+
+</style>
 
 <body>
     <div class="wrapper">
@@ -459,7 +746,7 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            
+
                             <?php echo userDropDown(); ?>
                         </ul>
                     </div>
@@ -470,7 +757,7 @@
                     <div class="row">
                         <ul class="nav navbar-nav navbar-left">
                             <li class="col-xs-12 col-sm-8 d-flex flex-row bd-highlight mb-3">
-                                <button type="button" class="btn btn-info" style="justify-content: center;align-items: center;display: flex;flex-direction: row;background:linear-gradient(45deg, #1de099, #1dc8cd)" data-toggle="modal" data-target="#cadastrarTurma">
+                                <button type="button" class="btn " style="justify-content: center;align-items: center;display: flex;flex-direction: row;background:linear-gradient(45deg, #1de099, #1dc8cd)" data-toggle="modal" data-target="#cadastrarTurma">
                                     <i class="material-icons" style="font-size: 27px;">add_circle_outline</i>
                                     &nbsp;&nbsp;&nbsp;Cadastrar turma
                                 </button>
@@ -478,11 +765,11 @@
                         </ul>
                     </div>
 
-                        <?php  echo listTurmas(); ?>
-                    </div>
+                    <?php  echo listTurmas(); ?>
+                </div>
 
-                    <div class="row">
-                       <?php
+                <div class="row">
+                    <?php
                         if($_GET['id'] != "all"){ 
                             echo "<div class='col-md-12'>
                             <div class='card'>
@@ -514,25 +801,25 @@
                         }
                         
                         ?>
-                        
-                    </div>
-
 
                 </div>
+
+
             </div>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <p class="copyright pull-right">
-                        &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-
-                        </script>
-                        <a href="#" class="text-info">CheckEasy</a>, a plataforma online dedicada aos professores
-                    </p>
-                </div>
-            </footer>
         </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <p class="copyright pull-right">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+
+                    </script>
+                    <a href="#" class="text-info">CheckEasy</a>, a plataforma online dedicada aos professores
+                </p>
+            </div>
+        </footer>
+    </div>
 
     <!----- MODAL AREA ----->
 
@@ -559,10 +846,14 @@
                                  
                                  <?php  echo setSeries();  ?>
                                 </select>
-                                <div style="display: flex;flex-direction: column; ustify-content: center; align-items: center; width: 30%">
+                                <div style="display: flex;flex-direction: row; ustify-content: center; align-items: center; width: 30%">
 
-                                    <button type="button" class="btn" style="justify-content: center;align-items: center;display: flex;flex-direction: row;background: linear-gradient(45deg, #1de099, #1dc8cd);" data-toggle="modal" data-target="#criaSerie">
+                                    <button type="button" class="btn" style="justify-content: center;align-items: center;display: flex;flex-direction: row;background: linear-gradient(45deg, #1de099, #1dc8cd);margin:10px;width: 40%;" data-toggle="modal" data-target="#criaSerie">
                                     <i class="material-icons" style="font-size: 20px;">add_circle_outline</i>
+                                </button>
+
+                                    <button type="button" class="btn" style="justify-content: center;align-items: center;display: flex;flex-direction: row;background: linear-gradient(45deg, #1de099, #1dc8cd);width: 40%;" data-toggle="modal" data-target="#listSerie">
+                                    <i class="material-icons" style="font-size: 20px;">assignment</i>
                                    
                                 </button>
                                 </div>
@@ -597,8 +888,34 @@
                             <input type="text" class="form-control" name="nome_turma" placeholder="">
 
                         </div>
-                        <div class="form-group" style="display: flex;flex-direction: column;">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Selecione a Cor</label>
+                            <div class="cores">
 
+                                <label for="seleciona-cor"></label>
+                                <input id="seleciona-cor" type="checkbox" name="seleciona-cor" />
+
+                                <div class="cor">
+                                    <input id="cor1" type="radio" name="cor" value="red400" />
+                                    <label for="cor1" style="background :linear-gradient(45deg, #FF5252, #D32F2F)"></label>
+                                </div>
+                                <div class="cor">
+                                    <input id="cor2" type="radio" name="cor" value="purple400" />
+                                    <label for="cor2" style="background :linear-gradient(45deg, #E040FB, #6A1B9A);"></label>
+                                </div>
+                                <div class="cor">
+                                    <input id="cor3" type="radio" name="cor" value="blue4002" checked />
+                                    <label for="cor3" style="background :linear-gradient(45deg, #40C4FF, #0277BD);"></label>
+                                </div>
+                                <div class="cor">
+                                    <input id="cor4" type="radio" name="cor" value="green400" />
+                                    <label for="cor4" style="background :linear-gradient(45deg, #66bb6a, #2E7D32);"></label>
+                                </div>
+                                <div class="cor">
+                                    <input id="cor5" type="radio" name="cor" value="orange400" />
+                                    <label for="cor5" style="background :linear-gradient(45deg, #FFAB40, #EF6C00);"></label>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -610,11 +927,38 @@
         </div>
     </div>
 
+    <div class="modal fade" id="listSerie" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title mx-auto" id="lineModalLabel">Séries</h3>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 60%;">Nome</th>
+                                <th scope="col">
+                                    <center>Ações</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php echo setSeriesTable();  ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php
         echo geraEditAluno();
         echo geraEditTurma();
         echo geraExcluirAluno();
         echo geraExcluirTurma();
+        echo geraEditSerie();
     ?>
 
         <div class='modal fade' id='cadastrarAluno' tabindex='-1' role='dialog' aria-labelledby='modalLabel' aria-hidden='true'>
@@ -626,7 +970,7 @@
                     </div>
                     <div class='modal-body'>
                         <!-- content goes here -->
-                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET['id']."&c={$_GET['c']}"; ?>' method='post'>
+                        <form action='cadastrarAlunoTurma.php?idT=<?php echo $_GET[' id ']."&c={$_GET['c ']}"; ?>' method='post'>
                             <div class='form-group'>
                                 <label>Matrícula</label>
                                 <input type='text' class='form-control' name='matricula' value=''>
@@ -655,6 +999,7 @@
             $('#criaSerie').modal('show');
         }
     });
+
 </script>
 <!--   Core JS Files   -->
 <script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
@@ -677,62 +1022,82 @@
 <script src="assets/js/demo.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        var vars = [], hash
-        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-        for(var i = 0; i < hashes.length; i++)
-        {
-            hash = hashes[i].split('=');
-            //alert(hash[1])
-            if(hash[0] === "s"){
-            
-                switch(hash[1]){
-                        //cadastrar turma
-                    case 'cs':
-                        demo.showNotification('top', 'right', 'Turma Cadastrada', 'success', 'group')
-                        break
-                    case 'ce':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Cadastrar Turma', 'danger', 'group')
-                        break
-                        //excluir turma
-                    case 'es':
-                        demo.showNotification('top', 'right', 'Turma Excluída', 'success', 'group')
-                        break
-                    case 'ee':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Excluir Turma', 'danger', 'group')
-                        break
-                        ///editar turma
-                    case 'eds':
-                        demo.showNotification('top', 'right', 'Turma Editada', 'success', 'group')
-                        break
-                    case 'ede':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Turma', 'danger', 'group')
-                        break
-                        //excluir aluno
-                    case 'eas':
-                         demo.showNotification('top', 'right', 'Aluno Excluído', 'success', 'group')
-                        break
-                    case 'eae':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Excluir Aluno', 'danger', 'group')
-                        break
-                        //editar aluno
-                    case 'edas':
-                        demo.showNotification('top', 'right', 'Aluno Editado', 'success', 'group')
-                        break
-                    case 'edae':
-                        demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Aluno', 'danger', 'group')
-                        break
+                var vars = [],
+                    hash
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < hashes.length; i++) {
+                    hash = hashes[i].split('=');
+                    //alert(hash[1])
+                    if (hash[0] === "s") {
+
+                        switch (hash[1]) {
+                            //cadastrar turma
+                            case 'cs':
+                                demo.showNotification('top', 'right', 'Turma Cadastrada', 'success', 'group')
+                                break
+                            case 'ce':
+                                demo.showNotification('top', 'right', '<strong> Erro </strong> ao Cadastrar Turma', 'danger', 'group')
+                                break
+                                //excluir turma
+                            case 'es':
+                                demo.showNotification('top', 'right', 'Turma Excluída', 'success', 'group')
+                                break
+                            case 'ee':
+                                demo.showNotification('top', 'right', '<strong> Erro </strong> ao Excluir Turma', 'danger', 'group')
+                                break
+                                ///editar turma
+                            case 'eds':
+                                demo.showNotification('top', 'right', 'Turma Editada', 'success', 'group')
+                                break
+                            case 'ede':
+                                demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Turma', 'danger', 'group')
+                                break
+                                //excluir aluno
+                            case 'eas':
+                                demo.showNotification('top', 'right', 'Aluno Excluído', 'success', 'group')
+                                break
+                            case 'eae':
+                                demo.showNotification('top', 'right', '<strong> Erro </strong> ao Excluir Aluno', 'danger', 'group')
+                                break
+                                //editar aluno
+                            case 'edas':
+                                demo.showNotification('top', 'right', 'Aluno Editado', 'success', 'group')
+                                break
+                            case 'edae':
+                                demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Aluno', 'danger', 'group')
+                                break
+                                //Cadastrar serie
+                            case 'edas':
+                                demo.showNotification('top', 'right', 'Série Cadastrada', 'success', 'group')
+                                break
+                            case 'ese':
+                                demo.showNotification('top', 'right', '<strong> Erro </strong> ao Cadastrar Série', 'danger', 'group')
+                                break
+                        }
+
+                    }
                 }
-                
-                
-                
-                
-            }
-        }
-        
-        var url = window.location.href
-        var newUrl = url.substring(0,(url.lastIndexOf("s=") - 1))
-        history.pushState('teste','CheckEasy',newUrl)
-    });
+
+                var url = window.location.href
+                var newUrl = url.substring(0, (url.lastIndexOf("s=") - 1))
+                history.pushState('teste', 'CheckEasy', newUrl)
+
+
+                var cores = document.querySelectorAll("label[for^='cor']");
+            
+                for (i = 0; i < cores.length; i++) {
+                    cores[i].addEventListener("click", function() {
+                        document.querySelector("input[name='seleciona-cor']").checked = false;
+                    });
+                }
+
+
+                <?php echo geraJavaColorPallete(); ?>
+
+                    //alert($( "#turma option:selected" ).text());
+
+
+                });
 
 </script>
 

@@ -209,7 +209,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
                             <div class="card card-stats">
-                                <div class="card-header" data-background-color="blue400">
+                                <div class="card-header" data-background-color="blue4002">
                                     <img src="assets/img/test.svg">
 
                                 </div>
