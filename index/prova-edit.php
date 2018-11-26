@@ -419,8 +419,14 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card">
-                                    <div class="card-header" style="text-align:justify; background: linear-gradient(45deg, #1de099, #1dc8cd)">
-                                        <h3 class="title" style="font-weight: 600;">Gabarito</h3>
+                                    <div class="card-header" style="text-align:justify; background: linear-gradient(45deg, #1de099, #1dc8cd);display:flex;flex-direction:row;">
+                                        <h3 class="title" style="font-weight: 600;width:50%">Gabarito</h3>
+                                        <div style="display:flex;flex-direction:row;justify-content:flex-end;width:50%;align-items:center;margin-right:15px">
+                                           <a href="Gera_Gabarito/geraGabarito.php">
+                                               <i class='material-icons' style='font-size: 20px;color: white;font-size: 1.9em'>photo</i>
+                                           </a> 
+                                                
+                                        </div>
                                     </div>
                                     <div class="card-content table-responsive">
                                         <table class="table">
