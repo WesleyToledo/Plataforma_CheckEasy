@@ -103,15 +103,15 @@
                 $icone = $row["icone"];
                 $serie_nome = $row["nome_serie"];
                 $id_turma = $row["id_turma"];
-                $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
+                $html .= "<div class='col-lg-4 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                             <div class='card card-stats'>
                                 <a href='turmas.php?id=$id_turma&c=$cor' style='color: inherit;'>
                                     <div class='card-header' data-background-color='$cor'>
                                         <i class='$icone'></i>
                                     </div>
-                                    <div class='card-content card-turmas'>
+                                    <div class='card-content card-turmas' style='overflow:auto'>
                                         <p class='category'>&nbsp;</p>
-                                        <h3 class='title' style='overflow:hidden; width:130px;text-align:center;' title='$turma_nome'>$turma_nome
+                                        <h3 class='title' style='overflow:initial; width:100%;text-align:center; height: 50px' title='$turma_nome'>$turma_nome
                                         </h3>
                                     </div>
                                 </a>
@@ -309,7 +309,7 @@
                     </td>
                     <td class='radio-gabarito'>
                         <div style='padding: 0;margin: 0;display: flex;flex-direction: column;justify-content: flex-start'>
-                            <input type='number' min='0' max='$valor' step='0.1' style='border: none; border-bottom: 1px solid #ccc;text-align:center;' value='".floatval($valores[$x-1])."' name='v$x'>
+                            <input type='number' min='0' max='$valor' step='0.01' style='border: none; border-bottom: 1px solid #ccc;text-align:center;' value='".floatval($valores[$x-1])."' name='v$x'>
                         </div>
                     </td>";
         }
@@ -410,7 +410,6 @@
                        <h4 style="margin: 15px;">Turmas</h4>
                         <?php echo listTurmas(); ?>
                     </div>
-
 
                     <form action="cadastrarGabarito.php">
                         <div class="row justify-content-center">
@@ -563,18 +562,26 @@
             somaValores += parseFloat($(this).val());
         });
         
-        if (parseFloat(somaValores) !== parseFloat(valor)) {
+        //alert(somaValores)
+        if (parseFloat(somaValores) !== parseFloat(valor) ) {
+            var diferenca = parseFloat(somaValores) - parseFloat(valor);
+            //alert(diferenca)
             if(parseFloat(somaValores) > parseFloat(valor)){
-                demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MAIOR</strong> que o limite', 'danger', 'info','10')
-                return false
+                if(diferenca > 0.1){    
+                    demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MAIOR</strong> que o limite', 'danger', 'info','10')
+                    return false
+                }else{
+                    return true
+                }
+            }else{
+                if(diferenca < 0.1){   
+                    demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MENOR</strong> que o limite', 'danger', 'info','10')
+                    return false
+                }else{
+                    return true
+                }
             }
-            else{
-                demo.showNotification('top', 'right', 'Soma dos valores das questões é <strong>MENOR</strong> que o limite', 'danger', 'info','10')
-                return false
-            }
-            
             return false
-            
         }else{
             return true
         }

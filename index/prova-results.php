@@ -82,15 +82,15 @@
                 $icone = $row["icone"];
                 $serie_nome = $row["nome_serie"];
                 $id_turma = $row["id_turma"];
-                $html .= "<div class='col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
+                $html .= "<div class='col-lg-4 col-md-6 col-sm-6 col-xs-6 col-ws-100'>
                             <div class='card card-stats'>
                                 <a href='prova-results.php?idT=$id_turma&idA={$_GET["idA"]}&c=$cor' style='color: inherit;'>
                                     <div class='card-header' data-background-color='$cor'>
                                         <i class='$icone'></i>
                                     </div>
-                                    <div class='card-content card-turmas'>
+                                    <div class='card-content card-turmas' style='overflow:auto'>
                                         <p class='category'>&nbsp;</p>
-                                        <h3 class='title' style='overflow:hidden; width:130px;text-align:center;' title='$turma_nome'>$turma_nome
+                                        <h3 class='title' style='overflow:initial; width:100%;text-align:center; height: 50px' title='$turma_nome'>$turma_nome
                                         </h3>
                                     </div>
                                 </a>
@@ -294,11 +294,9 @@
                                   </td>";
                     }
 
-
                     $html .= "</tr>
                               <tr style='padding: 0px;margin:0px'>";
                         
-                    
                     for($x=1;$x <=$quant_questoes;$x++){
                         $html .= "<td style='text-align:center'>
                                         <h4 style='font-size: 25px;margin: 3px;padding-right:10px'>$x</h4>
@@ -320,29 +318,29 @@
                              
                         $html .= "</tr>";
                     }
-                    $html .= "</tr>
-                                </table>
-                                <div class='row'>
-                                    <div style='display: flex;justify-content: space-around; flex-direction: row;'>
-                                        <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                            <i class='material-icons' style='padding: 5px; font-size: 1.7em;color: #43a047'>check</i>
-                                            <p style='margin: 0; font-size: 0.8em'>$acertos Acertos</p>
-                                        </div>
-                                        <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                            <i class='material-icons' style='padding: 5px; font-size: 1.7em; color: #e53935'>close</i>
-                                            <p style='margin: 0; font-size: 0.8em'>$erros Erros</p>
-                                        </div>
-                                        <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
-                                            <i class='material-icons' style='padding: 5px; font-size: 1.5em'>local_offer</i>
-                                            <p style='margin: 0; font-size: 0.8em'>$nota pontos</p>
+                        $html .= "</tr>
+                                    </table>
+                                    <div class='row'>
+                                        <div style='display: flex;justify-content: space-around; flex-direction: row;'>
+                                            <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.7em;color: #43a047'>check</i>
+                                                <p style='margin: 0; font-size: 0.8em'>$acertos Acertos</p>
+                                            </div>
+                                            <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.7em; color: #e53935'>close</i>
+                                                <p style='margin: 0; font-size: 0.8em'>$erros Erros</p>
+                                            </div>
+                                            <div style='display: flex; flex-direction: row;justify-content: center; align-items: center;'>
+                                                <i class='material-icons' style='padding: 5px; font-size: 1.5em'>local_offer</i>
+                                                <p style='margin: 0; font-size: 0.8em'>$nota pontos</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>";
+                </div>";
                 }
             } else {
                 echo "";
