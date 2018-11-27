@@ -6,7 +6,7 @@ function geraGabarito($nomeAvaliacao,$num_questoes,$alternativas){
     $preto = imagecolorallocate($im, 0,0,0); 
     imagefill($im, 0, 0, $background_color);
 
-    $lim = imagecreatefrompng("alter75x75.png");
+    $lim = imagecreatefrompng("alter75x75Black.png");
 
     ImageFilledRectangle($im, 0, 0, $tamanho_imgs * $alternativas + 120, $tamanho_imgs * $num_questoes + 125, $preto);
     ImageFilledRectangle($im, 20, 20, $tamanho_imgs * $alternativas + 100, $tamanho_imgs * $num_questoes + 105, $background_color);
