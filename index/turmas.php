@@ -647,7 +647,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
+                <a href="index.html" class="simple-text">
                     CheckEasy
                 </a>
             </div>
@@ -925,24 +925,24 @@
                             <h3 class='modal-title mx-auto' id='lineModalLabel'>Inserir Alunos</h3>
                         </div>
                         <div class='modal-body'>
-                            <form action='#' method='post' enctype='multipart/form-data'>
+                            <form action='processa_planilha.php?idT=<?php echo $_GET['id']; ?>' method='post' enctype='multipart/form-data'>
                                 <div class='input-group mb-3'>
                                   <div class='input-group-prepend'>
                                     <span class='input-group-text'>Selecione o arquivo</span>
                                   </div>
                                   <div class='custom-file' style='margin: 15px 0 15px 0;'>
-                                    <input type='file' class='custom-file-input' name='thum_prova'>
+                                    <input type='file' class='custom-file-input' name='arquivo'>
                                   </div>
                                   <div class='input-group-prepend' style="display:flex;flex-direction:row;align-items: center;justify-content:flex-start"> 
                                     <span class='input-group-text'>Baixe o Template</span>
-                                    <a href="#">    
+                                    <a href="assets/importByExcell/modelo.zip" target="_blank">
                                     <i class='material-icons' style='color:#4e4e4e;margin: 15px'>cloud_download</i>
                                     </a>
                                   </div>
                                 </div>
                                 <div class='modal-footer'>
                                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                                    <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd)'>Inserir</button>
+                                    <button type='submit' class='btn' style='background: linear-gradient(45deg, #1de099, #1dc8cd)' value="Enviar">Inserir</button>
                                 </div>
                             </form>
                         </div>

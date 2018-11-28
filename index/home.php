@@ -230,9 +230,13 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
                             <div class="card">
+                               
+                               
                                 <div class="card-header card-chart" data-background-color="green400">
                                     <div class="ct-chart" id="correcoesUltimosDias"></div>
                                 </div>
+                                
+                                
                                 <div class="card-content">
                                     <h4 class="title">Correções nos últimos dias</h4>
                                     <p class="category">
