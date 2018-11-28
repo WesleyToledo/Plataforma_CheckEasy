@@ -925,7 +925,7 @@
                             <h3 class='modal-title mx-auto' id='lineModalLabel'>Inserir Alunos</h3>
                         </div>
                         <div class='modal-body'>
-                            <form action='processa_planilha.php?idT=<?php echo $_GET['id']; ?>' method='post' enctype='multipart/form-data'>
+                            <form action='processa_planilha.php?idT=<?php echo $_GET['id']."&c=".$_GET['c']; ?>' method='post' enctype='multipart/form-data'>
                                 <div class='input-group mb-3'>
                                   <div class='input-group-prepend'>
                                     <span class='input-group-text'>Selecione o arquivo</span>
@@ -1044,8 +1044,14 @@
                             case 'eeee':
                                 demo.showNotification('top', 'right', '<strong> Erro </strong> ao Editar Série', 'danger', 'group')
                                 break
+                                //inserir aluno
+                            case 'iats':
+                                demo.showNotification('top', 'right', 'Alunos Inseridos', 'success', 'group')
+                                break
+                            case 'iate':
+                                demo.showNotification('top', 'right', '<strong> Erro </strong> ao Inserir Alunos', 'danger', 'group')
+                                break
                         }
-
                     }
                 }
 
