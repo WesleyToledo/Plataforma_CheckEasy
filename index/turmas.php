@@ -1059,7 +1059,6 @@
                 var newUrl = url.substring(0, (url.lastIndexOf("s=") - 1))
                 history.pushState('teste', 'CheckEasy', newUrl)
 
-
                 var cores = document.querySelectorAll("label[for^='cor']");
             
                 for (i = 0; i < cores.length; i++) {
