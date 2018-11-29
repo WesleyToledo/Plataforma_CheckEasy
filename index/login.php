@@ -1,9 +1,15 @@
 <?php
     session_start();
     include("conexao.php");
+    
+    if((isset($_GET['login'])) && (isset($_GET['senha'])) ){
+	   $login = $_GET["login"];
+	   $senha = $_GET["senha"];
+    }else{
+       $login = $_POST["login"];
+	   $senha = $_POST["pass"]; 
+    }
 
-	$login = $_POST["login"];
-	$senha = $_POST["pass"];
 	/*
 	$sql="SELECT * FROM users WHERE login='$login' AND senha='$senha'";
 	$result = $conn->query($sql);
@@ -22,7 +28,9 @@
 		$_SESSION["id_user"] = $row["idprofessor"];
 		$_SESSION["login"] = $login;
         $_SESSION["nome"] = $row["primeiro_nome"];
+        
 		header('Location: home.php');
+        
 	}else{
 		header('Location: login.html');
 	}
