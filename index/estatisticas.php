@@ -35,7 +35,6 @@
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
     
-    
      function listTurmas(){
         $id_user = $_SESSION["id_user"];
         $nome = $_SESSION["nome"];
@@ -163,7 +162,7 @@
         $sql = "SELECT a.nome AS 'nome_avaliacao',t.nome AS 'nome_turma',a.quant_questoes,c.gabarito FROM avaliacao AS a INNER JOIN turma AS t INNER JOIN correcoes AS c ON c.id_correcoes_avaliacao = {$_GET['idA']} AND c.id_correcoes_turma = {$_GET['idT']} AND c.id_correcoes_avaliacao = a.idavaliacao AND c.id_correcoes_turma = t.idturma AND c.id_correcoes_professor = $id_user AND t.id_turma_professor = $id_user AND a.id_avaliacao_professor = $id_user";
         
         $sql2 = "SELECT a.nome AS 'nome_avaliacao',t.nome AS 'nome_turma',a.quant_questoes,c.gabarito FROM avaliacao AS a INNER JOIN turma AS t INNER JOIN correcoes AS c ON c.id_correcoes_avaliacao = {$_GET['idA']} AND c.id_correcoes_turma = {$_GET['idT']} AND c.id_correcoes_avaliacao = a.idavaliacao AND c.id_correcoes_turma = t.idturma AND c.id_correcoes_professor = $id_user AND t.id_turma_professor = $id_user AND a.id_avaliacao_professor = $id_user";
-        
+
         
             
             $result2 = $conn->query($sql2);
@@ -205,13 +204,18 @@
                         }
 
                     }
+                
+                    $sql3 = "SELECT COUNT(*) AS 'quant' FROM correcoes AS co WHERE co.id_correcoes_turma = {$_GET['idT']} AND co.id_correcoes_avaliacao = {$_GET['idA']} AND co.id_correcoes_professor = $id_user";
+                                 $result3 = $conn->query($sql3);
+                                 $row3 = $result3->fetch_assoc();
+                
                     $html .= "$(function() {
                     var myChart = Highcharts.chart('chart', {
                         chart: {
                             type: 'column'
                         },
                         title: {
-                            text: 'Acertos por Questão \'<b>{$row['nome_avaliacao']}</b>\'<br>Turma <b>{$row['nome_turma']}</b> '
+                            text: 'Média por Questão \'<b>{$row['nome_avaliacao']}</b>\'<br>Turma <b>{$row['nome_turma']}</b> '
                         },
                         xAxis: {
                             title: {
@@ -232,7 +236,7 @@
                         },
                         tooltip: {
                             formatter: function() {
-                                return 'Questão ' + this.x + '<br> Acertos: <b>' + this.y + '</b>';
+                                return 'Questão ' + this.x + '<br> Proeficiência: <b>' + this.y + '%</b>';
                             }
                         },
                         series: [{
@@ -241,9 +245,9 @@
                         $html .= "
                         data: [";
                         for($x=0;$x<sizeof($acertos) - 1;$x++){
-                            $html .= "$acertos[$x],";   
+                            $html .= ((100*$acertos[$x])/$row3['quant']).",";   
                         }
-                            $html .= $acertos[sizeof($acertos) - 1]."]
+                            $html .= ((100*$acertos[sizeof($acertos) - 1])/$row3['quant'])."]
                         }]
                     });
                 });";
@@ -271,7 +275,7 @@
                         },
                         tooltip: {
                             formatter: function() {
-                                return 'Questão ' + this.x + '<br> Acertos: <b>' + this.y + '</b>';
+                                return 'Questão ' + this.x + '<br> Proeficiência: <b>' + this.y + '%</b>';
                             }
                         },
                         series: [{
@@ -556,9 +560,7 @@
                         for($y=0;$y<$quant_questoes;$y++){  
                             $matriz[$x][1][$y] = 0;
                         }
-                        
                     }
-                    
                 }
                 while($row2 = $result->fetch_assoc()) {
                         $gabaritoAluno = $row2["gabarito"];
@@ -592,6 +594,8 @@
                         }
                 }
                 
+                //print_r($matriz);
+                
                 $sql = "SELECT a.nome AS 'nome_avaliacao',t.nome AS 'nome_turma',a.quant_questoes FROM avaliacao AS a INNER JOIN turma_prova AS tp INNER JOIN turma AS t ON tp.id_turma_prova_turma = {$_GET['idT']} AND tp.id_turma_prova_avaliacao = a.idavaliacao AND tp.id_turma_prova_professor = $id_user AND a.id_avaliacao_professor = $id_user AND t.id_turma_professor = $id_user AND t.idturma=tp.id_turma_prova_turma";
             
                 $result = $conn->query($sql);
@@ -604,7 +608,7 @@
                                 type: 'column'
                             },
                             title: {
-                                text: 'Gráfico Acertos por Alternativa'
+                                text: 'Gráfico Marcações por Alternativa'
                             },
                             xAxis: {
                                 title: {
@@ -620,17 +624,17 @@
                             $html .= "]
                             },yAxis: {
                                 title: {
-                                    text: 'Acertos'
+                                    text: 'Número de Marcações'
                                 },
                                 tickInterval: 1
                             },
                             tooltip: {
                                 formatter: function() {
-                                    return 'Média: <b>' + this.y + '</b>';
+                                    return '<b>' + this.y + ' </b> Marcações ';
                                 }
                             },
                             series: [";
-            }
+            
                 for($x=0;$x<$quant_alternativas;$x++){
                     $html .= "{ 
                             name: '".strtoupper($matriz[$x][0])."',
@@ -638,7 +642,6 @@
                     for($y=0;$y<$quant_questoes;$y++){
                         $html .= $matriz[$x][1][$y].",";
                     }
-                    
                     
                     if($x < ($quant_alternativas - 1)){
                         $html .= "]
@@ -653,7 +656,40 @@
                 $html .= "]
                 });
             });";
-                
+                }}else{
+                    $html .= "$(function() {
+                var myChart = Highcharts.chart('mediaPorAlternativa', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Nenhuma Correção Encontrada'
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Questões'
+                        },
+                        categories: []
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Número de Marcações'
+                        },
+                        tickInterval: 1
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return 'Questão ' + this.x + '<br> Média: <b>' + this.y + '</b>';
+                        }
+                    },
+                    series: [{
+                        name: 'Avaliação não encontrada',
+                        data: []
+                    }]
+                });
+            });";
+                    
+                }
                 
                 /*
                 
@@ -678,7 +714,7 @@
                 
         }
         return $html;
-    }}
+    }
     
     ?>
 
@@ -735,16 +771,58 @@
                         <div class="row">
                             <?php
                              if(isset($_GET['idA'])){
-                                 $sql = "SELECT COUNT(*) AS 'quant' FROM correcoes AS co WHERE co.id_correcoes_turma = {$_GET['idT']} AND co.id_correcoes_avaliacao = {$_GET['idA']} AND co.id_correcoes_professor = $id_user";
-                                 $result = $conn->query($sql);
-                                 $row = $result->fetch_assoc();
+                                 $sql3 = "SELECT COUNT(*) AS 'quant' FROM correcoes AS co WHERE co.id_correcoes_turma = {$_GET['idT']} AND co.id_correcoes_avaliacao = {$_GET['idA']} AND co.id_correcoes_professor = $id_user";
+                                 $result3 = $conn->query($sql3);
+                                 $row3 = $result3->fetch_assoc();
                                  
                                  
                                  $sql2 = "SELECT COUNT(*) AS 'quant' FROM aluno AS a WHERE a.id_aluno_turma = {$_GET['idT']} AND a.id_aluno_professor = $id_user";
                                  $result2 = $conn->query($sql2);
                                  $row2 = $result2->fetch_assoc();
                                  
-                                echo "<div class='col-md-'>
+                                 
+                                 $sql = "SELECT quant_questoes,gabarito,quant_alternativas,valor FROM avaliacao WHERE idavaliacao = {$_GET['idA']} AND id_avaliacao_professor = $id_user";
+        
+                                    $result = $conn->query($sql);
+
+                                    if ($result->num_rows > 0) {
+                                        $row = $result->fetch_assoc();
+                                        $num_questoes = $row["quant_questoes"];
+                                        $num_alternativas = $row["quant_alternativas"];
+                                        $gabarito = $row["gabarito"];
+                                        $valor = $row["valor"];
+                                    
+
+                                    $alternativas = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+
+                                    $count = 0;
+                                    while($gabarito != ""){      
+                                        $barra = strpos($gabarito,"/");
+                                        $tamanho = strlen($gabarito);
+                                        if(strpos($gabarito,"/")){
+                                            $gabarito_array[$count] = substr($gabarito,0,$barra);
+                                            //echo $gabarito_array[$count]."<br>";
+                                            $gabarito = substr($gabarito, $barra + 1, $tamanho);
+                                            $count++;
+                                        }else{
+                                            $gabarito_array[$count] = substr($gabarito, 0, $tamanho);
+                                            $gabarito = "";
+                                        }
+                                    }
+
+                                    $count = 0;
+                                    for($x=0;$x<sizeof($gabarito_array);$x++){
+                                        if($x%3 == 0){
+                                            $certas[$count] = $gabarito_array[$x + 1];
+                                            $valores[$count] = floatval($gabarito_array[$x + 2]);
+                                            //echo "-".$certas[$count];
+                                            //echo "-".$valores[$count];
+                                            $count++;
+                                        }
+                                    }
+
+                                    
+                                echo "<div class='col-md-12'>
                                         <div class='card card-chart'>
                                             <div class='card-header card-header-warning' style='background-color: white'>
                                                 <div class='ct-chart' id='mediaPorAlternativa'></div>
@@ -754,18 +832,28 @@
                                             <p class='card-category'>Last Campaign Performance</p>
                                                 </div> -->
                                             <div class='card-footer' style='display: flex;flex-direction: row;justify-content: space-around;'>
-                                                <div class='stats'>
+                                                <div class='stats' style='color:black'>
                                                     <i class='material-icons'>person</i>
-                                                    <a href='#' style='color: inherit;'><strong>{$row['quant']}</strong> correções de <strong>{$row2['quant']}</strong> alunos</a>
+                                                    <a href='#' style='color: inherit;'><strong>{$row3['quant']}</strong> correções de <strong>{$row2['quant']}</strong> alunos</a>
                                                 </div>
                                                 <div class='stats'>
-                                                    <i class='material-icons'>person</i>
-                                                    <a href='#' style='color: inherit;'>Alunos restantes para corrigir</a>
-                                                </div>
-                                                
+                                                <p style='color:black'>
+                                                    <i class='material-icons'>person</i>Gabarito: ";
+                                                    
+                                                    for($x=1;$x<=$num_questoes;$x++)
+                                                    {
+                                                        for($y=1;$y<=$num_alternativas;$y++){
+                                                            if($certas[$x-1] == $alternativas[$y-1]){
+                                                                echo "<strong style='color:black'>$x <strong>".strtoupper($alternativas[$y-1])."</strong></strong> &nbsp;&nbsp;  &nbsp;&nbsp;";
+                                                            }else{
+                                                            }
+                                                        }
+                                                    }
+                                                echo "</div>
                                             </div>
                                         </div>
                                     </div>";    
+                                        }
                              }
                             ?>
                         </div>
@@ -781,7 +869,7 @@
                                  $result2 = $conn->query($sql2);
                                  $row2 = $result2->fetch_assoc();
                                  
-                                echo "<div class='col-md-6'>
+                                echo "<div class='col-md-12'>
                                         <div class='card card-chart'>
                                             <div class='card-header card-header-warning' style='background-color: white'>
                                                 <div class='ct-chart' id='chart'></div>
@@ -791,15 +879,10 @@
                                             <p class='card-category'>Last Campaign Performance</p>
                                                 </div> -->
                                             <div class='card-footer' style='display: flex;flex-direction: row;justify-content: space-around;'>
-                                                <div class='stats'>
+                                                <div class='stats' style='color:black'>
                                                     <i class='material-icons'>person</i>
                                                     <a href='#' style='color: inherit;'><strong>{$row['quant']}</strong> correções de <strong>{$row2['quant']}</strong> alunos</a>
                                                 </div>
-                                                <div class='stats'>
-                                                    <i class='material-icons'>person</i>
-                                                    <a href='#' style='color: inherit;'>Alunos restantes para corrigir</a>
-                                                </div>
-                                                
                                             </div>
                                         </div>
                                     </div>";    
@@ -822,9 +905,16 @@
                                     </div>
                                 </div>
                             </div> -->
+
+
+                        </div>
+
+                        <div class="row">
+
+                            <?php echo geraTabelaAlunos();
                             
-                            <?php
-                             if(isset($_GET['idAL'])){
+                            
+                            if(isset($_GET['idAL'])){
                                  
                                  $sql = "SELECT COUNT(*) AS 'quant' FROM correcoes AS co WHERE co.id_correcoes_turma = {$_GET['idT']} AND co.id_correcoes_avaliacao = {$_GET['idA']} AND co.id_correcoes_professor = $id_user";
                                  $result = $conn->query($sql);
@@ -853,16 +943,9 @@
                                             </div>
                                         </div>
                                     </div>";    
-                             }
-                            ?>
+                             }?>
 
-                        </div>
 
-                        <div class="row">
-
-                            <?php echo geraTabelaAlunos(); ?>
-
-                            
                         </div>
                     </div>
                 </div>

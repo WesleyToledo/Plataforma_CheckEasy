@@ -152,7 +152,9 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
+                        <div class="col-lg-1 ">
+                        </div>
+                        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-6 col-ws-100">
                             <div class="card card-stats">
                                 <div class="card-header" data-background-color="orange400">
                                     <i class="material-icons">group</i>
@@ -166,12 +168,13 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons">group</i>
-                                        <a href="#" style="color: #999">Todas as turmas</a>
+                                        <a href="turmas.php?id=all&c=blue400" style="color: #999">Todas as turmas</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
+
+                        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-6 col-ws-100">
                             <div class="card card-stats">
                                 <div class="card-header" data-background-color="green400">
                                     <i class="material-icons">person</i>
@@ -184,12 +187,22 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">person</i> Todos os alunos
+                                        <i class="material-icons">person</i> 
+                                        <a href="turmas.php?id=all&c=blue400" style="color: #999">   Todos os alunos
+                                       </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-2=6 col-sm-6 col-xs-6 col-ws-100">
+
+                        <div class="col-lg-1 ">
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-1 ">
+                        </div>
+                        <div class="col-lg-5 col-md-2=6 col-sm-6 col-xs-6 col-ws-100">
                             <div class="card card-stats">
                                 <div class="card-header" data-background-color="red400">
                                     <i class="material-icons">assignment</i>
@@ -202,16 +215,17 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">assignment</i> Todas as provas
+                                        <i class="material-icons">assignment</i> 
+                                        <a href="provas.php" style="color: #999">   Todas as provas
+                                       </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-ws-100">
+                        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-6 col-ws-100">
                             <div class="card card-stats">
                                 <div class="card-header" data-background-color="blue4002">
                                     <img src="assets/img/test.svg">
-
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Correções</p>
@@ -221,13 +235,19 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <img src="assets/img/test_gray.svg" height="16px" width="22px"> Todas as Correções
+                                        <img src="assets/img/test_gray.svg" height="16px" width="22px"> 
+                                        <a href="provas.php" style="color: #999">
+                                        Todas as Correções
+                                       </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-lg-1 ">
+                        </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-4 col-sm-6">
                             <div class="card">
                                
@@ -281,7 +301,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- <div class="row">
                         <div class="col-lg-6 col-md-6 <col-xs-12></col-xs-12> col-ws-100">
                             <div class="card card-nav-tabs">
