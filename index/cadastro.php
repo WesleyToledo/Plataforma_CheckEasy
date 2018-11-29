@@ -30,8 +30,7 @@
             $_SESSION["id_user"] = $row["idprofessor"];
             $_SESSION["email"] = $row["email"];
             $_SESSION["nome"] = $row["primeiro_nome"];
-            
-            header("Location: home.php");
+            header("Location: login.php?login=$email&senha=$senha");
         }else{
             echo "Erro ao fazer login.";
         }
