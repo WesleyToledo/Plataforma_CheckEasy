@@ -49,6 +49,7 @@ if(!empty($_FILES['arquivo']['tmp_name'])){
         $primeira_linha = false;
 }
     header("Location: turmas.php?id=$id_turma&c={$_GET['c']}&s=iats");
-}
+}else{    
 header("Location: turmas.php?id=$id_turma&c={$_GET['c']}&s=iate");
+}
 ?>
